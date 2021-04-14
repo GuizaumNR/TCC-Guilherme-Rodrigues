@@ -29,7 +29,7 @@ public class Enemy extends Entity {
 		rightEnemy = new BufferedImage[3];
 		leftEnemy = new BufferedImage[3];
 		for(int i = 0; i < 3; i++) {
-			leftEnemy[i] = Game.spritesheet.getSprite(112+(i*16), 16, 16, 16);
+			leftEnemy[i] = Game.spritesheet.getSprite(111+(i*16), 16, 16, 16);
 		}
 		for(int i = 0; i < 3; i++) {
 			rightEnemy[i] = Game.spritesheet.getSprite(112+(i*16), 32, 16, 16);
@@ -45,20 +45,15 @@ public class Enemy extends Entity {
 		maskW = 10;
 		maskH =10;
 		*/
-		int xAtual = this.getX();
-		if(xAtual < Game.player.getX()) {
-		dir = right_dir;
-		}
-		if(xAtual > Game.player.getX()) {
-		dir = left_dir;
-			}
+		if(isColiddingWithPlayer() == false) {
 		if((int) x < Game.player.getX() && World.isFree((int) (x + speed), this.getY())
 				&& !isColidding((int) (x + speed), this.getY())) {
 			x+=speed;
-			
+			dir = right_dir;
 		}else if((int) x > Game.player.getX() && World.isFree((int) (x - speed), this.getY())
 				&& !isColidding((int) (x - speed), this.getY())) {
 			x-=speed;
+			dir = left_dir;
 			
 		}
 		if((int) y < Game.player.getY() && World.isFree(this.getX(),(int) (y + speed))
@@ -68,6 +63,9 @@ public class Enemy extends Entity {
 		}else if((int) y > Game.player.getY() && World.isFree(this.getX(), (int) (y - speed))
 				&& !isColidding(this.getX(), (int) (y - speed))) {
 			y-=speed;
+		}else {
+			//estamos colidindo
+			
 		}
 		frames++;
 		if(frames == maxFrames) {
@@ -76,8 +74,28 @@ public class Enemy extends Entity {
 			if(index > maxIndex) {
 				index = 0;
 			}
+		}}else {
+			//estamos perto do player, o que fazer?
+			if(Game.rand.nextInt(100) > 10) {
+			Game.player.life -= Game.rand.nextInt(3);
+			//Game.player.x = Game.player.x - 4;
+			System.out.println("Vida: " + Game.player.life);
+			}
+			if(Game.player.life <= 0) {
+				//Game over
+				System.exit(1);
+				
+				
+			}
+			
 		}
 		
+	}
+	
+	public boolean isColiddingWithPlayer() {
+		Rectangle enemyCurrent = new Rectangle(this.getX() + maskX,this.getY() + maskY, maskW, maskH);
+		Rectangle player = new Rectangle(Game.player.getX() + maskX, Game.player.getY() + maskY, 16, 16);
+		return enemyCurrent.intersects(player);
 	}
 	
 	public boolean isColidding(int xnext, int ynext) { //metodo para checar colisao de retangulos

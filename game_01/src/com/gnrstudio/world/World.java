@@ -32,9 +32,17 @@ public class World {
 				if(pixelAtual == 0xFF000000) {
 					//CHÃO-FLOOR
 					tiles[xx+(yy*WIDTH)] = new FloorTile(xx*16, yy*16, Tile.TILE_FLOOR);
-				}else if(pixelAtual == 0XFFFFFFFF) {
+				}else if(pixelAtual == 0XFF00FFFF) {
+					//Chao2
+					tiles[xx+(yy*WIDTH)] = new FloorTile(xx*16, yy*16, Tile.TILE_FLOOR2);
+				
+				}else if(pixelAtual == 0XFF4800FF) {
 					//PAREDE
 					tiles[xx+(yy*WIDTH)] = new WallTile(xx*16, yy*16, Tile.TILE_WALL);
+				
+				}else if(pixelAtual == 0XFFFFFFFF) {
+					//PAREDE2
+					tiles[xx+(yy*WIDTH)] = new WallTile(xx*16, yy*16, Tile.TILE_WALL2);
 				
 				}else if(pixelAtual == 0XFF0000FF) {
 					//PLAYER
@@ -47,13 +55,16 @@ public class World {
 					Game.enemies.add(en);
 				}else if(pixelAtual == 0XFFFF6A00){
 					//WEAPON
-					Game.entities.add(new Weapon(xx*16, yy*16, 16, 16, Entity.WEAPON_EN));
+					Weapon weapon = new Weapon(xx*16, yy*16, 16, 16, Entity.WEAPON_EN);
+					Game.entities.add(weapon);
 				}else if(pixelAtual == 0XFF00FF00){
 					//LIFEPACK
-					Game.entities.add(new LifePack(xx*16, yy*16, 16, 16, Entity.LIFEPACK_EN));
+					LifePack pack = new LifePack(xx*16, yy*16, 11, 11, Entity.LIFEPACK_EN);
+					Game.entities.add(pack);
 				}else if(pixelAtual == 0XFFFFFF00){
 					//BULLET
-					Game.entities.add(new Bullet(xx*16, yy*16, 16, 16, Entity.BULLET_EN));
+					Bullet bullet = new Bullet(xx*16, yy*16, 16, 16, Entity.BULLET_EN);
+					Game.entities.add(bullet);
 				}
 			}
 			}

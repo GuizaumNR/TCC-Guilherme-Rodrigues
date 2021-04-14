@@ -3,6 +3,7 @@ package com.gnrstudio.main;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.List;
 import java.awt.event.KeyEvent;
@@ -18,6 +19,7 @@ import com.gnrstudio.entities.Enemy;
 import com.gnrstudio.entities.Entity;
 import com.gnrstudio.entities.Player;
 import com.gnrstudio.graficos.Spritesheet;
+import com.gnrstudio.graficos.UI;
 import com.gnrstudio.world.World;
 
 
@@ -44,12 +46,15 @@ public class Game extends Canvas implements Runnable,KeyListener{
 	
 	public static Random rand;
 	
+	public UI ui;
+	
 	public Game() {
 		rand = new Random();
 		addKeyListener(this); //adicionando o "ouvidor" aqui(this)
 		setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
 		initFrame();
 		//Inicializando objetos;
+		ui = new UI();
 		image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
@@ -67,6 +72,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
 	}
 	
 	public synchronized void start() {
@@ -119,9 +125,13 @@ public class Game extends Canvas implements Runnable,KeyListener{
 				Entity e = entities.get(i);
 				e.render(g);
 			}
+		ui.render(g);
 		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
+		g.setFont(new Font("arial", Font.BOLD, 16));
+		g.setColor(Color.WHITE);
+		g.drawString("Munição" + player.ammo, 10, 400);
 		bs.show();
 	}
 	
