@@ -13,7 +13,7 @@ import com.gnrstudio.world.World;
 public class Enemy extends Entity {
 	private double speed = 1;
 	
-	private int maskX = 8, maskY = 8, maskW = 14, maskH =16;
+	private int maskX = 8, maskY = 8, maskW = 15, maskH =16;
 	
 	private int frames = 0, maxFrames = 3, index = 0, maxIndex = 2;// maxindex se conta a quantia de frames menos 1
 	
@@ -79,7 +79,7 @@ public class Enemy extends Entity {
 			if(Game.rand.nextInt(100) > 10) {
 			Game.player.life -= Game.rand.nextInt(3);
 			//Game.player.x = Game.player.x - 4;
-			System.out.println("Vida: " + Game.player.life);
+			
 			}
 			if(Game.player.life <= 0) {
 				//Game over
@@ -100,6 +100,7 @@ public class Enemy extends Entity {
 	
 	public boolean isColidding(int xnext, int ynext) { //metodo para checar colisao de retangulos
 		Rectangle enemyCurrent = new Rectangle(xnext + maskX,ynext + maskY, maskW, maskH);
+		
 		for(int i = 0; i < Game.enemies.size(); i ++) {
 			Enemy e = Game.enemies.get(i);
 			if(e == this) //enemy = este enemy continua
@@ -117,11 +118,16 @@ public class Enemy extends Entity {
 		
 		if(dir == right_dir) {
 		g.drawImage(rightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-		
+		g.setColor(Color.BLUE); //Para ver a mask
+		g.fillRect(this.getX() - Camera.x, this.getY()  - Camera.y, maskW, maskH);
+	
 		}
 		else if(dir == left_dir) {
 			g.drawImage(leftEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-			}
+			g.setColor(Color.BLUE); //Para ver a mask
+			g.fillRect(this.getX() - Camera.x, this.getY() - Camera.y, maskW, maskH);
+		
+		}
 		//g.setColor(Color.BLUE); Para ver a mask
 		//g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y, maskW, maskH);
 	}
