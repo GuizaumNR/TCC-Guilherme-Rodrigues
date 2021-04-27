@@ -33,6 +33,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
 	public static final int HEIGHT = 160;
 	private final int SCALE = 3;
 	
+	
 	private BufferedImage image;
 	public static Spritesheet spritesheet;
 	
@@ -53,6 +54,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
 		addKeyListener(this); //adicionando o "ouvidor" aqui(this)
 		setPreferredSize(new Dimension(WIDTH*SCALE,HEIGHT*SCALE));
 		initFrame();
+		
 		//Inicializando objetos;
 		ui = new UI();
 		image = new BufferedImage(WIDTH,HEIGHT,BufferedImage.TYPE_INT_RGB);
@@ -71,7 +73,10 @@ public class Game extends Canvas implements Runnable,KeyListener{
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setUndecorated(true);
 		frame.setVisible(true);
+		
+		
 		
 	}
 	
@@ -131,7 +136,7 @@ public class Game extends Canvas implements Runnable,KeyListener{
 		g.drawImage(image, 0, 0, WIDTH*SCALE, HEIGHT*SCALE, null);
 		g.setFont(new Font("arial", Font.BOLD, 16));
 		g.setColor(Color.WHITE);
-		g.drawString("Munição" + player.ammo, 10, 400);
+		g.drawString("Munição: " + player.ammo, 208 * SCALE, 30);
 		bs.show();
 	}
 	

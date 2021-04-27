@@ -78,15 +78,11 @@ public class Enemy extends Entity {
 			//estamos perto do player, o que fazer?
 			if(Game.rand.nextInt(100) > 10) {
 			Game.player.life -= Game.rand.nextInt(3);
+			Game.player.isDamaged = true;
 			//Game.player.x = Game.player.x - 4;
 			
 			}
-			if(Game.player.life <= 0) {
-				//Game over
-				System.exit(1);
-				
-				
-			}
+			
 			
 		}
 		
@@ -120,6 +116,7 @@ public class Enemy extends Entity {
 		g.drawImage(rightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 		g.setColor(Color.BLUE); //Para ver a mask
 		g.fillRect(this.getX() - Camera.x, this.getY()  - Camera.y, maskW, maskH);
+		
 	
 		}
 		else if(dir == left_dir) {

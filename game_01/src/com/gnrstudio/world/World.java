@@ -17,6 +17,9 @@ public class World {
 	public static int WIDTH, HEIGHT;
 	
 	public final static int TILE_SIZE = 16;
+	
+	public static BufferedImage[] AWeapon;
+	
 	public World(String path) {
 		try {
 			BufferedImage map = ImageIO.read(getClass().getResource(path));
@@ -25,6 +28,22 @@ public class World {
 			HEIGHT = map.getHeight();
 			tiles = new Tile[map.getWidth()*map.getHeight()];
 			map.getRGB(0, 0, map.getWidth(), map.getHeight(), pixels, 0, map.getWidth());
+			boolean moved = false;
+			int index = 0;
+			int maxFrames = 5;
+			int frames = 0;
+			int maxIndex = 3;
+			for(int i = 0; i < 3 ; i++) {
+				AWeapon[i] = Game.spritesheet.getSprite(112+(i*16), 48, 15, 16);		
+				frames++;				
+				if(frames == maxFrames ) {
+					frames = 0;
+					index++;			
+					if(index > maxIndex) {
+						index = 0;
+					}
+				}
+			
 			for(int xx = 0; xx < map.getWidth(); xx++) {
 				for(int yy = 0; yy < map.getHeight(); yy++) {	
 				int pixelAtual = pixels[xx + (yy*map.getWidth())];
@@ -55,7 +74,7 @@ public class World {
 					Game.enemies.add(en);
 				}else if(pixelAtual == 0XFFFF6A00){
 					//WEAPON
-					Weapon weapon = new Weapon(xx*16, yy*16, 16, 16, Entity.WEAPON_EN);
+					Weapon weapon = new Weapon(xx*16, yy*16, 16, 16, AWeapon[index]);
 					Game.entities.add(weapon);
 				}else if(pixelAtual == 0XFF00FF00){
 					//LIFEPACK
@@ -67,12 +86,12 @@ public class World {
 					Game.entities.add(bush);
 				}else if(pixelAtual == 0XFFFFFF00){
 					//BULLET
-					Bullet bullet = new Bullet(xx*16, yy*16, 16, 16, Entity.BULLET_EN);
+					Bullet bullet = new Bullet(xx*16, yy*16, 11, 13, Entity.BULLET_EN);
 					Game.entities.add(bullet);
 				}
 			}
 			}
-		} catch (IOException e) {
+			}} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
