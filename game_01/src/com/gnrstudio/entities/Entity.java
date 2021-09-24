@@ -11,11 +11,13 @@ import com.gnrstudio.world.Camera;
 public class Entity {
 
 	public static BufferedImage LIFEPACK_EN = Game.spritesheet.getSprite(98, 5, 11, 11);
-	public static BufferedImage WEAPON_EN = Game.spritesheet.getSprite(112, 0, 9, 4);
+	public static BufferedImage WEAPON_EN = Game.spritesheet.getSprite(112, 71, 10, 9);
 	public static BufferedImage BULLET_EN = Game.spritesheet.getSprite(96, 20, 13, 11);
 	public static BufferedImage ENEMY_EN = Game.spritesheet.getSprite(112, 32, 16, 16);
 	public static BufferedImage BUSH_EN = Game.spritesheet.getSprite(0, 32, 16, 16);
-
+	public static BufferedImage RIGHTGUN_EN = Game.spritesheet.getSprite(112, 0, 10, 5);
+	public static BufferedImage LEFTGUN_EN = Game.spritesheet.getSprite(134, 0, 10, 5);
+	
 	protected double x;
 	protected double y;
 	protected int width;

@@ -27,6 +27,8 @@ public class Player extends Entity {
 	private BufferedImage DamagePlayer;
 	private int damageFrame = 0;
 
+	private boolean hasGun = false;
+
 	public int ammo = 0;
 	public boolean isDamaged = false;
 	public double life = 100, maxlife = 100;
@@ -93,6 +95,7 @@ public class Player extends Entity {
 
 		checkColissionLifePack();
 		checkCollissionAmmo();
+		checkCollissionGun();
 
 		if (isDamaged) {
 			this.damageFrame++;
@@ -147,6 +150,19 @@ public class Player extends Entity {
 			}
 		}
 	}
+	
+	public void checkCollissionGun() {
+		for (int i = 0; i < Game.entities.size(); i++) {
+			Entity atual = Game.entities.get(i);
+			if (atual instanceof Weapon) {
+				if (Entity.isColidding(this, atual)) {
+					hasGun = true;
+					Game.entities.remove(atual);
+				}
+			}
+		}
+	}
+	
 
 	public void lado() {
 
@@ -156,8 +172,18 @@ public class Player extends Entity {
 		if (!isDamaged) {
 			if (dir == right_dir) {
 				g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				if (hasGun) {
+					//Desenhando a arma para direita
+					g.drawImage(Entity.RIGHTGUN_EN, this.getX() - Camera.x + 13, this.getY() - Camera.y + 5, null);
+					
+				}
 			} else if (dir == left_dir) {
 				g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				if (hasGun) {
+					//Desenhando a arma para esquerda
+					g.drawImage(Entity.LEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
+					
+				}
 			} else if (dir == up_dir) {
 				g.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 			} else if (dir == down_dir) {

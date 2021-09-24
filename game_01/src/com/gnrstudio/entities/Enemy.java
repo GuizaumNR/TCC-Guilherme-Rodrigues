@@ -98,7 +98,7 @@ public class Enemy extends Entity {
 				continue;
 			Rectangle targetEnemy = new Rectangle(e.getX() + maskX, e.getY() + maskY, maskW, maskH);
 			if (enemyCurrent.intersects(targetEnemy)) {
-				return false;
+				return true;
 
 			}
 		}
@@ -109,13 +109,13 @@ public class Enemy extends Entity {
 
 		if (dir == right_dir) {
 			g.drawImage(rightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-			g.setColor(Color.BLUE); // Para ver a mask
-			g.fillRect(this.getX() - Camera.x, this.getY() - Camera.y, maskW, maskH);
+//			g.setColor(Color.BLUE); // Para ver a mask
+//			g.fillRect(this.getX() - Camera.x, this.getY() - Camera.y, maskW, maskH);
 
 		} else if (dir == left_dir) {
 			g.drawImage(leftEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-			g.setColor(Color.BLUE); // Para ver a mask
-			g.fillRect(this.getX() - Camera.x, this.getY() - Camera.y, maskW, maskH);
+//			g.setColor(Color.BLUE); // Para ver a mask
+//			g.fillRect(this.getX() - Camera.x, this.getY() - Camera.y, maskW, maskH);
 
 		}
 		// g.setColor(Color.BLUE); Para ver a mask
