@@ -28,6 +28,8 @@ public class Player extends Entity {
 	private BufferedImage[] LDamagePlayer;
 	private int damageFrame = 0;
 
+	public boolean shoot = false;
+
 	private boolean hasGun = false;
 
 	public int ammo = 0;
@@ -110,6 +112,29 @@ public class Player extends Entity {
 				this.damageFrame = 0;
 				isDamaged = false;
 
+			}
+		}
+
+		if (shoot) {
+			// Criar bala e atirar
+			shoot = false;
+			if (hasGun && ammo > 0) {
+
+				ammo--;
+				int dx = 0;
+				int px = 0;
+				int py = 4;
+
+				if (dir == right_dir) {
+					dx = 1;
+					px = 18;
+				} else {
+					px = -8;
+					dx = -1;
+				}
+
+				BulletShoot bullet = new BulletShoot(this.getX() + px, this.getY() + py, 1, 3, null, dx, 0);
+				Game.bullets.add(bullet);
 			}
 		}
 
@@ -220,17 +245,17 @@ public class Player extends Entity {
 			if (dir == up_dir) {
 				g.drawImage(RDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
-					//Desenhando a arma para esquerda(com dano)
+					// Desenhando a arma para esquerda(com dano)
 					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
-					
+
 				}
 			}
 			if (dir == down_dir) {
 				g.drawImage(LDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
-					//Desenhando a arma para esquerda(com dano)
+					// Desenhando a arma para esquerda(com dano)
 					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
-					
+
 				}
 			}
 		}

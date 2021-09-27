@@ -20,6 +20,7 @@ public class Entity {
 	public static BufferedImage DRIGHTGUN_EN = Game.spritesheet.getSprite(112, 80, 10, 5);
 	public static BufferedImage DLEFTGUN_EN = Game.spritesheet.getSprite(134, 80, 10, 5);
 	
+	
 	protected double x;
 	protected double y;
 	protected int width;
