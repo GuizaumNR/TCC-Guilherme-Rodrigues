@@ -34,7 +34,6 @@ public class World {
 			int frames = 0;
 			int maxIndex = 3;
 			for (int i = 0; i < 3; i++) {
-				// AWeapon[i] = Game.spritesheet.getSprite(112+(i*16), 48, 15, 16);
 				frames++;
 				if (frames == maxFrames) {
 					frames = 0;
@@ -77,6 +76,7 @@ public class World {
 						// WEAPON
 						Weapon weapon = new Weapon(xx * 16, yy * 16, 16, 16, Entity.WEAPON_EN);
 						Game.entities.add(weapon);
+						
 					} else if (pixelAtual == 0XFF00FF00) {
 						// LIFEPACK
 						LifePack pack = new LifePack(xx * 16, yy * 16, 11, 11, Entity.LIFEPACK_EN);

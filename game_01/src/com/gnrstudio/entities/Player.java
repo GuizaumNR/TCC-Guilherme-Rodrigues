@@ -24,7 +24,8 @@ public class Player extends Entity {
 	private BufferedImage[] downPlayer;
 	private BufferedImage[] upPlayer;
 
-	private BufferedImage DamagePlayer;
+	private BufferedImage[] RDamagePlayer;
+	private BufferedImage[] LDamagePlayer;
 	private int damageFrame = 0;
 
 	private boolean hasGun = false;
@@ -41,8 +42,8 @@ public class Player extends Entity {
 		leftPlayer = new BufferedImage[4];
 		downPlayer = new BufferedImage[4];
 		upPlayer = new BufferedImage[4];
-
-		DamagePlayer = Game.spritesheet.getSprite(32, 64, 16, 16);
+		RDamagePlayer = new BufferedImage[4];
+		LDamagePlayer = new BufferedImage[4];
 
 		for (int i = 0; i < 4; i++) {
 			rightPlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 0, 15, 16);
@@ -55,6 +56,12 @@ public class Player extends Entity {
 		}
 		for (int i = 0; i < 4; i++) {
 			upPlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 48, 15, 16);
+		}
+		for (int i = 0; i < 4; i++) {
+			RDamagePlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 64, 16, 16);
+		}
+		for (int i = 0; i < 4; i++) {
+			LDamagePlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 80, 16, 16);
 		}
 	}
 
@@ -150,7 +157,7 @@ public class Player extends Entity {
 			}
 		}
 	}
-	
+
 	public void checkCollissionGun() {
 		for (int i = 0; i < Game.entities.size(); i++) {
 			Entity atual = Game.entities.get(i);
@@ -162,7 +169,6 @@ public class Player extends Entity {
 			}
 		}
 	}
-	
 
 	public void lado() {
 
@@ -173,16 +179,16 @@ public class Player extends Entity {
 			if (dir == right_dir) {
 				g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
-					//Desenhando a arma para direita
+					// Desenhando a arma para direita
 					g.drawImage(Entity.RIGHTGUN_EN, this.getX() - Camera.x + 13, this.getY() - Camera.y + 5, null);
-					
+
 				}
 			} else if (dir == left_dir) {
 				g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
-					//Desenhando a arma para esquerda
+					// Desenhando a arma para esquerda
 					g.drawImage(Entity.LEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
-					
+
 				}
 			} else if (dir == up_dir) {
 				g.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
@@ -193,7 +199,40 @@ public class Player extends Entity {
 			// g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y,
 			// mwidth, mheight);
 		} else {
-			g.drawImage(DamagePlayer, this.getX() - Camera.x, this.getY() - Camera.y, null);
+
+			if (dir == right_dir) {
+				g.drawImage(RDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				if (hasGun) {
+					// Desenhando a arma para direita(com dano)
+					g.drawImage(Entity.DRIGHTGUN_EN, this.getX() - Camera.x + 13, this.getY() - Camera.y + 5, null);
+
+				}
+			}
+			if (dir == left_dir) {
+				g.drawImage(LDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				if (hasGun) {
+					// Desenhando a arma para esquerda(com dano)
+					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
+
+				}
+
+			}
+			if (dir == up_dir) {
+				g.drawImage(RDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				if (hasGun) {
+					//Desenhando a arma para esquerda(com dano)
+					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
+					
+				}
+			}
+			if (dir == down_dir) {
+				g.drawImage(LDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				if (hasGun) {
+					//Desenhando a arma para esquerda(com dano)
+					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
+					
+				}
+			}
 		}
 	}
 }
