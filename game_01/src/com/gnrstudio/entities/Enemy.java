@@ -27,7 +27,7 @@ public class Enemy extends Entity {
 		rightEnemy = new BufferedImage[3];
 		leftEnemy = new BufferedImage[3];
 		for (int i = 0; i < 3; i++) {
-			leftEnemy[i] = Game.spritesheet.getSprite(111 + (i * 16), 16, 16, 16);
+			leftEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 16, 16, 16);
 		}
 		for (int i = 0; i < 3; i++) {
 			rightEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 32, 16, 16);
