@@ -28,13 +28,14 @@ public class Player extends Entity {
 	private BufferedImage[] LDamagePlayer;
 	private int damageFrame = 0;
 
-	public boolean shoot = false;
+	public boolean shoot = false, mouseShoot = false;
 
 	private boolean hasGun = false;
 
 	public int ammo = 0;
 	public boolean isDamaged = false;
 	public double life = 100, maxlife = 100;
+	public int mx, my;
 
 	public Player(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
@@ -138,6 +139,32 @@ public class Player extends Entity {
 			}
 		}
 
+		if (mouseShoot) {
+			// Criar bala e atirar
+																																																						// converter
+			mouseShoot = false;
+			if (hasGun && ammo > 0) {
+
+				ammo--;
+				
+				int px = 0;
+				int py = 4;
+				double angle = 0;
+				if (dir == right_dir) {
+					px = 18;
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando os valores para converter
+				} else {		
+					px = -8;
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando os valores para converter
+				}
+				double dx = Math.cos(angle); // pegando o angulo x
+				double dy = Math.sin(angle); // pegando o angulo y 
+				
+				BulletShoot bullet = new BulletShoot(this.getX() + px, this.getY() + py, 1, 3, null, dx, dy);
+				Game.bullets.add(bullet);
+			}
+		}
+
 		if (life <= 0) {
 			// Game over
 			Game.entities = new ArrayList<Entity>();
@@ -158,7 +185,7 @@ public class Player extends Entity {
 			Entity atual = Game.entities.get(i);
 			if (atual instanceof Bullet) {
 				if (Entity.isColidding(this, atual)) {
-					ammo = ammo + 5;
+					ammo = ammo + 30;
 					// System.out.println("Munição atual:" + ammo);
 					Game.entities.remove(atual);
 				}
@@ -193,10 +220,6 @@ public class Player extends Entity {
 				}
 			}
 		}
-	}
-
-	public void lado() {
-
 	}
 
 	public void render(Graphics g) {

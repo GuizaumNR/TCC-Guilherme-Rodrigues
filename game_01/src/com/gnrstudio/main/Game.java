@@ -8,6 +8,8 @@ import java.awt.Graphics;
 import java.awt.List;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -21,9 +23,10 @@ import com.gnrstudio.entities.Entity;
 import com.gnrstudio.entities.Player;
 import com.gnrstudio.graficos.Spritesheet;
 import com.gnrstudio.graficos.UI;
+import com.gnrstudio.world.Camera;
 import com.gnrstudio.world.World;
 
-public class Game extends Canvas implements Runnable, KeyListener {
+public class Game extends Canvas implements Runnable, KeyListener, MouseListener {
 
 	private static final long serialVersionUID = 1L;
 	public static JFrame frame;
@@ -52,7 +55,8 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
 	public Game() {
 		rand = new Random();
-		addKeyListener(this); // adicionando o "ouvidor" aqui(this)
+		addKeyListener(this); // adicionando o "ouvidor" de teclas aqui(this)
+		addMouseListener(this); // adicionando o "ouvidor" de mouse aqui(this)
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		initFrame();
 
@@ -220,6 +224,38 @@ public class Game extends Canvas implements Runnable, KeyListener {
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		player.mouseShoot = true;
+		player.mx = (e.getX()/3); //dividir por 3 pelo o SCALE da tela
+		player.my = (e.getY()/3);
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

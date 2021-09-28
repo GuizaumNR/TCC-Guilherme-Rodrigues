@@ -9,15 +9,15 @@ import com.gnrstudio.world.Camera;
 
 public class BulletShoot extends Entity{
 
-	private int dx;
-	private int dy;
+	private double dx;
+	private double dy;
 	private double spd = 4;
 	
 	private BufferedImage BulletShootSprite;
 	
 	private int life = 10, curLife = 0; //tempo de "vida" das balas
 	
-	public BulletShoot(int x, int y, int width, int height, BufferedImage sprite, int dx, int dy) {
+	public BulletShoot(int x, int y, int width, int height, BufferedImage sprite, double dx, double dy) {
 		super(x, y, width, height, sprite);
 		
 		BulletShootSprite = Game.spritesheet.getSprite(96, 32, 13, 11);
