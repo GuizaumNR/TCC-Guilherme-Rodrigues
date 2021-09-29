@@ -15,12 +15,12 @@ public class BulletShoot extends Entity{
 	
 	private BufferedImage BulletShootSprite;
 	
-	private int life = 10, curLife = 0; //tempo de "vida" das balas
+	private int life = 30, curLife = 0; //tempo de "vida" das balas
 	
 	public BulletShoot(int x, int y, int width, int height, BufferedImage sprite, double dx, double dy) {
 		super(x, y, width, height, sprite);
 		
-		BulletShootSprite = Game.spritesheet.getSprite(96, 32, 13, 11);
+		BulletShootSprite = Game.spritesheet.getSprite(96, 32, 4, 1);
 		this.dx = dx;
 		this.dy = dy;
 	}
@@ -35,9 +35,9 @@ public class BulletShoot extends Entity{
 		}
 	}
 	  public void render(Graphics g) {
-		  //g.drawImage(BulletShootSprite,96, 32, 1, 4, null);
+		  g.drawImage(BulletShootSprite,this.getX() - Camera.x, this.getY() - Camera.y, 6, 1 , null);
 		  
-		  g.setColor(Color.YELLOW);
-		  g.fillOval(this.getX() - Camera.x, this.getY() - Camera.y, 3, 3);
+//		  g.setColor(Color.YELLOW);
+//		  g.fillOval(this.getX() - Camera.x, this.getY() - Camera.y, 3, 3);
 	  }
 }

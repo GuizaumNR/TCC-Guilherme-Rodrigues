@@ -82,14 +82,14 @@ public class World {
 						LifePack pack = new LifePack(xx * 16, yy * 16, 11, 11, Entity.LIFEPACK_EN);
 						Game.entities.add(pack);
 					}
-//				else if(pixelAtual == 0XFF00870B){
-//					//BUSH
-//					Bush bush = new Bush(xx*16, yy*16, 31, 32, Entity.BUSH_EN);
-//					Game.entities.add(bush);
-//				}
+				else if(pixelAtual == 0XFF00870B){
+					//Tumulo
+					Tomb tumulo = new Tomb(xx*16, yy*16, 31, 32, Entity.TOMB_EN);
+					Game.entities.add(tumulo);
+				}
 					else if (pixelAtual == 0XFFFFFF00) {
 						// BULLET
-						Bullet bullet = new Bullet(xx * 16, yy * 16, 11, 13, Entity.BULLET_EN);
+						Bullet bullet = new Bullet(xx * 16, yy * 16, 14, 13, Entity.BULLET_EN);
 						Game.entities.add(bullet);
 					}
 				}

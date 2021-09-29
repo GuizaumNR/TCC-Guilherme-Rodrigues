@@ -117,14 +117,14 @@ public class Player extends Entity {
 		}
 
 		if (shoot) {
-			// Criar bala e atirar
+			// Criar bala e atirar TECLADO
 			shoot = false;
 			if (hasGun && ammo > 0) {
 
 				ammo--;
 				int dx = 0;
 				int px = 0;
-				int py = 4;
+				int py = 5;
 
 				if (dir == right_dir) {
 					dx = 1;
@@ -140,7 +140,7 @@ public class Player extends Entity {
 		}
 
 		if (mouseShoot) {
-			// Criar bala e atirar
+			// Criar bala e atirar MOUSE
 																																																						// converter
 			mouseShoot = false;
 			if (hasGun && ammo > 0) {
@@ -148,7 +148,7 @@ public class Player extends Entity {
 				ammo--;
 				
 				int px = 0;
-				int py = 4;
+				int py = 5;
 				double angle = 0;
 				if (dir == right_dir) {
 					px = 18;
@@ -185,7 +185,7 @@ public class Player extends Entity {
 			Entity atual = Game.entities.get(i);
 			if (atual instanceof Bullet) {
 				if (Entity.isColidding(this, atual)) {
-					ammo = ammo + 30;
+					ammo = ammo + 300;
 					// System.out.println("Munição atual:" + ammo);
 					Game.entities.remove(atual);
 				}
@@ -282,5 +282,6 @@ public class Player extends Entity {
 				}
 			}
 		}
+		
 	}
 }
