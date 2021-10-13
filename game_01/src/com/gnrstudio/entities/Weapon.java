@@ -36,6 +36,7 @@ public class Weapon extends Entity {
 	public void render(Graphics g) {
 
 		g.drawImage(WeaponSprite[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+		g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, mwidth, mheight);
 	}
 
 }

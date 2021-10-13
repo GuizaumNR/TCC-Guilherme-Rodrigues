@@ -17,6 +17,8 @@ public class Entity {
 	public static BufferedImage TOMB_EN = Game.spritesheet.getSprite(16, 32, 16, 16);
 	public static BufferedImage RIGHTGUN_EN = Game.spritesheet.getSprite(112, 0, 10, 5);
 	public static BufferedImage LEFTGUN_EN = Game.spritesheet.getSprite(134, 0, 10, 5);
+	public static BufferedImage DOWNGUN_EN = Game.spritesheet.getSprite(144, 0, 5, 10);
+	public static BufferedImage UPGUN_EN = Game.spritesheet.getSprite(160, 0, 5, 10);
 	public static BufferedImage DRIGHTGUN_EN = Game.spritesheet.getSprite(112, 80, 10, 5);
 	public static BufferedImage DLEFTGUN_EN = Game.spritesheet.getSprite(134, 80, 10, 5);
 	
@@ -28,7 +30,10 @@ public class Entity {
 
 	private BufferedImage sprite;
 
-	private int maskx, masky, mwidth, mheight;
+	public int maskx;
+	public int masky;
+	public int mwidth;
+	public int mheight;
 
 	public Entity(int x, int y, int width, int height, BufferedImage sprite) {
 		this.x = x;
@@ -89,8 +94,8 @@ public class Entity {
 
 	public void render(Graphics g) {
 		g.drawImage(sprite, this.getX() - Camera.x, this.getY() - Camera.y, null);
-//	    g.setColor(Color.red);
-//	    g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, mwidth, mheight);
+	    //g.setColor(Color.red);
+	    //g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, mwidth, mheight);
 	}
 
 }

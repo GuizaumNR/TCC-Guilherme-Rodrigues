@@ -239,13 +239,21 @@ public class Player extends Entity {
 
 				}
 			} else if (dir == up_dir) {
+				if (hasGun) {
+					// Desenhando a arma para cima
+					g.drawImage(Entity.UPGUN_EN, this.getX() - Camera.x + 12, this.getY() - Camera.y + 1, null);
+				}
 				g.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				
 			} else if (dir == down_dir) {
 				g.drawImage(downPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+				if (hasGun) {
+					// Desenhando a arma para baixo
+					g.drawImage(Entity.DOWNGUN_EN, this.getX() - Camera.x - 4, this.getY() - Camera.y + 7, null);
+				}
 			}
 			g.setColor(Color.red);
-			// g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y,
-			// mwidth, mheight);
+			//g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, mwidth, mheight);
 		} else {
 
 			if (dir == right_dir) {
