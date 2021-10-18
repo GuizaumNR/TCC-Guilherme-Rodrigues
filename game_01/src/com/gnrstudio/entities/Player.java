@@ -277,7 +277,7 @@ public class Player extends Entity {
 				g.drawImage(RDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
 					// Desenhando a arma para esquerda(com dano)
-					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
+					g.drawImage(Entity.DUPGUN_EN, this.getX() - Camera.x + 12, this.getY() - Camera.y + 1, null);
 
 				}
 			}
@@ -285,7 +285,7 @@ public class Player extends Entity {
 				g.drawImage(LDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
 					// Desenhando a arma para esquerda(com dano)
-					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
+					g.drawImage(Entity.DDOWNGUN_EN, this.getX() - Camera.x - 4, this.getY() - Camera.y + 7, null);
 
 				}
 			}

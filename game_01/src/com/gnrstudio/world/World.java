@@ -3,6 +3,8 @@ package com.gnrstudio.world;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
@@ -118,6 +120,11 @@ public class World {
 				(tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile));
 	}
 
+//	public void hora(){
+//		GregorianCalendar calendar = new GregorianCalendar();
+//		int hora = calendar.get(Calendar.HOUR_OF_DAY);
+//	}
+	
 	public void render(Graphics g) {
 		int xstart = Camera.x >> 4;
 		int ystart = Camera.y >> 4;

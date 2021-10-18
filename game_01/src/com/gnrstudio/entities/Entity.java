@@ -21,7 +21,8 @@ public class Entity {
 	public static BufferedImage UPGUN_EN = Game.spritesheet.getSprite(160, 0, 5, 10);
 	public static BufferedImage DRIGHTGUN_EN = Game.spritesheet.getSprite(112, 80, 10, 5);
 	public static BufferedImage DLEFTGUN_EN = Game.spritesheet.getSprite(134, 80, 10, 5);
-	
+	public static BufferedImage DDOWNGUN_EN = Game.spritesheet.getSprite(112, 64, 5, 10);
+	public static BufferedImage DUPGUN_EN = Game.spritesheet.getSprite(128, 64, 5, 10);
 	
 	protected double x;
 	protected double y;
