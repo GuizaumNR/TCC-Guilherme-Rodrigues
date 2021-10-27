@@ -61,10 +61,10 @@ public class Player extends Entity {
 			upPlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 48, 15, 16);
 		}
 		for (int i = 0; i < 4; i++) {
-			RDamagePlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 64, 16, 16);
+			RDamagePlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 64, 16, 16);
 		}
 		for (int i = 0; i < 4; i++) {
-			LDamagePlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 80, 16, 16);
+			LDamagePlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 80, 16, 16);
 		}
 	}
 
