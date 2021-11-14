@@ -109,14 +109,8 @@ public class Enemy extends Entity {
 
 		if (dir == right_dir) {
 			g.drawImage(rightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-//			g.setColor(Color.BLUE); // Para ver a mask
-//			g.fillRect(this.getX() - Camera.x, this.getY() - Camera.y, maskW, maskH);
-
 		} else if (dir == left_dir) {
 			g.drawImage(leftEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-//			g.setColor(Color.BLUE); // Para ver a mask
-//			g.fillRect(this.getX() - Camera.x, this.getY() - Camera.y, maskW, maskH);
-
 		}
 		// g.setColor(Color.BLUE); Para ver a mask
 		// g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y,
