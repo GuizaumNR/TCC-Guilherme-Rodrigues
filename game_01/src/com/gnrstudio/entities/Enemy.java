@@ -22,6 +22,8 @@ public class Enemy extends Entity {
 	private BufferedImage[] rightEnemy;
 	private BufferedImage[] leftEnemy;
 
+	private int life = 10;
+
 	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, null);
 		rightEnemy = new BufferedImage[3];
@@ -36,10 +38,8 @@ public class Enemy extends Entity {
 	}
 
 	public void tick() {// OBS: debug funciona apenas em loops
-		// if(Game.rand.nextInt(100) < 50) maneira 1 de randomizar inimigos(simples)
-		/*
-		 * maskX = 10; maskY = 8; maskW = 10; maskH =10;
-		 */
+		// if(Game.rand.nextInt(100) < 50) maneira 1 de randomizar inimigos(simples)		
+		 
 		if (isColiddingWithPlayer() == false) {
 			if ((int) x < Game.player.getX() && World.isFree((int) (x + speed), this.getY())
 					&& !isColidding((int) (x + speed), this.getY())) {
@@ -68,21 +68,45 @@ public class Enemy extends Entity {
 				index++;
 				if (index > maxIndex) {
 					index = 0;
-				}
+				}				
 			}
+			
 		} else {
 			// estamos perto do player, o que fazer?
 			if (Game.rand.nextInt(100) > 10) {
-				//Game.player.life -= Game.rand.nextInt(3);
+				// Game.player.life -= Game.rand.nextInt(3);
 				Game.player.isDamaged = true;
 				// Game.player.x = Game.player.x - 4;
 
 			}
 
 		}
+		collidingBullet();	
+		if(life <= 0) {
+			destroySelf();
+			return;
+		}
 
 	}
 
+	public void destroySelf() {
+		Game.entities.remove(this);
+	}
+	
+	public void collidingBullet() {
+	
+		for(int i = 0; i < Game.bullets.size(); i++) {
+			Entity e = Game.bullets.get(i);
+			if(e instanceof BulletShoot) {
+				if(Entity.isColidding(this, e)) {
+					life--;
+					Game.bullets.remove(i);
+					return;
+				}
+			}
+		}
+	}
+	
 	public boolean isColiddingWithPlayer() {
 		Rectangle enemyCurrent = new Rectangle(this.getX() + maskX, this.getY() + maskY, maskW, maskH);
 		Rectangle player = new Rectangle(Game.player.getX() + maskX, Game.player.getY() + maskY, 16, 16);

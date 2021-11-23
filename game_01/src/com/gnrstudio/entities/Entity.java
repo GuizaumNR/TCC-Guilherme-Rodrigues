@@ -18,7 +18,7 @@ public class Entity {
 	public static BufferedImage RIGHTGUN_EN = Game.spritesheet.getSprite(112, 0, 9, 5);
 	public static BufferedImage LEFTGUN_EN = Game.spritesheet.getSprite(135, 0, 9, 5);
 	public static BufferedImage DOWNGUN_EN = Game.spritesheet.getSprite(144, 0, 5, 9);
-	public static BufferedImage UPGUN_EN = Game.spritesheet.getSprite(160, 0, 5, 9);
+	public static BufferedImage UPGUN_EN = Game.spritesheet.getSprite(160, 1, 5, 9);
 	public static BufferedImage DRIGHTGUN_EN = Game.spritesheet.getSprite(112, 80, 9, 5);
 	public static BufferedImage DLEFTGUN_EN = Game.spritesheet.getSprite(135, 80, 9, 5);
 	public static BufferedImage DDOWNGUN_EN = Game.spritesheet.getSprite(112, 64, 5, 9);
