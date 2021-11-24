@@ -13,16 +13,17 @@ public class Entity {
 	public static BufferedImage LIFEPACK_EN = Game.spritesheet.getSprite(98, 5, 11, 11);
 	public static BufferedImage WEAPON_EN = Game.spritesheet.getSprite(0 , 96, 10, 16);
 	public static BufferedImage BULLET_EN = Game.spritesheet.getSprite(96, 20, 13, 11);
-	public static BufferedImage ENEMY_EN = Game.spritesheet.getSprite(112, 32, 16, 16);
+	public static BufferedImage ENEMY_EN = Game.spritesheet.getSprite(112, 32, 14, 16);
+	//public static BufferedImage DENEMY_EN = Game.spritesheet.getSprite(112, 48, 14, 16);
 	public static BufferedImage TOMB_EN = Game.spritesheet.getSprite(16, 32, 16, 16);
 	public static BufferedImage RIGHTGUN_EN = Game.spritesheet.getSprite(112, 0, 9, 5);
 	public static BufferedImage LEFTGUN_EN = Game.spritesheet.getSprite(135, 0, 9, 5);
 	public static BufferedImage DOWNGUN_EN = Game.spritesheet.getSprite(144, 0, 5, 9);
 	public static BufferedImage UPGUN_EN = Game.spritesheet.getSprite(160, 1, 5, 9);
-	public static BufferedImage DRIGHTGUN_EN = Game.spritesheet.getSprite(112, 80, 9, 5);
-	public static BufferedImage DLEFTGUN_EN = Game.spritesheet.getSprite(135, 80, 9, 5);
-	public static BufferedImage DDOWNGUN_EN = Game.spritesheet.getSprite(112, 64, 5, 9);
-	public static BufferedImage DUPGUN_EN = Game.spritesheet.getSprite(128, 64, 5, 9);
+	public static BufferedImage DRIGHTGUN_EN = Game.spritesheet.getSprite(160, 32, 9, 5);
+	public static BufferedImage DLEFTGUN_EN = Game.spritesheet.getSprite(183, 32, 9, 5);
+	public static BufferedImage DDOWNGUN_EN = Game.spritesheet.getSprite(160, 16, 5, 9);
+	public static BufferedImage DUPGUN_EN = Game.spritesheet.getSprite(176, 17, 5, 9);
 	
 	protected double x;
 	protected double y;

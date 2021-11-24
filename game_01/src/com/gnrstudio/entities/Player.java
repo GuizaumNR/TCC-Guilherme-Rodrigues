@@ -49,22 +49,22 @@ public class Player extends Entity {
 		LDamagePlayer = new BufferedImage[4];
 
 		for (int i = 0; i < 4; i++) {
-			rightPlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 0, 15, 16);
+			rightPlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 0, 11, 15);
 		}
 		for (int i = 0; i < 4; i++) {
-			leftPlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 16, 15, 16);
+			leftPlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 16, 11, 15);
 		}
 		for (int i = 0; i < 4; i++) {
-			downPlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 32, 15, 16);
+			downPlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 32, 11, 15);
 		}
 		for (int i = 0; i < 4; i++) {
-			upPlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 48, 15, 16);
+			upPlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 48, 11, 15);
 		}
 		for (int i = 0; i < 4; i++) {
-			RDamagePlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 64, 16, 16);
+			RDamagePlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 64, 11, 15);
 		}
 		for (int i = 0; i < 4; i++) {
-			LDamagePlayer[i] = Game.spritesheet.getSprite(33 + (i * 16), 80, 16, 16);
+			LDamagePlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 80, 11, 15);
 		}
 	}
 
@@ -252,8 +252,8 @@ public class Player extends Entity {
 					g.drawImage(Entity.DOWNGUN_EN, this.getX() - Camera.x - 4, this.getY() - Camera.y + 7, null);
 				}
 			}
-			g.setColor(Color.red);
-			//g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, mwidth, mheight);
+//			g.setColor(Color.red);
+//			g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, mwidth, mheight);
 		} else {
 
 			if (dir == right_dir) {

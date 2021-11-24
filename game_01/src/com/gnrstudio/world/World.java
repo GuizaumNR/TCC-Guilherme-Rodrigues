@@ -67,8 +67,8 @@ public class World {
 
 					} else if (pixelAtual == 0XFF0000FF) {
 						// PLAYER
-						Game.player.setX(xx * 16);
-						Game.player.setY(yy * 16);
+						Game.player.setX(xx * 11);
+						Game.player.setY(yy * 15);
 					} else if (pixelAtual == 0XFFFF0000) {
 						// ENEMY
 						Enemy en = new Enemy(xx * 16, yy * 16, 16, 16, Entity.ENEMY_EN);

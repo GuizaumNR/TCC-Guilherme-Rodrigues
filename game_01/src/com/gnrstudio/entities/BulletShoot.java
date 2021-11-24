@@ -33,7 +33,32 @@ public class BulletShoot extends Entity{
 			Game.bullets.remove(this); //removendo essa bala
 			return; // sempre se da um return qunado se remove o proprio objeto
 		}
+		
+//		if(collidingWall()) {
+//		destroySelf();
+//		}
+		
+		
 	}
+	
+//	public void destroySelf() {
+//		Game.bullets.remove(this);
+//		
+//	}
+//	
+//	public boolean collidingWall() {
+//		for(int i = 0; i < Game.entities.size(); i++) {
+//			Entity e = Game.entities.get(i);
+//			if(e instanceof BulletShoot) {
+//				if(Entity.isColidding(this, e)) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//		
+//	}
+	
 	  public void render(Graphics g) {
 		  g.drawImage(BulletShootSprite,this.getX() - Camera.x, this.getY() - Camera.y, 6, 1 , null);
 		  

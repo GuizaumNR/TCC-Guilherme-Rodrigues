@@ -21,21 +21,37 @@ public class Enemy extends Entity {
 
 	private BufferedImage[] rightEnemy;
 	private BufferedImage[] leftEnemy;
-
+	private BufferedImage[] dRightEnemy;
+	private BufferedImage[] dLeftEnemy;
 	private int life = 10;
+	
+	private boolean isDamaged;
+	private int damageFrames = 10, damageCurrent = 0;
+	
+	private boolean parado;
 
 	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, null);
 		rightEnemy = new BufferedImage[3];
 		leftEnemy = new BufferedImage[3];
+		dRightEnemy = new BufferedImage[3];
+		dLeftEnemy = new BufferedImage[3];
+		
+		if(!parado) {
 		for (int i = 0; i < 3; i++) {
-			leftEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 16, 16, 16);
+			leftEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 16, 14, 16);
 		}
 		for (int i = 0; i < 3; i++) {
-			rightEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 32, 16, 16);
+			rightEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 32, 14, 16);
+		}
+		for (int i = 0; i < 3; i++) {
+			dLeftEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 48, 14, 16);
+		}
+		for (int i = 0; i < 3; i++) {
+			dRightEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 64, 14, 16);
 		}
 
-	}
+	}}
 
 	public void tick() {// OBS: debug funciona apenas em loops
 		// if(Game.rand.nextInt(100) < 50) maneira 1 de randomizar inimigos(simples)		
@@ -60,8 +76,10 @@ public class Enemy extends Entity {
 				y -= speed;
 			} else {
 				// estamos colidindo
-
+				parado = true;
+				
 			}
+			parado = false;
 			frames++;
 			if (frames == maxFrames) {
 				frames = 0;
@@ -86,11 +104,26 @@ public class Enemy extends Entity {
 			destroySelf();
 			return;
 		}
+		
+		if(isDamaged) {
+			this.damageCurrent++;
+			if(this.damageFrames == this.damageCurrent) {
+				this.damageCurrent = 0;
+				this.isDamaged = false;
+			}
+		}
 
 	}
 
 	public void destroySelf() {
 		Game.entities.remove(this);
+
+//		for (int i = 0; i < Game.enemies.size(); i++) { //tentando criar o drop de item
+//			Enemy e = Game.enemies.get(i);
+//			if (e.life <= 0) {
+//				LifePack pack = new LifePack(e.getX() * 16, e.getY() * 16, 11, 11, Entity.LIFEPACK_EN);
+//				Game.entities.add(pack);
+//		}}
 	}
 	
 	public void collidingBullet() {
@@ -100,6 +133,7 @@ public class Enemy extends Entity {
 			if(e instanceof BulletShoot) {
 				if(Entity.isColidding(this, e)) {
 					life--;
+					isDamaged = true;
 					Game.bullets.remove(i);
 					return;
 				}
@@ -130,7 +164,7 @@ public class Enemy extends Entity {
 	}
 
 	public void render(Graphics g) {
-
+		if(!isDamaged) {
 		if (dir == right_dir) {
 			g.drawImage(rightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 		} else if (dir == left_dir) {
@@ -139,6 +173,13 @@ public class Enemy extends Entity {
 		// g.setColor(Color.BLUE); Para ver a mask
 		// g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y,
 		// maskW, maskH);
+	}else{
+		if (dir == right_dir) {
+			g.drawImage(dRightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+		} else if (dir == left_dir) {
+			g.drawImage(dLeftEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+		}		
 	}
+		}
 
 }
