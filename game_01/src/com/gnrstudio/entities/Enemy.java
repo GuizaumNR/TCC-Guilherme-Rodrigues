@@ -116,6 +116,7 @@ public class Enemy extends Entity {
 	}
 
 	public void destroySelf() {
+		Game.enemies.remove(this);
 		Game.entities.remove(this);
 
 //		for (int i = 0; i < Game.enemies.size(); i++) { //tentando criar o drop de item

@@ -1,6 +1,4 @@
 package com.gnrstudio.entities;
-
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -14,7 +12,6 @@ public class Entity {
 	public static BufferedImage WEAPON_EN = Game.spritesheet.getSprite(0 , 96, 10, 16);
 	public static BufferedImage BULLET_EN = Game.spritesheet.getSprite(96, 20, 13, 11);
 	public static BufferedImage ENEMY_EN = Game.spritesheet.getSprite(112, 32, 14, 16);
-	//public static BufferedImage DENEMY_EN = Game.spritesheet.getSprite(112, 48, 14, 16);
 	public static BufferedImage TOMB_EN = Game.spritesheet.getSprite(16, 32, 16, 16);
 	public static BufferedImage RIGHTGUN_EN = Game.spritesheet.getSprite(112, 0, 9, 5);
 	public static BufferedImage LEFTGUN_EN = Game.spritesheet.getSprite(135, 0, 9, 5);

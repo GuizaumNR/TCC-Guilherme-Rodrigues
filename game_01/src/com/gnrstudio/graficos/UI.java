@@ -5,12 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
-import com.gnrstudio.entities.Player;
 import com.gnrstudio.main.Game;
 
 public class UI {
@@ -20,12 +14,9 @@ public class UI {
 	
 	public void render(Graphics g) {
 		
-		try {
-			s2 = ImageIO.read(getClass().getResourceAsStream("/s2.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		s2 = Game.spritesheet.getSprite(96, 48, 13, 10);
+		
 		g.drawImage(s2, 4, 8, 13, 10, null);
 		g.setColor(Color.black);
 		g.fillRect(18, 6, 54, 12);

@@ -3,6 +3,7 @@ package com.gnrstudio.world;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Map;
@@ -10,6 +11,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import com.gnrstudio.entities.*;
+import com.gnrstudio.graficos.Spritesheet;
 import com.gnrstudio.main.Game;
 
 public class World {
@@ -120,6 +122,18 @@ public class World {
 				(tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile));
 	}
 
+	public static void restartgame(String level) {
+		Game.entities.clear();
+		Game.enemies.clear();
+		Game.entities = new ArrayList<Entity>();
+		Game.enemies = new ArrayList<Enemy>();
+		Game.spritesheet = new Spritesheet("/spritesheet.png");
+		Game.player = new Player(0, 0, 16, 16, Game.spritesheet.getSprite(32, 0, 16, 16));
+		Game.entities.add(Game.player);
+		Game.world = new World("/"+level);
+		return;
+	}
+	
 //	public void hora(){
 //		GregorianCalendar calendar = new GregorianCalendar();
 //		int hora = calendar.get(Calendar.HOUR_OF_DAY);
