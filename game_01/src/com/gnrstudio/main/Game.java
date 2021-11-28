@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.List;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -54,6 +55,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Random rand;
 
 	public UI ui;
+	
+	public static String gameState = "NORMAL";
 
 	public Game() {
 		rand = new Random();
@@ -107,7 +110,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 
 	public void tick() {
-
+		if(gameState == "NORMAL") {
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			if (e instanceof Player) {
@@ -129,7 +132,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			String newWorld = "level"+Cur_Level+".png";
 			Game.world.restartgame(newWorld);
 		}
-
+		}else if(gameState == "GAME_OVER") {
+			
+		}
 	}
 
 	public void render() {
@@ -161,7 +166,17 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.setFont(new Font("arial", Font.BOLD, 16));
 		g.setColor(Color.WHITE);
-		g.drawString("Munição: " + player.ammo, 208 * SCALE, 30);
+		g.drawString("Munição: " + player.ammo, 180 * SCALE, 30);
+		if(gameState == "GAME_OVER") {
+			Graphics2D g2 = (Graphics2D) g; //criando opacidade
+			g2.setColor(new Color(0,0,0,100));
+			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+			g.setFont(new Font("arial", Font.BOLD, 38));
+			g.setColor(Color.RED);
+			g.drawString("SE FODEU", (WIDTH*SCALE)/2 - 80, (HEIGHT*SCALE)/2 - 60);
+			g.setFont(new Font("arial", Font.BOLD, 20));
+			g.drawString(">Pressione enter para reinicar<", (WIDTH*SCALE)/2 - 136, (HEIGHT*SCALE)/2 - 10);
+		}
 		bs.show();
 	}
 

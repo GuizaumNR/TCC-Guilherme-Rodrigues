@@ -167,7 +167,7 @@ public class Player extends Entity {
 
 		if (life <= 0) {
 			// Game over
-			
+			Game.gameState = "GAME_OVER";
 		}
 
 		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH / 2), 0, World.WIDTH * 16 - Game.WIDTH);
@@ -222,20 +222,20 @@ public class Player extends Entity {
 				g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
 					// Desenhando a arma para direita
-					g.drawImage(Entity.RIGHTGUN_EN, this.getX() - Camera.x + 13, this.getY() - Camera.y + 5, null);
+					g.drawImage(Entity.RIGHTGUN_EN, this.getX() - Camera.x + 9, this.getY() - Camera.y + 6, null);
 
 				}
 			} else if (dir == left_dir) {
 				g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
 					// Desenhando a arma para esquerda
-					g.drawImage(Entity.LEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
+					g.drawImage(Entity.LEFTGUN_EN, this.getX() - Camera.x - 8, this.getY() - Camera.y + 6, null);
 
 				}
 			} else if (dir == up_dir) {
 				if (hasGun) {
 					// Desenhando a arma para cima
-					g.drawImage(Entity.UPGUN_EN, this.getX() - Camera.x + 12, this.getY() - Camera.y + 1, null);
+					g.drawImage(Entity.UPGUN_EN, this.getX() - Camera.x + 9, this.getY() - Camera.y + 2, null);
 				}
 				g.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				
@@ -254,7 +254,7 @@ public class Player extends Entity {
 				g.drawImage(RDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
 					// Desenhando a arma para direita(com dano)
-					g.drawImage(Entity.DRIGHTGUN_EN, this.getX() - Camera.x + 13, this.getY() - Camera.y + 5, null);
+					g.drawImage(Entity.DRIGHTGUN_EN, this.getX() - Camera.x + 9, this.getY() - Camera.y + 6, null);
 
 				}
 			}
@@ -262,7 +262,7 @@ public class Player extends Entity {
 				g.drawImage(LDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
 					// Desenhando a arma para esquerda(com dano)
-					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 9, this.getY() - Camera.y + 5, null);
+					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 8, this.getY() - Camera.y + 6, null);
 
 				}
 
