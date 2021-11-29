@@ -57,6 +57,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public UI ui;
 	
 	public static String gameState = "NORMAL";
+	private boolean showMessageGameOver = true;
+	private int framesGameOver = 0;
+	private boolean restartGame = false;
 
 	public Game() {
 		rand = new Random();
@@ -111,6 +114,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public void tick() {
 		if(gameState == "NORMAL") {
+			this.restartGame = false;
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			if (e instanceof Player) {
@@ -133,7 +137,23 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			Game.world.restartgame(newWorld);
 		}
 		}else if(gameState == "GAME_OVER") {
+			this.framesGameOver++;
+			if(framesGameOver == 35) {
+				framesGameOver = 0;
+				if(this.showMessageGameOver) {
+					this.showMessageGameOver = false;
+				}else {
+					this.showMessageGameOver = true;
+				}
+			}
 			
+			if(restartGame) {
+				this.restartGame = false;
+				this.gameState = "NORMAL";
+				Cur_Level = 1;
+				String newWorld = "level"+Cur_Level+".png";
+				Game.world.restartgame(newWorld);
+			}
 		}
 	}
 
@@ -175,8 +195,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			g.setColor(Color.RED);
 			g.drawString("SE FODEU", (WIDTH*SCALE)/2 - 80, (HEIGHT*SCALE)/2 - 60);
 			g.setFont(new Font("arial", Font.BOLD, 20));
+			if(showMessageGameOver) {
 			g.drawString(">Pressione enter para reinicar<", (WIDTH*SCALE)/2 - 136, (HEIGHT*SCALE)/2 - 10);
 		}
+			}
 		bs.show();
 	}
 
@@ -227,8 +249,14 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		if(e.getKeyCode() == KeyEvent.VK_X) {
 			player.shoot = true;
 		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			this.restartGame = true;
+		}
+	
 	}
 
+		
 	@Override
 	public void keyReleased(KeyEvent e) {
 
