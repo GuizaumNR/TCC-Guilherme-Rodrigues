@@ -94,6 +94,9 @@ public class Enemy extends Entity {
 			if (Game.rand.nextInt(100) > 10) {
 				Game.player.life -= Game.rand.nextInt(3);
 				Game.player.isDamaged = true;
+				if(Game.player.life <= 0) {
+					Game.player.life = 0;
+				}
 				// Game.player.x = Game.player.x - 4; // tentando fazer o player ser empurrado pelo inimigo
 
 			}

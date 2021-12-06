@@ -167,13 +167,19 @@ public class Player extends Entity {
 
 		if (life <= 0) {
 			// Game over
-			life = 0;
+			this.life = 0;
+			
 			Game.gameState = "GAME_OVER";
 		}
-
-		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH / 2), 0, World.WIDTH * 16 - Game.WIDTH);
-		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT / 2), 0, World.HEIGHT * 16 - Game.HEIGHT);
+		
+		updateCamera();
 	}
+		public void updateCamera() {
+			Camera.x = Camera.clamp(this.getX() - (Game.WIDTH / 2), 0, World.WIDTH * 16 - Game.WIDTH);
+			Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT / 2), 0, World.HEIGHT * 16 - Game.HEIGHT);
+		}
+		
+		
 
 	public void checkCollissionAmmo() {
 		for (int i = 0; i < Game.entities.size(); i++) {
