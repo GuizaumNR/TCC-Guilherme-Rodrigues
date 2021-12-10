@@ -10,7 +10,7 @@ import com.gnrstudio.world.Camera;
 import com.gnrstudio.world.World;
 
 public class Enemy extends Entity {
-	private double speed = 1;
+	private double speed = 0.6;
 
 	private int maskX = 8, maskY = 8, maskW = 15, maskH = 16;
 
@@ -92,15 +92,18 @@ public class Enemy extends Entity {
 		} else {
 			// estamos perto do player, o que fazer?
 			if (Game.rand.nextInt(100) > 10) {
-				Game.player.life -= Game.rand.nextInt(3);
-				Game.player.isDamaged = true;
+				double danoRandom = Game.rand.nextDouble();
+				double inicio = 0.1;
+				double fim = 0.5;
+				Game.player.life -= inicio + (danoRandom * (fim - inicio)); //Limitando os valores 
+				Game.player.isDamaged = true;		
 				if(Game.player.life <= 0) {
 					Game.player.life = 0;
 				}
 				// Game.player.x = Game.player.x - 4; // tentando fazer o player ser empurrado pelo inimigo
 
 			}
-
+			
 		}
 		collidingBullet();	
 		if(life <= 0) {
