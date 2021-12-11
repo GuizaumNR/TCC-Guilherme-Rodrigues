@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static final int HEIGHT = 160;
 	public static final int SCALE = 3;
 	
-	private int Cur_Level = 1, Max_Level = 2;
+	private int Cur_Level = 1, Max_Level = 3;
 	
 	private BufferedImage image;
 	public static Spritesheet spritesheet;

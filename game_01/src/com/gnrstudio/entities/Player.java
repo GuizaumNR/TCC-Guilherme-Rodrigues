@@ -47,7 +47,9 @@ public class Player extends Entity {
 		upPlayer = new BufferedImage[4];
 		RDamagePlayer = new BufferedImage[4];
 		LDamagePlayer = new BufferedImage[4];
-
+		
+		this.x = 30;
+		
 		for (int i = 0; i < 4; i++) {
 			rightPlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 0, 11, 15);
 		}
@@ -67,6 +69,7 @@ public class Player extends Entity {
 			LDamagePlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 80, 11, 15);
 		}
 	}
+	
 
 	public void tick() {
 		moved = false;
@@ -172,7 +175,12 @@ public class Player extends Entity {
 			Game.gameState = "GAME_OVER";
 		}
 		
+		if(life >= maxlife){
+			life = maxlife;
+			
+		}
 		updateCamera();
+		
 	}
 		public void updateCamera() {
 			Camera.x = Camera.clamp(this.getX() - (Game.WIDTH / 2), 0, World.WIDTH * 16 - Game.WIDTH);
@@ -199,10 +207,10 @@ public class Player extends Entity {
 			Entity atual = Game.entities.get(i);
 			if (atual instanceof LifePack) {
 				if (Entity.isColidding(this, atual)) {
-					if (life < 100) {
+					if (life < maxlife) {
 						life += 10;
-						if (life > 100) {
-							life = 100;
+						if (life > maxlife) {
+							life = maxlife;
 						}
 						Game.entities.remove(atual);
 					}
