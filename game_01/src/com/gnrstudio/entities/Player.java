@@ -3,9 +3,6 @@ package com.gnrstudio.entities;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-
-import com.gnrstudio.graficos.Spritesheet;
 import com.gnrstudio.main.Game;
 import com.gnrstudio.world.Camera;
 import com.gnrstudio.world.World;
@@ -48,7 +45,6 @@ public class Player extends Entity {
 		RDamagePlayer = new BufferedImage[4];
 		LDamagePlayer = new BufferedImage[4];
 		
-		this.x = 30;
 		
 		for (int i = 0; i < 4; i++) {
 			rightPlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 0, 11, 15);

@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.List;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -80,7 +79,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0, 0, 11, 15, spritesheet.getSprite(32, 0, 11, 15));
 		entities.add(player);
-		world = new World("/level1.png");
+		world = new World("/level2.png");
 		
 		menu = new Menu();
 	}

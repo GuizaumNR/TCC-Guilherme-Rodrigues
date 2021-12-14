@@ -88,8 +88,8 @@ public class World {
 					}
 				else if(pixelAtual == 0XFF00870B){
 					//Tumulo
-					Tomb tumulo = new Tomb(xx*16, yy*16, 31, 32, Entity.TOMB_EN);
-					Game.entities.add(tumulo);
+					tiles[xx + (yy * WIDTH)] = new WallTile(xx * 16, yy * 16, Tile.TILE_TOMB);
+				
 				}
 					else if (pixelAtual == 0XFFFFFF00) {
 						// BULLET
