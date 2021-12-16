@@ -61,10 +61,8 @@ public class BulletShoot extends Entity {
 	public void render(Graphics g) {
 		g.drawImage(BulletShootSprite, this.getX() - Camera.x, this.getY() - Camera.y, 3, 1, null);
 
-//		  g.setColor(Color.YELLOW);
-//		  g.fillOval(this.getX() - Camera.x, this.getY() - Camera.y, 3, 3);
 
-		 g.setColor(Color.BLUE); 
-		 g.fillRect(this.getX() + 3 - Camera.x, this.getY() + 1 - Camera.y, 3, 1);
+//		 g.setColor(Color.BLUE); 
+//		 g.fillRect(this.getX() + 3 - Camera.x, this.getY() + 1 - Camera.y, 3, 1);
 	}
 }

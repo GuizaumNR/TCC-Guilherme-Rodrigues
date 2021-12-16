@@ -17,7 +17,7 @@ public class Weapon extends Entity {
 		WeaponSprite = new BufferedImage[12];
 		for (int i = 0; i < 12; i++) {
 
-			WeaponSprite[i] = Game.spritesheet.getSprite(0 + (i * 16), 96, 10, 16);
+			WeaponSprite[i] = Game.spritesheet.getSprite(32 + (i * 16), 96, 10, 16);
 
 		}
 	}

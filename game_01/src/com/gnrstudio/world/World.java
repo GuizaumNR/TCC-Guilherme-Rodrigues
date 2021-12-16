@@ -76,6 +76,11 @@ public class World {
 						Enemy en = new Enemy(xx * 16, yy * 16, 16, 16, Entity.ENEMY_EN);
 						Game.entities.add(en);
 						Game.enemies.add(en);
+					}else if (pixelAtual == 0XFFA80000) {
+						// ENEMY2
+						Enemy2 en = new Enemy2(xx * 16, yy * 16, 9, 15, Entity.ENEMY2_EN);
+						Game.entities.add(en);
+						Game.enemies2.add(en);
 					} else if (pixelAtual == 0XFFFF6A00) {
 						// WEAPON
 						Weapon weapon = new Weapon(xx * 16, yy * 16, 16, 16, Entity.WEAPON_EN);

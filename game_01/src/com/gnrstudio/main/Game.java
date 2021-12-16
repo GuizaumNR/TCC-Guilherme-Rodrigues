@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 
 import com.gnrstudio.entities.BulletShoot;
 import com.gnrstudio.entities.Enemy;
+import com.gnrstudio.entities.Enemy2;
 import com.gnrstudio.entities.Entity;
 import com.gnrstudio.entities.Player;
 import com.gnrstudio.graficos.Spritesheet;
@@ -44,6 +45,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static ArrayList<Entity> entities;
 
 	public static ArrayList<Enemy> enemies;
+	public static ArrayList<Enemy2> enemies2;
 	
 	public static ArrayList<BulletShoot> bullets;
 
@@ -74,12 +76,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
+		enemies2 = new ArrayList<Enemy2>();
 		bullets = new ArrayList<BulletShoot>();
 		
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0, 0, 11, 15, spritesheet.getSprite(32, 0, 11, 15));
 		entities.add(player);
-		world = new World("/level2.png");
+		world = new World("/level1.png");
 		
 		menu = new Menu();
 	}
