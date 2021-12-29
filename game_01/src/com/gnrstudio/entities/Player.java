@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import com.gnrstudio.main.Game;
+import com.gnrstudio.main.Sound;
 import com.gnrstudio.world.Camera;
 import com.gnrstudio.world.World;
 
@@ -44,8 +45,7 @@ public class Player extends Entity {
 		upPlayer = new BufferedImage[4];
 		RDamagePlayer = new BufferedImage[4];
 		LDamagePlayer = new BufferedImage[4];
-		
-		
+
 		for (int i = 0; i < 4; i++) {
 			rightPlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 0, 11, 15);
 		}
@@ -65,7 +65,6 @@ public class Player extends Entity {
 			LDamagePlayer[i] = Game.spritesheet.getSprite(32 + (i * 16), 80, 11, 15);
 		}
 	}
-	
 
 	public void tick() {
 		moved = false;
@@ -119,7 +118,7 @@ public class Player extends Entity {
 			// Criar bala e atirar TECLADO
 			shoot = false;
 			if (hasGun && ammo > 0) {
-
+				Sound.shootEfecct.play();
 				ammo--;
 				int dx = 0;
 				int px = 0;
@@ -140,25 +139,33 @@ public class Player extends Entity {
 
 		if (mouseShoot) {
 			// Criar bala e atirar MOUSE
-																																																						// converter
+			// converter
 			mouseShoot = false;
 			if (hasGun && ammo > 0) {
-
+				Sound.shootEfecct.play();
 				ammo--;
-				
+
 				int px = 0;
 				int py = 5;
 				double angle = 0;
 				if (dir == right_dir) {
 					px = 18;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando os valores para converter
-				} else {		
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
+																												// os
+																												// valores
+																												// para
+																												// converter
+				} else {
 					px = -8;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando os valores para converter
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
+																												// os
+																												// valores
+																												// para
+																												// converter
 				}
 				double dx = Math.cos(angle); // pegando o angulo x
-				double dy = Math.sin(angle); // pegando o angulo y 
-				
+				double dy = Math.sin(angle); // pegando o angulo y
+
 				BulletShoot bullet = new BulletShoot(this.getX() + px, this.getY() + py, 1, 3, null, dx, dy);
 				Game.bullets.add(bullet);
 			}
@@ -167,23 +174,22 @@ public class Player extends Entity {
 		if (life <= 0) {
 			// Game over
 			this.life = 0;
-			
+
 			Game.gameState = "GAME_OVER";
 		}
-		
-		if(life >= maxlife){
+
+		if (life >= maxlife) {
 			life = maxlife;
-			
+
 		}
 		updateCamera();
-		
+
 	}
-		public void updateCamera() {
-			Camera.x = Camera.clamp(this.getX() - (Game.WIDTH / 2), 0, World.WIDTH * 16 - Game.WIDTH);
-			Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT / 2), 0, World.HEIGHT * 16 - Game.HEIGHT);
-		}
-		
-		
+
+	public void updateCamera() {
+		Camera.x = Camera.clamp(this.getX() - (Game.WIDTH / 2), 0, World.WIDTH * 16 - Game.WIDTH);
+		Camera.y = Camera.clamp(this.getY() - (Game.HEIGHT / 2), 0, World.HEIGHT * 16 - Game.HEIGHT);
+	}
 
 	public void checkCollissionAmmo() {
 		for (int i = 0; i < Game.entities.size(); i++) {
@@ -249,7 +255,7 @@ public class Player extends Entity {
 					g.drawImage(Entity.UPGUN_EN, this.getX() - Camera.x + 9, this.getY() - Camera.y + 2, null);
 				}
 				g.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
-				
+
 			} else if (dir == down_dir) {
 				g.drawImage(downPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
@@ -295,6 +301,6 @@ public class Player extends Entity {
 				}
 			}
 		}
-		
+
 	}
 }

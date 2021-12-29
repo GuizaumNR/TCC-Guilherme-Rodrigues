@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static final int HEIGHT = 160;
 	public static final int SCALE = 3;
 	
-	private int Cur_Level = 1, Max_Level = 3;
+	private int Cur_Level = 1, Max_Level = 4;
 	
 	private BufferedImage image;
 	public static Spritesheet spritesheet;
@@ -65,6 +65,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public Menu menu;
 
 	public Game() {
+		Sound.musicBackground.play();
 		rand = new Random();
 		addKeyListener(this); // adicionando o "ouvidor" de teclas aqui(this)
 		addMouseListener(this); // adicionando o "ouvidor" de mouse aqui(this)
@@ -82,7 +83,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0, 0, 11, 15, spritesheet.getSprite(32, 0, 11, 15));
 		entities.add(player);
-		world = new World("/level1.png");
+		world = new World("/level4.png");
 		
 		menu = new Menu();
 	}
@@ -134,7 +135,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			bullets.get(i).tick();
 		}
 		
-		if(enemies.size() == 0) {
+		if(enemies.size() == 0 && enemies2.size() == 0) {
 			//avançar de nivel
 			Cur_Level ++;
 			if(Cur_Level > Max_Level) {

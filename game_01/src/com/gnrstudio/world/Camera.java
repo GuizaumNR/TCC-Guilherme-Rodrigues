@@ -12,6 +12,6 @@ public class Camera {
 		if(Atual > Max) {
 			Atual = Max;
 		}
-		return Atual;
+		return Atual ;
 	}
 }

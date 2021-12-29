@@ -32,7 +32,6 @@ public class World {
 			HEIGHT = map.getHeight();
 			tiles = new Tile[map.getWidth() * map.getHeight()];
 			map.getRGB(0, 0, map.getWidth(), map.getHeight(), pixels, 0, map.getWidth());
-			// boolean moved = false;
 			int index = 0;
 			int maxFrames = 5;
 			int frames = 0;
@@ -78,9 +77,13 @@ public class World {
 						Game.enemies.add(en);
 					}else if (pixelAtual == 0XFFA80000) {
 						// ENEMY2
-						Enemy2 en = new Enemy2(xx * 16, yy * 16, 9, 15, Entity.ENEMY2_EN);
-						Game.entities.add(en);
-						Game.enemies2.add(en);
+						Enemy2 en2 = new Enemy2(xx * 16, yy * 16, 9, 15, Entity.ENEMY2_EN);
+						Game.entities.add(en2);
+						Game.enemies2.add(en2);
+//						if(Enemy2.life <= 0) {
+//							LifePack pack = new LifePack(xx * 16, yy * 16, 11, 11, Entity.LIFEPACK_EN); //tentando criar o drop de item
+//							Game.entities.add(pack);
+//						}
 					} else if (pixelAtual == 0XFFFF6A00) {
 						// WEAPON
 						Weapon weapon = new Weapon(xx * 16, yy * 16, 16, 16, Entity.WEAPON_EN);
@@ -94,6 +97,11 @@ public class World {
 				else if(pixelAtual == 0XFF00870B){
 					//Tumulo
 					tiles[xx + (yy * WIDTH)] = new WallTile(xx * 16, yy * 16, Tile.TILE_TOMB);
+				
+				}
+				else if(pixelAtual == 0XFF004904){
+					//Tumulo2
+					tiles[xx + (yy * WIDTH)] = new WallTile(xx * 16, yy * 16, Tile.TILE_TOMB2);
 				
 				}
 					else if (pixelAtual == 0XFFFFFF00) {
@@ -130,8 +138,10 @@ public class World {
 	public static void restartgame(String level) {
 		Game.entities.clear();
 		Game.enemies.clear();
+		Game.enemies2.clear();
 		Game.entities = new ArrayList<Entity>();
 		Game.enemies = new ArrayList<Enemy>();
+		Game.enemies2 = new ArrayList<Enemy2>();
 		Game.spritesheet = new Spritesheet("/spritesheet.png");
 		Game.player = new Player(0, 0, 11, 15, Game.spritesheet.getSprite(32, 0, 11, 15));
 		Game.entities.add(Game.player);
