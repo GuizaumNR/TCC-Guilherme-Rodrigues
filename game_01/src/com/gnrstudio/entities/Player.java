@@ -174,7 +174,7 @@ public class Player extends Entity {
 		if (life <= 0) {
 			// Game over
 			this.life = 0;
-
+			Sound.deadEfecct.play();
 			Game.gameState = "GAME_OVER";
 		}
 
