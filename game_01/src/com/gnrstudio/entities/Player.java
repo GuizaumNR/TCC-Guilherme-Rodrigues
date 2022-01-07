@@ -146,22 +146,26 @@ public class Player extends Entity {
 				ammo--;
 
 				int px = 0;
-				int py = 5;
+				int py = 7;
 				double angle = 0;
 				if (dir == right_dir) {
-					px = 18;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
-																												// os
-																												// valores
-																												// para
-																												// converter
-				} else {
-					px = -8;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
-																												// os
-																												// valores
-																												// para
-																												// converter
+					px = 16;
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando	os valores para converter	
+																											
+				} else if(dir == left_dir){
+					px = -6;
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando	os valores para converter																							// os
+																												
+				} else if(dir == up_dir) {
+					py = 5;
+					px = 13;
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando	os valores para converter																							// os
+					
+				} else if(dir == down_dir) {
+					py = 10;
+					px = -5;
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando	os valores para converter																							// os
+					
 				}
 				double dx = Math.cos(angle); // pegando o angulo x
 				double dy = Math.sin(angle); // pegando o angulo y
@@ -246,7 +250,7 @@ public class Player extends Entity {
 				g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
 					// Desenhando a arma para esquerda
-					g.drawImage(Entity.LEFTGUN_EN, this.getX() - Camera.x - 8, this.getY() - Camera.y + 6, null);
+					g.drawImage(Entity.LEFTGUN_EN, this.getX() - Camera.x - 7, this.getY() - Camera.y + 6, null);
 
 				}
 			} else if (dir == up_dir) {
@@ -279,7 +283,7 @@ public class Player extends Entity {
 				g.drawImage(LDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 				if (hasGun) {
 					// Desenhando a arma para esquerda(com dano)
-					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 8, this.getY() - Camera.y + 6, null);
+					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 7, this.getY() - Camera.y + 6, null);
 
 				}
 

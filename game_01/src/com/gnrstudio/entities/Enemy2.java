@@ -121,7 +121,7 @@ public class Enemy2 extends Entity {
 			if (Game.rand.nextInt(100) > 10) {
 				Sound.hurtEfecct.play();
 				double dano = Game.rand.nextInt(5);
-				Game.player.life -= dano;
+				//Game.player.life -= dano;
 				Game.player.isDamaged = true;
 				if (Game.player.life <= 0) {
 					Game.player.life = 0;
