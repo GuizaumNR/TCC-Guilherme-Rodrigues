@@ -29,6 +29,7 @@ public class Entity {
 	
 	protected double x;
 	protected double y;
+	protected int z;
 	protected int width;
 	protected int height;
 
@@ -92,8 +93,10 @@ public class Entity {
 				e1.getWidth() + e1.mwidth);
 		Rectangle e2Mask = new Rectangle(e2.getX() + e2.maskx, e2.getY() + e2.masky, e2.getHeight() + e2.mheight,
 				e2.getWidth() + e2.mwidth);
-
-		return e1Mask.intersects(e2Mask);
+		if(e1Mask.intersects(e2Mask) && e1.z == e2.z) {
+			return true;
+		}
+		return false;
 	}
 
 	public void render(Graphics g) {

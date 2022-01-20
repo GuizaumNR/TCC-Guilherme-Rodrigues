@@ -129,12 +129,17 @@ public class World {
 		int x4 = (xnext + TILE_SIZE - 1) / TILE_SIZE;
 		int y4 = (ynext + TILE_SIZE - 1) / TILE_SIZE;
 
-		return !((tiles[x1 + (y1 * World.WIDTH)] instanceof WallTile) || // verificando se o tile é parede(WallTile)
+		if( !((tiles[x1 + (y1 * World.WIDTH)] instanceof WallTile) || // verificando se o tile é parede(WallTile)
 				(tiles[x2 + (y2 * World.WIDTH)] instanceof WallTile) || // retorna true se for por isso "!"
 				(tiles[x3 + (y3 * World.WIDTH)] instanceof WallTile) || // para "isFree" ser false
-				(tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile));
+				(tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile))) {
+		return true;
 	}
-
+	if(Game.player.z > 0) { //z representa altura, se for > 0 ele está pulando, então não colide
+		return true;
+	}
+	return false;
+	}
 	public static void restartgame(String level) {
 		Game.entities.clear();
 		Game.enemies.clear();
@@ -149,10 +154,6 @@ public class World {
 		return;
 	}
 	
-//	public void hora(){
-//		GregorianCalendar calendar = new GregorianCalendar();
-//		int hora = calendar.get(Calendar.HOUR_OF_DAY);
-//	}
 	
 	public void render(Graphics g) {
 		int xstart = Camera.x >> 4;

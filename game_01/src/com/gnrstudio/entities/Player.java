@@ -34,18 +34,18 @@ public class Player extends Entity {
 	public boolean isDamaged = false;
 	public double life = 100, maxlife = 100;
 	public int mx, my;
-	
+
 	public boolean jump = false;
-	
+
 	public boolean isJumping = false;
-	
+
 	public int z = 0;
-	
-	public int jumpFrames = 50, jumpCur = 0;
-	
-	public boolean jumpUp = false, jumpDown = false; 
-	
-	public int jumpSpd = 2;
+
+	public int jumpFrames = 40, jumpCur = 0;
+
+	public boolean jumpUp = false, jumpDown = false;
+
+	public double jumpSpd = 1;
 
 	public Player(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
@@ -79,34 +79,35 @@ public class Player extends Entity {
 	}
 
 	public void tick() {
-		
-		if(jump) {
-			if(isJumping == false) {
-			jump = false;
-			isJumping = true;
-			jumpUp = true;
+
+		if (jump) {
+			if (isJumping == false) {
+				jump = false;
+				isJumping = true;
+				jumpUp = true;
+			}
 		}
-			if(isJumping) {
-				
-					if(jumpUp) {
-						jumpCur+=2;
-					}else if(jumpDown) {
-						jumpCur=-2;
-						if(jumpCur <= 0) {
-							isJumping = false;
-							jumpDown = false;
-							jumpUp = true;
-						}
-					}
-					z = jumpCur;
-					if(jumpCur >= jumpFrames){
+		if (isJumping == true) {
+
+			
+				if(jumpUp) {
+				jumpCur +=2;
+				}else if(jumpDown) {
+					jumpCur -=2;
+					if(jumpCur <= 0) {
+						isJumping = false;
+						jumpDown = false;
 						jumpUp = false;
-						jumpDown = true;
-					
 					}
+				}
+				z = jumpCur;
+			if (jumpCur >= jumpFrames) {
+				jumpUp = false;
+				jumpDown = true;
+					}
+				
 			}
-			}
-		
+
 		moved = false;
 		if (right && World.isFree((int) (x + speed), this.getY())) {
 			moved = true;
@@ -190,22 +191,41 @@ public class Player extends Entity {
 				double angle = 0;
 				if (dir == right_dir) {
 					px = 16;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando	os valores para converter	
-																											
-				} else if(dir == left_dir){
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
+																												// os
+																												// valores
+																												// para
+																												// converter
+
+				} else if (dir == left_dir) {
 					px = -6;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando	os valores para converter																							// os
-																												
-				} else if(dir == up_dir) {
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
+																												// os
+																												// valores
+																												// para
+																												// converter
+																												// // os
+
+				} else if (dir == up_dir) {
 					py = 5;
 					px = 13;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando	os valores para converter																							// os
-					
-				} else if(dir == down_dir) {
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
+																												// os
+																												// valores
+																												// para
+																												// converter
+																												// // os
+
+				} else if (dir == down_dir) {
 					py = 10;
 					px = -5;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando	os valores para converter																							// os
-					
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
+																												// os
+																												// valores
+																												// para
+																												// converter
+																												// // os
+
 				}
 				double dx = Math.cos(angle); // pegando o angulo x
 				double dy = Math.sin(angle); // pegando o angulo y
@@ -346,5 +366,9 @@ public class Player extends Entity {
 			}
 		}
 
+		if (isJumping) {
+			g.setColor(Color.BLACK);
+			g.fillOval(this.getX() - Camera.x, this.getY() - Camera.y + 8, 9, 9);
+		}
 	}
 }

@@ -63,7 +63,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private boolean restartGame = false;
 	
 	public Menu menu;
-
+	
 	public Game() {
 		Sound.musicBackground.play();
 		rand = new Random();
