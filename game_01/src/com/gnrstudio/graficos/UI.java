@@ -33,12 +33,20 @@ public class UI {
 		g.setFont(new Font("arial", Font.PLAIN, 8));
 		g.drawString((int)Game.player.life+"/"+(int)Game.player.maxlife, 32, 15);
 		
-		g.setFont(new Font("arial", Font.BOLD, 10));
+		//municao
+		g.setFont(new Font("arial", Font.PLAIN, 8));
 		g.setColor(Color.WHITE);
 		g.drawString("Munição: " + Game.player.ammo, 20 , 30);
 		
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
+		//hora
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH: mm");
         LocalDateTime timePoint = LocalDateTime.now();
+       
+        
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(196, 6, 28, 12);
+		g.setColor(Color.BLACK);
+		g.fillRect(198, 8, 24, 8);
         g.setColor(Color.red);
         g.setFont(new Font("arial", Font.PLAIN, 8));
         g.drawString(timePoint.format(fmt), 200, 15);
