@@ -34,9 +34,9 @@ public class UI {
 		g.drawString((int)Game.player.life+"/"+(int)Game.player.maxlife, 32, 15);
 		
 		//municao
-		g.setFont(new Font("arial", Font.PLAIN, 8));
-		g.setColor(Color.WHITE);
-		g.drawString("Munição: " + Game.player.ammo, 20 , 30);
+//		g.setFont(new Font("arial", Font.PLAIN, 8));
+//		g.setColor(Color.WHITE);
+//		g.drawString("Munição: " + Game.player.ammo, 20 , 30);
 		
 		//hora
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH: mm");
