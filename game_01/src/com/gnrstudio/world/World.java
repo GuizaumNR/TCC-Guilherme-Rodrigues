@@ -116,7 +116,8 @@ public class World {
 		}
 	}
 
-	public static boolean isFree(int xnext, int ynext) {// para checar se a proxima posisao esta livre
+	
+	public static boolean isFree(int xnext, int ynext, int z) {//para checar se a proxima posisao esta livre
 		int x1 = xnext / TILE_SIZE;
 		int y1 = ynext / TILE_SIZE;
 
@@ -135,28 +136,7 @@ public class World {
 				(tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile))) {
 		return true;
 	}
-	return false;
-	}
-	public static boolean isFreeP(int xnext, int ynext) {// Fiz esse para usar somente no player para n desligar
-		int x1 = xnext / TILE_SIZE;
-		int y1 = ynext / TILE_SIZE;
-
-		int x2 = (xnext + TILE_SIZE - 1) / TILE_SIZE;
-		int y2 = ynext / TILE_SIZE;
-
-		int x3 = xnext / TILE_SIZE;
-		int y3 = (ynext + TILE_SIZE - 1) / TILE_SIZE;
-
-		int x4 = (xnext + TILE_SIZE - 1) / TILE_SIZE;
-		int y4 = (ynext + TILE_SIZE - 1) / TILE_SIZE;
-
-		if( !((tiles[x1 + (y1 * World.WIDTH)] instanceof WallTile) || // verificando se o tile é parede(WallTile)
-				(tiles[x2 + (y2 * World.WIDTH)] instanceof WallTile) || // retorna true se for por isso "!"
-				(tiles[x3 + (y3 * World.WIDTH)] instanceof WallTile) || // para "isFree" ser false
-				(tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile))) {
-		return true;
-	}
-	if(Game.player.z > 0) { //z representa altura, se for > 0 ele está pulando, então não colide
+	if(z > 0) { //z representa altura, se for > 0 ele está pulando, então não colide
 		return true;
 	}
 	return false;

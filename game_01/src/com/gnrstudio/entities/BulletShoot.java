@@ -17,6 +17,8 @@ public class BulletShoot extends Entity {
 	private BufferedImage BulletShootSprite;
 
 	private int life = 30, curLife = 0; // tempo de "vida" das balas
+	
+	int z = 0;
 
 	public BulletShoot(int x, int y, int width, int height, BufferedImage sprite, double dx, double dy) {
 		super(x, y, width, height, sprite);
@@ -35,14 +37,14 @@ public class BulletShoot extends Entity {
 			return; // sempre se da um return qunado se remove o proprio objeto
 		}
 
-		if ((int) x < Game.player.getX() && World.isFree((int) (x + spd), this.getY())) {
+		if ((int) x < Game.player.getX() && World.isFree((int) (x + spd), this.getY(), z)) {
 			
-		}else if ((int) x > Game.player.getX() && World.isFree((int) (x - spd), this.getY())) {
+		}else if ((int) x > Game.player.getX() && World.isFree((int) (x - spd), this.getY(), z)) {
 
 		}
-		else if ((int) y < Game.player.getY() && World.isFree(this.getX(), (int) (y + spd))) {
+		else if ((int) y < Game.player.getY() && World.isFree(this.getX(), (int) (y + spd), z)) {
 			
-		} else if ((int) y > Game.player.getY() && World.isFree(this.getX(), (int) (y - spd))) {
+		} else if ((int) y > Game.player.getY() && World.isFree(this.getX(), (int) (y - spd), z)) {
 		
 		} else {
 			destroySelf();	
