@@ -12,6 +12,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.gnrstudio.world.World;
+
 public class Menu {
 
 	public String[] options = { "Novo Jogo", "Carregar Jogo", "Sair" };
@@ -21,9 +23,18 @@ public class Menu {
 
 	public boolean up, down, enter;
 
-	public boolean pause = false;
+	public static boolean pause = false;
+	
+	public static boolean saveExists = false;
+	public static boolean saveGame = false;
 	
 	public void tick() {
+		File file = new File("save.txt");
+		if(file.exists()) {
+			saveExists = true;
+		}else {
+			saveExists = false;
+		}
 		if (up) {
 			up = false;
 			currentOption--;
@@ -46,11 +57,38 @@ public class Menu {
 			if(options[currentOption] == "Novo Jogo" || options[currentOption] == "Continuar") {
 				Game.gameState = "NORMAL";
 				pause = false;
+				file = new File("save.txt");
+				file.delete();
+			}else if(options[currentOption] == "Carregar Jogo") {
+				file = new File("save.txt");
+				if(file.exists()) { //só por garantia
+					String saver = loadGame(10); // 10 é o encode (criptografia que estamos usando)
+					applySave(saver);
+				}
 			}else if(options[currentOption] == "Sair") {
 				System.exit(1);
 			}
 			}
 		}
+	
+	public static void applySave(String str) {
+		String[] spl = str.split("/");
+		for(int i = 0; i < spl.length; i++) {
+			String[] spl2 = spl[i].split(":");
+			switch(spl2[0]) {
+			
+			case "level":
+				World.restartgame("level"+spl2[1]+".png");	
+				Game.gameState = "NORMAL";
+				pause = false;
+				break;
+				
+			case "vida":
+				Game.player.life = Integer.parseInt(spl2[1]);
+				break;
+			}
+		}
+	}
 	
 	public static String loadGame(int encode){
 		String line = "";
