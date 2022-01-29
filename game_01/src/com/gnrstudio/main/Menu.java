@@ -2,6 +2,7 @@ package com.gnrstudio.main;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
@@ -11,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 
 import com.gnrstudio.world.World;
 
@@ -24,6 +26,8 @@ public class Menu {
 	public boolean up, down, enter;
 
 	public static boolean pause = false;
+	
+	Color tituloColor = new Color(255, 255, 255);
 	
 	public static boolean saveExists = false;
 	public static boolean saveGame = false;
@@ -69,6 +73,7 @@ public class Menu {
 				System.exit(1);
 			}
 			}
+		
 		}
 	
 	public static void applySave(String str) {
@@ -162,8 +167,8 @@ public class Menu {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(new Color(0,0,0,200));
 		g2.fillRect(0, 0, Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
-		g.setColor(Color.RED);
-		g.setFont(new Font("arial", Font.BOLD, 38));
+		g.setColor(tituloColor);
+		g.setFont(Game.graspingFont);
 		g.drawString("Sipri Game", (Game.WIDTH * Game.SCALE)/2 - 94, (Game.HEIGHT * Game.SCALE)/2 - 160);
 		
 		//opcoes
@@ -189,6 +194,7 @@ public class Menu {
 			g.drawString(">", (Game.WIDTH * Game.SCALE)/2 - 45, (Game.HEIGHT * Game.SCALE)/2 - 20);
 			g.drawString("<", (Game.WIDTH * Game.SCALE)/2 + 30, (Game.HEIGHT * Game.SCALE)/2 - 20);
 		}
+		
 	}
 
 }

@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -12,6 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -62,6 +65,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private int framesGameOver = 0;
 	private boolean restartGame = false;
 
+	public InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("grasping.ttf");
+	public static Font graspingFont;
+	
 	public Menu menu;
 
 	public boolean saveGame = false;
@@ -88,6 +94,16 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		world = new World("/level1.png");
 
 		menu = new Menu();
+		
+		try {
+			graspingFont = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(46f);
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void initFrame() {
@@ -203,6 +219,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
+		g.setColor(Color.WHITE);
+		g.drawString("Munição: " + Game.player.ammo, 20 , 40);
 		if (gameState == "GAME_OVER") {
 			Graphics2D g2 = (Graphics2D) g; // criando opacidade
 			g2.setColor(new Color(0, 0, 0, 100));
