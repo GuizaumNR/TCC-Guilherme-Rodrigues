@@ -28,6 +28,7 @@ public class Menu {
 	public static boolean pause = false;
 	
 	Color tituloColor = new Color(255, 255, 255);
+	Color tituloFundoColor = new Color(225, 255, 218, 150);
 	
 	public static boolean saveExists = false;
 	public static boolean saveGame = false;
@@ -163,13 +164,20 @@ public class Menu {
 	}
 
 	public void render(Graphics g) {
-		//titulo
 		Graphics2D g2 = (Graphics2D) g;
+		
+		//blur
 		g2.setColor(new Color(0,0,0,200));
 		g2.fillRect(0, 0, Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
+		
+		//titulo
 		g.setColor(tituloColor);
 		g.setFont(Game.graspingFont);
 		g.drawString("Sipri Game", (Game.WIDTH * Game.SCALE)/2 - 94, (Game.HEIGHT * Game.SCALE)/2 - 160);
+		//fundo do titulo
+		g.setColor(tituloFundoColor);
+		g.setFont(Game.graspingFontFundo);
+		g.drawString("Sipri Game", (Game.WIDTH * Game.SCALE)/2 - 93, (Game.HEIGHT * Game.SCALE)/2 - 161);
 		
 		//opcoes
 		g.setColor(Color.WHITE);

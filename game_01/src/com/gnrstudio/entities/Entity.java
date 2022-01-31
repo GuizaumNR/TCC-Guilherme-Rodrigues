@@ -87,6 +87,10 @@ public class Entity {
 	public void tick() {
 
 	}
+	
+	public double calculateDistance(int x1, int y1, int x2, int y2) {
+		return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 -  y2) * (y1 - y2)); //calculando a distancia com seno e cosseno, por base no angulo, pela menor distancia
+	}
 
 	public static boolean isColidding(Entity e1, Entity e2) {
 		Rectangle e1Mask = new Rectangle(e1.getX() + e1.maskx, e1.getY() + e1.masky, e1.getHeight() + e1.mheight,

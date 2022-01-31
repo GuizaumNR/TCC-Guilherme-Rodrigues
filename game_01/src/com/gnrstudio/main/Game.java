@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -30,7 +31,7 @@ import com.gnrstudio.graficos.UI;
 import com.gnrstudio.world.Camera;
 import com.gnrstudio.world.World;
 
-public class Game extends Canvas implements Runnable, KeyListener, MouseListener {
+public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseMotionListener {
 
 	private static final long serialVersionUID = 1L;
 	public static JFrame frame;
@@ -66,17 +67,21 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	private boolean restartGame = false;
 
 	public InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("grasping.ttf");
+	public InputStream streamFundo = ClassLoader.getSystemClassLoader().getResourceAsStream("grasping.ttf");
 	public static Font graspingFont;
+	public static Font graspingFontFundo;
 	
 	public Menu menu;
 
 	public boolean saveGame = false;
 	
+	public int mx, my;
 	public Game() {
 		Sound.musicBackground.play();
 		rand = new Random();
 		addKeyListener(this); // adicionando o "ouvidor" de teclas aqui(this)
 		addMouseListener(this); // adicionando o "ouvidor" de mouse aqui(this)
+		addMouseMotionListener(this); //adiconando o "ouvidor" de movimentos do mouse aqui(this)
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		initFrame();
 
@@ -98,10 +103,16 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		try {
 			graspingFont = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(46f);
 		} catch (FontFormatException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			graspingFontFundo = Font.createFont(Font.TRUETYPE_FONT, streamFundo).deriveFont(45f);
+		} catch (FontFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -236,6 +247,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		} else if (gameState == "MENU") {
 			menu.render(g);
 		}
+//		Graphics2D g2 = (Graphics2D) g; //rotação de objetos
+//		double angleMouse = Math.atan2(my - 200 + 45, mx - 200 + 25);
+//		g2.rotate(angleMouse, 200+25, 200+45);
+//		g.setColor(Color.RED);
+//		g.fillRect(200, 200, 50, 70);
+//		
 		bs.show();
 	}
 
@@ -371,6 +388,19 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		this.mx = e.getX();
+		this.my = e.getY();
+		
 	}
 
 }

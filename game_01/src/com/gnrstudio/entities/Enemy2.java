@@ -71,7 +71,7 @@ public class Enemy2 extends Entity {
 	}
 
 	public void tick() {
-
+		if(this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 100) {
 		if (isColiddingWithPlayer() == false) {
 			if ((int) x < Game.player.getX() && World.isFree((int) (x + speed), this.getY(), z)
 					&& !isColidding((int) (x + speed), this.getY())) {
@@ -108,18 +108,6 @@ public class Enemy2 extends Entity {
 			}
 
 		} else {
-			// estamos perto do player, o que fazer?
-			// tentando criar pause entre os ataques deu erro
-
-//			int delay = 1000;   
-//			int intervalo = 5000;  
-//			Timer timer = new Timer();
-//
-//			timer.scheduleAtFixedRate(new TimerTask() { //criando uma pausa entre os ataques, 
-//			        public void run() {
-//		    }, delay, intervalo);
-//	}
-//
 			if (Game.rand.nextInt(100) > 10) {
 				Sound.hurtEfecct.play();
 				double dano = Game.rand.nextInt(5);
@@ -130,7 +118,7 @@ public class Enemy2 extends Entity {
 				}
 			}
 		}
-
+		}
 		collidingBullet();
 		if (life <= 0) {
 			destroySelf();

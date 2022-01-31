@@ -79,7 +79,6 @@ public class Player extends Entity {
 	}
 
 	public void tick() {
-
 		if (jump) {
 			if (isJumping == false) {
 				jump = false;
@@ -191,40 +190,21 @@ public class Player extends Entity {
 				double angle = 0;
 				if (dir == right_dir) {
 					px = 16;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
-																												// os
-																												// valores
-																												// para
-																												// converter
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando os valores para converter
 
 				} else if (dir == left_dir) {
 					px = -6;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
-																												// os
-																												// valores
-																												// para
-																												// converter
-																												// // os
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x));
 
 				} else if (dir == up_dir) {
 					py = 5;
 					px = 13;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
-																												// os
-																												// valores
-																												// para
-																												// converter
-																												// // os
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); 
 
 				} else if (dir == down_dir) {
 					py = 10;
 					px = -5;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
-																												// os
-																												// valores
-																												// para
-																												// converter
-																												// // os
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); 
 
 				}
 				double dx = Math.cos(angle); // pegando o angulo x

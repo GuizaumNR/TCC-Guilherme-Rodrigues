@@ -57,7 +57,7 @@ public class Enemy extends Entity {
 
 	public void tick() {// OBS: debug funciona apenas em loops
 		// if(Game.rand.nextInt(100) < 50) maneira 1 de randomizar inimigos(simples)		
-		 
+		 if(this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 150) { //distancia do player
 		if (isColiddingWithPlayer() == false) {
 			if ((int) x < Game.player.getX() && World.isFree((int) (x + speed), this.getY(), z)
 					&& !isColidding((int) (x + speed), this.getY())) {
@@ -107,6 +107,10 @@ public class Enemy extends Entity {
 			}
 			
 		}
+		
+//		 }else(1 > 0){
+//		 
+	 }
 		collidingBullet();	
 		if(life <= 0) {
 			destroySelf();
