@@ -19,8 +19,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-
 import com.gnrstudio.entities.BulletShoot;
 import com.gnrstudio.entities.Enemy;
 import com.gnrstudio.entities.Enemy2;
@@ -30,6 +30,7 @@ import com.gnrstudio.graficos.Spritesheet;
 import com.gnrstudio.graficos.UI;
 import com.gnrstudio.world.Camera;
 import com.gnrstudio.world.World;
+import java.awt.image.DataBufferInt;
 
 public class Game extends Canvas implements Runnable, KeyListener, MouseListener, MouseMotionListener {
 
@@ -75,6 +76,10 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public boolean saveGame = false;
 	
+	public int[] pixels;
+	public BufferedImage lightmap;
+	public int[] lightMapPixels;
+	
 	public int mx, my;
 	public Game() {
 		Sound.musicBackground.play();
@@ -88,6 +93,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		// Inicializando objetos;
 		ui = new UI();
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+		try {
+			lightmap = ImageIO.read(getClass().getResource("/lightmap.png"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		lightMapPixels = new int[lightmap.getWidth() * lightmap.getHeight()];
+		lightmap.getRGB(0, 0, lightmap.getWidth(), lightmap.getHeight(), lightMapPixels, 0, lightmap.getWidth());
+		pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 		entities = new ArrayList<Entity>();
 		enemies = new ArrayList<Enemy>();
 		enemies2 = new ArrayList<Enemy2>();
@@ -150,7 +164,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 
 	public void tick() {
-		if (gameState == "NORMAL") {
+		if (gameState == "NORMAL") { 
 			if(this.saveGame) {
 				this.saveGame = false;
 				String[] opt1 = {"level","vida"}; //nome no arquivo
@@ -202,7 +216,30 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			menu.tick();
 		}
 	}
+//public void drawRectangleExample(int xoff, int yoff) {
+//	for(int xx = 0; xx < 32; xx++) {
+//		for(int yy = 0; yy < 32; yy ++) {
+//			xoff = xx + xoff;
+//			yoff = yy +  yoff;
+//			if(xoff < 0 || yoff < 0 || xoff >= WIDTH || yoff >= HEIGHT) {
+//				continue;
+//			}
+//			pixels[xoff + ((yoff*WIDTH))] = 0x00ff00;
+//		}
+//	}
+//}
 
+	public void applyLight() {
+		for(int xx = 0; xx < WIDTH; xx++) {
+			for(int yy = 0; yy < HEIGHT; yy++) {
+				if(lightMapPixels[xx+(yy * WIDTH)] == 0xffffffff) {// pegando na imagem lightmap
+					pixels[xx +(yy*WIDTH)] = 0;
+				}
+			}
+		}
+	}
+	
+/* RENDERIZAÇÃO DO JOGO */
 	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
@@ -213,9 +250,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g.setColor(new Color(0, 0, 0));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
-		/* RENDERIZAÇÃO DO JOGO */
-		// Graphics2D g2 = (Graphics2D) g;
-
+		
 		world.render(g);
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
@@ -225,13 +260,14 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).render(g);
 		}
-
+		applyLight();
 		ui.render(g);
 		g.dispose();
 		g = bs.getDrawGraphics();
+		
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.setColor(Color.WHITE);
-		g.drawString("Munição: " + Game.player.ammo, 20 , 40);
+		g.drawString("Munição: " + Game.player.ammo, 20 , 80);
 		if (gameState == "GAME_OVER") {
 			Graphics2D g2 = (Graphics2D) g; // criando opacidade
 			g2.setColor(new Color(0, 0, 0, 100));
@@ -400,7 +436,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public void mouseMoved(MouseEvent e) {
 		this.mx = e.getX();
 		this.my = e.getY();
-		
 	}
 
 }

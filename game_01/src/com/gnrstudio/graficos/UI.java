@@ -16,8 +16,17 @@ import com.gnrstudio.main.Game;
 public class UI {
 	
 	public static BufferedImage s2;
-	
-	
+	public static int hora;
+	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("mm");;
+	public static LocalDateTime timePoint2 = LocalDateTime.now();;
+	public void tick() {
+
+	        
+//	        while(hora >= 2) {
+//	        	System.out.println("funfou");
+//	        }
+		
+	}
 	public void render(Graphics g) {
 		
 		//Vida
@@ -38,7 +47,7 @@ public class UI {
 //		g.setColor(Color.WHITE);
 //		g.drawString("Munição: " + Game.player.ammo, 20 , 30);
 		
-		//hora
+		//hora na tela
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH: mm");
         LocalDateTime timePoint = LocalDateTime.now();
        
@@ -50,6 +59,8 @@ public class UI {
         g.setColor(Color.red);
         g.setFont(new Font("arial", Font.PLAIN, 8));
         g.drawString(timePoint.format(fmt), 200, 15);
+        
+        
           
     }
 
