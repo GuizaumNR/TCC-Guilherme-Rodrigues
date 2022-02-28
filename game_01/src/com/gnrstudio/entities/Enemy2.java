@@ -9,14 +9,16 @@ import java.util.TimerTask;
 
 import com.gnrstudio.main.Game;
 import com.gnrstudio.main.Sound;
+import com.gnrstudio.world.AStar;
 import com.gnrstudio.world.Camera;
+import com.gnrstudio.world.Vector2i;
 import com.gnrstudio.world.World;
 
 public class Enemy2 extends Entity {
 
 	private double speed = 0.8;
 
-	private int maskX = 0, maskY = 0, maskW = 9, maskH = 15;
+	
 
 	private int frames = 0, maxFrames = 3, index = 0, maxIndex = 3;// maxindex se conta a quantia de frames menos 1
 
@@ -71,41 +73,15 @@ public class Enemy2 extends Entity {
 	}
 
 	public void tick() {
-		if(this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 100) {
+		//if(this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 100) {
 		if (isColiddingWithPlayer() == false) {
-			if ((int) x < Game.player.getX() && World.isFree((int) (x + speed), this.getY(), z)
-					&& !isColidding((int) (x + speed), this.getY())) {
-				x += speed;
-				dir = right_dir;
-			} else if ((int) x > Game.player.getX() && World.isFree((int) (x - speed), this.getY(), 0)
-					&& !isColidding((int) (x - speed), this.getY())) {
-				x -= speed;
-				dir = left_dir;
 
-			}
-			if ((int) y < Game.player.getY() && World.isFree(this.getX(), (int) (y + speed), 0)
-					&& !isColidding(this.getX(), (int) (y + speed))) {
-				y += speed;
-				dir = up_dir;
-
-			} else if ((int) y > Game.player.getY() && World.isFree(this.getX(), (int) (y - speed), 0)
-					&& !isColidding(this.getX(), (int) (y - speed))) {
-				y -= speed;
-				dir = down_dir;
-			} else {
-				// estamos colidindo
-				parado = true;
-
-			}
-			parado = false;
-			frames++;
-			if (frames == maxFrames) {
-				frames = 0;
-				index++;
-				if (index > maxIndex) {
-					index = 0;
-				}
-			}
+			 if(path == null || path.size() == 0) {
+				 Vector2i start = new Vector2i((int)(x/16),(int)(y/16));
+				 Vector2i end = new Vector2i((int)(Game.player.x/16),(int)(Game.player.y/16));
+				 path = AStar.findPath(Game.world, start, end);
+			 }
+			
 
 		} else {
 			if (Game.rand.nextInt(100) > 10) {
@@ -118,6 +94,16 @@ public class Enemy2 extends Entity {
 				}
 			}
 		}
+		
+		 followPath(path);
+		parado = false;
+		frames++;
+		if (frames == maxFrames) {
+			frames = 0;
+			index++;
+			if (index > maxIndex) {
+				index = 0;
+			}
 		}
 		collidingBullet();
 		if (life <= 0) {
@@ -157,25 +143,9 @@ public class Enemy2 extends Entity {
 	}
 
 	public boolean isColiddingWithPlayer() {
-		Rectangle enemyCurrent = new Rectangle(this.getX() + maskX, this.getY() + maskY, maskW, maskH);
-		Rectangle player = new Rectangle(Game.player.getX() + maskX, Game.player.getY() + maskY + Game.player.z, 16, 16);
+		Rectangle enemyCurrent = new Rectangle(this.getX() + maskx, this.getY() + masky, mwidth, mheight);
+		Rectangle player = new Rectangle(Game.player.getX() + maskx, Game.player.getY() + masky + Game.player.z, 16, 16);
 		return enemyCurrent.intersects(player);
-	}
-
-	public boolean isColidding(int xnext, int ynext) { // metodo para checar colisao de retangulos
-		Rectangle enemyCurrent = new Rectangle(xnext + maskX, ynext + maskY, maskW, maskH);
-
-		for (int i = 0; i < Game.enemies2.size(); i++) {
-			Enemy2 e = Game.enemies2.get(i);
-			if (e == this) // enemy = este enemy continua
-				continue;
-			Rectangle targetEnemy = new Rectangle(e.getX() + maskX, e.getY() + maskY, maskW, maskH);
-			if (enemyCurrent.intersects(targetEnemy)) {
-				return true;
-
-			}
-		}
-		return false;
 	}
 
 	public void render(Graphics g) {
@@ -189,8 +159,8 @@ public class Enemy2 extends Entity {
 			} else if (dir == up_dir) {
 				g.drawImage(upEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 			}
-//			g.setColor(Color.BLUE);
-//			g.fillRect(this.getX() + maskX - Camera.x, this.getY() + maskY - Camera.y, maskW, maskH);
+			g.setColor(Color.BLUE);
+			g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, mwidth, mheight);
 		} else {
 			if (dir == right_dir) {
 				g.drawImage(dRightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);

@@ -213,6 +213,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				Game.world.restartgame(newWorld);
 			}
 		} else if (gameState == "MENU") {
+			player.updateCamera();
 			menu.tick();
 		}
 	}
@@ -229,15 +230,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 //	}
 //}
 
-	public void applyLight() {
-		for(int xx = 0; xx < WIDTH; xx++) {
-			for(int yy = 0; yy < HEIGHT; yy++) {
-				if(lightMapPixels[xx+(yy * WIDTH)] == 0xffffffff) {// pegando na imagem lightmap
-					pixels[xx +(yy*WIDTH)] = 0;
-				}
-			}
-		}
-	}
+//	public void applyLight() {
+//		for(int xx = 0; xx < WIDTH; xx++) {
+//			for(int yy = 0; yy < HEIGHT; yy++) {
+//				if(lightMapPixels[xx+(yy * WIDTH)] == 0xffffffff) {// pegando na imagem lightmap
+//					pixels[xx +(yy*WIDTH)] = 0;
+//				}
+//			}
+//		}
+//	}
 	
 /* RENDERIZAÇÃO DO JOGO */
 	public void render() {
@@ -260,8 +261,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).render(g);
 		}
-		applyLight();
+		//applyLight();
 		ui.render(g);
+		
 		g.dispose();
 		g = bs.getDrawGraphics();
 		

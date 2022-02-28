@@ -6,7 +6,9 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.gnrstudio.main.Game;
+import com.gnrstudio.world.AStar;
 import com.gnrstudio.world.Camera;
+import com.gnrstudio.world.Vector2i;
 import com.gnrstudio.world.World;
 
 public class Enemy extends Entity {
@@ -107,9 +109,7 @@ public class Enemy extends Entity {
 			}
 			
 		}
-		
-//		 }else(1 > 0){
-//		 
+				 
 	 }
 		collidingBullet();	
 		if(life <= 0) {

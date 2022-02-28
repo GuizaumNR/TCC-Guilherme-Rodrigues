@@ -18,14 +18,15 @@ public class UI {
 	public static BufferedImage s2;
 	public static int hora;
 	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("mm");;
-	public static LocalDateTime timePoint2 = LocalDateTime.now();;
+	public static LocalDateTime timePoint2 = LocalDateTime.now();
+	
 	public void tick() {
-
-	        
-//	        while(hora >= 2) {
-//	        	System.out.println("funfou");
+		timePoint2.format(fmt2);
+	       
+//	        while(timePoint2.getMinute() > 8) {
+//	        	System.out.println(timePoint2.getMinute());
 //	        }
-		
+//		
 	}
 	public void render(Graphics g) {
 		
