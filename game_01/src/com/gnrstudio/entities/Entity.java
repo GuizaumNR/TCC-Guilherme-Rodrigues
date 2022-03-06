@@ -106,19 +106,19 @@ public static Comparator<Entity> nodeSorter = new Comparator<Entity>() {
 	public double calculateDistance(int x1, int y1, int x2, int y2) {
 		return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 -  y2) * (y1 - y2)); //calculando a distancia com seno e cosseno, por base no angulo, pela menor distancia
 	}
-	public boolean isColidding(int xnext, int ynext) { // metodo para checar colisao de retangulos
-		Rectangle enemyCurrent = new Rectangle(xnext + maskx, ynext + masky, mwidth, mheight);
-
-		for (int i = 0; i < Game.enemies.size(); i++) {
-			Enemy e = Game.enemies.get(i);
-			if (e == this) // enemy = este enemy continua
+	
+	public boolean isColidding(int xnext,int ynext){
+		Rectangle enemyCurrent = new Rectangle(xnext + maskx,ynext + masky,mwidth,mheight);
+		for(int i = 0; i < Game.enemies2.size(); i++){
+			Enemy2 e = Game.enemies2.get(i);
+			if(e == this)
 				continue;
-			Rectangle targetEnemy = new Rectangle(e.getX() + maskx, e.getY() + masky, mwidth, mheight);
-			if (enemyCurrent.intersects(targetEnemy)) {
+			Rectangle targetEnemy = new Rectangle(e.getX()+ maskx,e.getY()+ masky,mwidth,mheight);
+			if(enemyCurrent.intersects(targetEnemy)){
 				return true;
-
 			}
 		}
+		
 		return false;
 	}
 	
@@ -128,15 +128,15 @@ public static Comparator<Entity> nodeSorter = new Comparator<Entity>() {
 				Vector2i target = path.get(path.size() - 1).tile;
 				//xprev = x;
 				//yprev = y;
-				if(x < target.x * 16) {
+				if(x < target.x * 16 && !isColidding(this.getX() + 1, this.getY())) {
 					x++;
-				}else if(x > target.x * 16) {
+				}else if(x > target.x * 16 && !isColidding(this.getX() - 1, this.getY())) {
 					x--;
 				}
 				
-				if(y < target.y * 16) {
+				if(y < target.y * 16 && !isColidding(this.getX(), this.getY() + 1)) {
 					y++;
-				}else if(y > target.y * 16) {
+				}else if(y > target.y * 16 && !isColidding(this.getX(), this.getY() - 1)) {
 					y--;
 				}
 				
@@ -148,15 +148,11 @@ public static Comparator<Entity> nodeSorter = new Comparator<Entity>() {
 		}
 	}
 	
-	public static boolean isColidding(Entity e1, Entity e2) {
-		Rectangle e1Mask = new Rectangle(e1.getX() + e1.maskx, e1.getY() + e1.masky, e1.getHeight() + e1.mheight,
-				e1.getWidth() + e1.mwidth);
-		Rectangle e2Mask = new Rectangle(e2.getX() + e2.maskx, e2.getY() + e2.masky, e2.getHeight() + e2.mheight,
-				e2.getWidth() + e2.mwidth);
-		if(e1Mask.intersects(e2Mask) && e1.z == e2.z) {
-			return true;
-		}
-		return false;
+	public static boolean isColidding(Entity e1,Entity e2){
+		Rectangle e1Mask = new Rectangle(e1.getX() + e1.maskx,e1.getY()+e1.masky,e1.mwidth,e1.mheight);
+		Rectangle e2Mask = new Rectangle(e2.getX() + e2.maskx,e2.getY()+e2.masky,e2.mwidth,e2.mheight);
+		
+		return e1Mask.intersects(e2Mask);
 	}
 
 	public void render(Graphics g) {

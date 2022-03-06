@@ -156,7 +156,7 @@ public class Enemy extends Entity {
 	
 	public boolean isColiddingWithPlayer() {
 		Rectangle enemyCurrent = new Rectangle(this.getX() + maskX, this.getY() + maskY, maskW, maskH);
-		Rectangle player = new Rectangle(Game.player.getX() + maskX, Game.player.getY() + maskY + Game.player.z, 16, 16);
+		Rectangle player = new Rectangle(Game.player.getX() + maskX, Game.player.getY() + maskY + Game.player.z,  Game.player.width, Game.player.height);
 		return enemyCurrent.intersects(player);
 	}
 
