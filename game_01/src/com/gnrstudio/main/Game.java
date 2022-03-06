@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -217,6 +218,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			menu.tick();
 		}
 	}
+	
+	//rotação de objetos
 //public void drawRectangleExample(int xoff, int yoff) {
 //	for(int xx = 0; xx < 32; xx++) {
 //		for(int yy = 0; yy < 32; yy ++) {
@@ -230,6 +233,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 //	}
 //}
 
+// visão de olho
 //	public void applyLight() {
 //		for(int xx = 0; xx < WIDTH; xx++) {
 //			for(int yy = 0; yy < HEIGHT; yy++) {
@@ -253,6 +257,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 		
 		world.render(g);
+		Collections.sort(entities, Entity.nodeSorter);
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			e.render(g);

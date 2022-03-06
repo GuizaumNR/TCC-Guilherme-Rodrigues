@@ -18,7 +18,8 @@ public class Weapon extends Entity {
 		for (int i = 0; i < 12; i++) {
 
 			WeaponSprite[i] = Game.spritesheet.getSprite(32 + (i * 16), 96, 10, 16);
-
+			
+			depth = 0;
 		}
 	}
 

@@ -73,6 +73,7 @@ public class Enemy2 extends Entity {
 	}
 
 	public void tick() {
+		depth = 0;
 		mwidth = 9;
 		mheight = 15;
 		//if(this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 100) {

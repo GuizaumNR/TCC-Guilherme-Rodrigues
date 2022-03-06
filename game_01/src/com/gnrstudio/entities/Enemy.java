@@ -36,6 +36,7 @@ public class Enemy extends Entity {
 
 	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, null);
+		depth = 0;
 		rightEnemy = new BufferedImage[3];
 		leftEnemy = new BufferedImage[3];
 		dRightEnemy = new BufferedImage[3];

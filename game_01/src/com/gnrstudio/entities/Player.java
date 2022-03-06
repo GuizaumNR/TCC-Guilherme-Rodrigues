@@ -79,7 +79,7 @@ public class Player extends Entity {
 	}
 
 	public void tick() {
-	
+		depth = 1;
 		//System.out.println(""+ (getX()/Game.SCALE - Camera.x/Game.SCALE) + " " + mx);
 		if(mx/Game.SCALE > (getX()/Game.SCALE)) {
 			dir = right_dir;
