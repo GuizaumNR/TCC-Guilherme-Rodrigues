@@ -80,6 +80,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public int[] pixels;
 	public BufferedImage lightmap;
 	public int[] lightMapPixels;
+	public static int[] minimapaPixels;
+	
+	public static BufferedImage minimapa;
 	
 	public int mx, my;
 	public Game() {
@@ -112,7 +115,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		player = new Player(0, 0, 11, 15, spritesheet.getSprite(32, 0, 11, 15));
 		entities.add(player);
 		world = new World("/level1.png");
-
+		
+		minimapa = new BufferedImage(world.WIDTH, world.HEIGHT, BufferedImage.TYPE_INT_RGB);
+		minimapaPixels = ((DataBufferInt) minimapa.getRaster().getDataBuffer()).getData();
 		menu = new Menu();
 		
 		try {
@@ -290,6 +295,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		} else if (gameState == "MENU") {
 			menu.render(g);
 		}
+		World.renderMinimapa();
+		g.drawImage(minimapa, 615, 375, world.WIDTH * 2, world.HEIGHT * 2, null);
+		
 //		Graphics2D g2 = (Graphics2D) g; //rotação de objetos
 //		double angleMouse = Math.atan2(my - 200 + 45, mx - 200 + 25);
 //		g2.rotate(angleMouse, 200+25, 200+45);

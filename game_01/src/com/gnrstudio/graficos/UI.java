@@ -10,15 +10,21 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.SwingUtilities;
 
+import com.gnrstudio.entities.Entity;
 import com.gnrstudio.main.Game;
 
 
 public class UI {
 	
 	public static BufferedImage s2;
+	
 	public static int hora;
 	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("mm");;
 	public static LocalDateTime timePoint2 = LocalDateTime.now();
+	
+	public static BufferedImage minimapa;
+	
+	
 	
 	public void tick() {
 		timePoint2.format(fmt2);
@@ -27,6 +33,7 @@ public class UI {
 //	        	System.out.println(timePoint2.getMinute());
 //	        }
 //		
+		minimapa = new BufferedImage(Game.world.WIDTH, Game.world.HEIGHT, BufferedImage.TYPE_INT_RGB);
 	}
 	public void render(Graphics g) {
 		
@@ -44,15 +51,14 @@ public class UI {
 		g.drawString((int)Game.player.life+"/"+(int)Game.player.maxlife, 32, 15);
 		
 		//municao
-//		g.setFont(new Font("arial", Font.PLAIN, 8));
-//		g.setColor(Color.WHITE);
-//		g.drawString("Munição: " + Game.player.ammo, 20 , 30);
+		g.drawImage(Entity.BULLET_EN, 4, 16, 13, 10, null);
 		
 		//hora na tela
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH: mm");
         LocalDateTime timePoint = LocalDateTime.now();
        
-        
+        g.setColor(Color.BLACK);
+		g.fillRect(195, 5, 30, 14);
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(196, 6, 28, 12);
 		g.setColor(Color.BLACK);
@@ -60,7 +66,6 @@ public class UI {
         g.setColor(Color.red);
         g.setFont(new Font("arial", Font.PLAIN, 8));
         g.drawString(timePoint.format(fmt), 200, 15);
-        
         
           
     }

@@ -16,7 +16,7 @@ import com.gnrstudio.world.Vector2i;
 
 public class Enemy2 extends Entity {
 
-	private double speed = 1.4;
+	private double speed = 0.9;
 
 	
 
@@ -112,7 +112,7 @@ public class Enemy2 extends Entity {
 				}
 			}
 		}
-		if(new Random().nextInt(100) > 30) {
+		if(new Random().nextInt(100) > 25) {
 			followPath(path);
 		}
 		if(new Random().nextInt(100) < 5) {
