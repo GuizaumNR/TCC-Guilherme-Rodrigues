@@ -276,10 +276,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		
 		g.dispose();
 		g = bs.getDrawGraphics();
-		
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
-		g.setColor(Color.WHITE);
-		g.drawString("Munição: " + Game.player.ammo, 20 , 80);
+		
 		if (gameState == "GAME_OVER") {
 			Graphics2D g2 = (Graphics2D) g; // criando opacidade
 			g2.setColor(new Color(0, 0, 0, 100));

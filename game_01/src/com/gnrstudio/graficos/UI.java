@@ -17,6 +17,7 @@ import com.gnrstudio.main.Game;
 public class UI {
 	
 	public static BufferedImage s2;
+	public static BufferedImage bullets;
 	
 	public static int hora;
 	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("mm");;
@@ -39,6 +40,7 @@ public class UI {
 		
 		//Vida
 		s2 = Game.spritesheet.getSprite(96, 48, 13, 10);
+		bullets = Game.spritesheet.getSprite(96, 64, 13, 9);
 		g.drawImage(s2, 4, 8, 13, 10, null);
 		g.setColor(Color.black);
 		g.fillRect(18, 6, 54, 12);
@@ -51,7 +53,26 @@ public class UI {
 		g.drawString((int)Game.player.life+"/"+(int)Game.player.maxlife, 32, 15);
 		
 		//municao
-		g.drawImage(Entity.BULLET_EN, 4, 16, 13, 10, null);
+		g.drawImage(bullets, 4, 22, 13, 9, null);
+		g.setColor(Color.black);
+		g.fillRect(18, 20, 54, 12);
+		g.setColor(Color.DARK_GRAY);
+		g.fillRect(21, 22, 47, 8);
+		g.setColor(Color.black);
+		g.fillRect(28, 20, 3, 12);
+		g.setColor(Color.black);
+		g.fillRect(38, 20, 3, 12);
+		g.setColor(Color.black);
+		g.fillRect(48, 20, 3, 12);
+		g.setColor(Color.black);
+		g.fillRect(58, 20, 3, 12);
+		
+		
+		
+		
+		
+//		g.setColor(Color.WHITE);
+//		g.drawString("Munição: " + Game.player.ammo, 20 , 80);
 		
 		//hora na tela
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH: mm");
