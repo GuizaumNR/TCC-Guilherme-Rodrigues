@@ -30,7 +30,7 @@ public class Player extends Entity {
 
 	private boolean hasGun = false;
 
-	public int ammo = 0;
+	public double ammo = 0, maxAmmo = 5;
 	public boolean isDamaged = false;
 	public double life = 100, maxlife = 100;
 	public int mx, my;
@@ -234,6 +234,10 @@ public class Player extends Entity {
 			life = maxlife;
 
 		}
+		if (ammo >= maxAmmo) {
+			ammo = maxAmmo;
+
+		}
 		updateCamera();
 
 	}
@@ -248,13 +252,17 @@ public class Player extends Entity {
 			Entity atual = Game.entities.get(i);
 			if (atual instanceof Bullet) {
 				if (Entity.isColidding(this, atual)) {
-					ammo = ammo + 300;
-					// System.out.println("Munição atual:" + ammo);
+					if (ammo < maxAmmo) {
+						ammo += 5;
+						if (ammo > maxAmmo) {
+							ammo = maxAmmo;
+						}
 					Game.entities.remove(atual);
 				}
 			}
 		}
 	}
+}
 
 	public void checkColissionLifePack() {
 		for (int i = 0; i < Game.entities.size(); i++) {

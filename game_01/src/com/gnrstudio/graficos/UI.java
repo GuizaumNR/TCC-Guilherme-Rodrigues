@@ -59,7 +59,7 @@ public class UI {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(21, 22, 47, 8);
 		g.setColor(new Color(236, 197,0));
-		g.fillRect(21, 22,(int) ((Game.player.life/Game.player.maxlife)*47), 8);
+		g.fillRect(21, 22,(int) ((Game.player.ammo/Game.player.maxAmmo)*47), 8);
 		g.setColor(Color.black);
 		g.fillRect(28, 20, 3, 12);
 		g.setColor(Color.black);
