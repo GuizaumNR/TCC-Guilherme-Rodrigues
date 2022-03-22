@@ -173,11 +173,11 @@ public class Menu {
 		//titulo
 		g.setColor(tituloColor);
 		g.setFont(Game.graspingFont);
-		g.drawString("Sipri Game", (Game.WIDTH * Game.SCALE)/2 - 94, (Game.HEIGHT * Game.SCALE)/2 - 160);
+		g.drawString("O Ronda", (Game.WIDTH * Game.SCALE)/2 - 94, (Game.HEIGHT * Game.SCALE)/2 - 160);
 		//fundo do titulo
 		g.setColor(tituloFundoColor);
 		g.setFont(Game.graspingFontFundo);
-		g.drawString("Sipri Game", (Game.WIDTH * Game.SCALE)/2 - 93, (Game.HEIGHT * Game.SCALE)/2 - 161);
+		g.drawString("O Ronda", (Game.WIDTH * Game.SCALE)/2 - 93, (Game.HEIGHT * Game.SCALE)/2 - 161);
 		
 		//opcoes
 		g.setColor(Color.WHITE);

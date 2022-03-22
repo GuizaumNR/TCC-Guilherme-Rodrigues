@@ -81,11 +81,11 @@ public class Player extends Entity {
 	public void tick() {
 		depth = 1;
 		//System.out.println(""+ (getX()/Game.SCALE - Camera.x/Game.SCALE) + " " + mx);
-		if(mx/Game.SCALE > (getX()/Game.SCALE)) {
-			dir = right_dir;
-		}else if (mx/Game.SCALE < (getX()/Game.SCALE - Camera.x/Game.SCALE)) {
-			dir = left_dir;
-		}
+//		if(mx/Game.SCALE > (getX()/Game.SCALE)) {
+//			dir = right_dir;
+//		}else if (mx/Game.SCALE < (getX()/Game.SCALE - Camera.x/Game.SCALE)) {
+//			dir = left_dir;
+//		}
 		
 		if (jump) {
 			if (isJumping == false) {
@@ -190,7 +190,7 @@ public class Player extends Entity {
 			// converter
 			mouseShoot = false;
 			if (hasGun && ammo > 0) {
-				Sound.shootEfecct.play();
+				//Sound.shootEfecct.play();
 				ammo--;
 
 				int px = 0;
@@ -299,20 +299,20 @@ public class Player extends Entity {
 				g.drawImage(rightPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - z, null);
 				if (hasGun) {
 					// Desenhando a arma para direita
-					g.drawImage(Entity.RIGHTGUN_EN, this.getX() - Camera.x + 14, this.getY() - Camera.y + 7 - z, null);
+					g.drawImage(Entity.RIGHTGUN_EN, this.getX() - Camera.x + 13, this.getY() - Camera.y + 6 - z, null);
 
 				}
 			} else if (dir == left_dir) {
 				g.drawImage(leftPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - z, null);
 				if (hasGun) {
 					// Desenhando a arma para esquerda
-					g.drawImage(Entity.LEFTGUN_EN, this.getX() - Camera.x - 7, this.getY() - Camera.y + 6 - z, null);
+					g.drawImage(Entity.LEFTGUN_EN, this.getX() - Camera.x - 6, this.getY() - Camera.y + 6 - z, null);
 
 				}
 			} else if (dir == up_dir) {
 				if (hasGun) {
 					// Desenhando a arma para cima
-					g.drawImage(Entity.UPGUN_EN, this.getX() - Camera.x + 9, this.getY() - Camera.y + 2 - z, null);
+					g.drawImage(Entity.UPGUN_EN, this.getX() - Camera.x + 13, this.getY() - Camera.y + 3 - z, null);
 				}
 				g.drawImage(upPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - z, null);
 
@@ -320,7 +320,7 @@ public class Player extends Entity {
 				g.drawImage(downPlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - z, null);
 				if (hasGun) {
 					// Desenhando a arma para baixo
-					g.drawImage(Entity.DOWNGUN_EN, this.getX() - Camera.x - 4, this.getY() - Camera.y + 7 - z, null);
+					g.drawImage(Entity.DOWNGUN_EN, this.getX() - Camera.x - 4, this.getY() - Camera.y + 8 - z, null);
 				}
 			}
 //			g.setColor(Color.red);
@@ -331,7 +331,7 @@ public class Player extends Entity {
 				g.drawImage(RDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - z, null);
 				if (hasGun) {
 					// Desenhando a arma para direita(com dano)
-					g.drawImage(Entity.DRIGHTGUN_EN, this.getX() - Camera.x + 9, this.getY() - Camera.y + 6 - z, null);
+					g.drawImage(Entity.DRIGHTGUN_EN, this.getX() - Camera.x + 13, this.getY() - Camera.y + 6 - z, null);
 
 				}
 			}
@@ -339,7 +339,7 @@ public class Player extends Entity {
 				g.drawImage(LDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - z, null);
 				if (hasGun) {
 					// Desenhando a arma para esquerda(com dano)
-					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 7, this.getY() - Camera.y + 6 - z, null);
+					g.drawImage(Entity.DLEFTGUN_EN, this.getX() - Camera.x - 6, this.getY() - Camera.y + 6 - z, null);
 
 				}
 
@@ -348,7 +348,7 @@ public class Player extends Entity {
 				g.drawImage(RDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - z, null);
 				if (hasGun) {
 					// Desenhando a arma para esquerda(com dano)
-					g.drawImage(Entity.DUPGUN_EN, this.getX() - Camera.x + 12, this.getY() - Camera.y + 1 - z, null);
+					g.drawImage(Entity.DUPGUN_EN, this.getX() - Camera.x + 13, this.getY() - Camera.y + 3 - z, null);
 
 				}
 			}
@@ -356,7 +356,7 @@ public class Player extends Entity {
 				g.drawImage(LDamagePlayer[index], this.getX() - Camera.x, this.getY() - Camera.y - z, null);
 				if (hasGun) {
 					// Desenhando a arma para esquerda(com dano)
-					g.drawImage(Entity.DDOWNGUN_EN, this.getX() - Camera.x - 4, this.getY() - Camera.y + 7 - z, null);
+					g.drawImage(Entity.DDOWNGUN_EN, this.getX() - Camera.x - 4, this.getY() - Camera.y + 8 - z, null);
 
 				}
 			}

@@ -12,7 +12,7 @@ import com.gnrstudio.world.Vector2i;
 import com.gnrstudio.world.World;
 
 public class Enemy extends Entity {
-	private double speed = 0.6;
+	private double speed = 1.15;
 
 	private int maskX = 8, maskY = 8, maskW = 15, maskH = 16;
 
