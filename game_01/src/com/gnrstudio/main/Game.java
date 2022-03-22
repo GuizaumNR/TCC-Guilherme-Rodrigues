@@ -259,7 +259,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		Graphics g = image.getGraphics();
 		g.setColor(new Color(0, 0, 0));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-
+		
 		
 		world.render(g);
 		Collections.sort(entities, Entity.nodeSorter);
@@ -278,8 +278,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		
+		World.renderMinimapa();
+		g.drawImage(minimapa, 615, 375, world.WIDTH * 2, world.HEIGHT * 2, null);
+		
+		Graphics2D g2 = (Graphics2D) g; // criando opacidade
+		g2.setColor(new Color(8, 20, 80, 100));
+		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+		
 		if (gameState == "GAME_OVER") {
-			Graphics2D g2 = (Graphics2D) g; // criando opacidade
+			g2 = (Graphics2D) g; // criando opacidade
 			g2.setColor(new Color(0, 0, 0, 100));
 			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
 			g.setFont(new Font("arial", Font.BOLD, 38));
@@ -293,8 +300,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		} else if (gameState == "MENU") {
 			menu.render(g);
 		}
-		World.renderMinimapa();
-		g.drawImage(minimapa, 615, 375, world.WIDTH * 2, world.HEIGHT * 2, null);
+		
 		
 //		Graphics2D g2 = (Graphics2D) g; //rotação de objetos
 //		double angleMouse = Math.atan2(my - 200 + 45, mx - 200 + 25);
