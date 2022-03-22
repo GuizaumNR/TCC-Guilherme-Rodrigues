@@ -96,6 +96,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 		// Inicializando objetos;
 		ui = new UI();
+		ui.tick();
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		try {
 			lightmap = ImageIO.read(getClass().getResource("/lightmap.png"));

@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 import javax.swing.SwingUtilities;
 
@@ -20,21 +21,19 @@ public class UI {
 	public static BufferedImage bullets;
 	
 	public static int hora;
-	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("mm");;
+	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("ss");;
 	public static LocalDateTime timePoint2 = LocalDateTime.now();
 	
 	public static BufferedImage minimapa;
 	
 	
 	
-	public void tick() {
-		timePoint2.format(fmt2);
-	       
-//	        while(timePoint2.getMinute() > 8) {
-//	        	System.out.println(timePoint2.getMinute());
-//	        }
-//		
-		minimapa = new BufferedImage(Game.world.WIDTH, Game.world.HEIGHT, BufferedImage.TYPE_INT_RGB);
+	public void tick() {       
+		
+		String horaAtual = LocalDateTime.now().format(fmt2);
+        hora = Integer.parseInt(horaAtual);
+        
+        
 	}
 	public void render(Graphics g) {
 		
@@ -90,7 +89,6 @@ public class UI {
         g.setFont(new Font("arial", Font.PLAIN, 8));
         g.drawString(timePoint.format(fmt), 200, 15);
         
-          
     }
 
     
