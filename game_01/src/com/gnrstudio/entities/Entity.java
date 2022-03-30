@@ -12,7 +12,9 @@ import com.gnrstudio.world.Vector2i;
 
 public class Entity {
 
-	public static BufferedImage LIFEPACK_EN = Game.spritesheet.getSprite(98, 5, 11, 11);
+	public static BufferedImage LIFEPACK_EN = Game.spritesheet.getSprite(98, 5, 11,11);
+	
+	public static BufferedImage MAP_EN = Game.spritesheet.getSprite(112, 5, 8,11);
 	
 	public static BufferedImage WEAPON_EN = Game.spritesheet.getSprite(0 , 96, 10, 16);
 	
@@ -21,18 +23,18 @@ public class Entity {
 	public static BufferedImage ENEMY_EN = Game.spritesheet.getSprite(112, 32, 14, 16);
 	public static BufferedImage ENEMY2_EN = Game.spritesheet.getSprite(32, 112, 9, 15);
 	
-	public static BufferedImage RIGHTGUN_EN = Game.spritesheet.getSprite(112, 0, 8, 6);
-	public static BufferedImage LEFTGUN_EN = Game.spritesheet.getSprite(135, 0, 8, 6);
-	public static BufferedImage DOWNGUN_EN = Game.spritesheet.getSprite(144, 0, 6, 8);
-	public static BufferedImage UPGUN_EN = Game.spritesheet.getSprite(160, 0, 6, 8);
+	public static BufferedImage RIGHTGUN_EN = Game.spritesheet.getSprite(112, 0, 8, 5);
+	public static BufferedImage LEFTGUN_EN = Game.spritesheet.getSprite(135, 0, 8, 5);
+	public static BufferedImage DOWNGUN_EN = Game.spritesheet.getSprite(144, 0, 5, 8);
+	public static BufferedImage UPGUN_EN = Game.spritesheet.getSprite(160, 0, 5, 8);
 	
-	public static BufferedImage DRIGHTGUN_EN = Game.spritesheet.getSprite(160, 32, 8, 6);
-	public static BufferedImage DLEFTGUN_EN = Game.spritesheet.getSprite(183, 32, 8, 6);
-	public static BufferedImage DDOWNGUN_EN = Game.spritesheet.getSprite(160, 16, 6, 8);
-	public static BufferedImage DUPGUN_EN = Game.spritesheet.getSprite(176, 16, 6, 8);
+	public static BufferedImage DRIGHTGUN_EN = Game.spritesheet.getSprite(160, 32, 8, 5);
+	public static BufferedImage DLEFTGUN_EN = Game.spritesheet.getSprite(183, 32, 8, 5);
+	public static BufferedImage DDOWNGUN_EN = Game.spritesheet.getSprite(160, 16, 5, 8);
+	public static BufferedImage DUPGUN_EN = Game.spritesheet.getSprite(176, 16, 5, 8);
 	
-	protected double x;
-	protected double y;
+	public double x;
+	public double y;
 	protected int z;
 	protected int width;
 	protected int height;

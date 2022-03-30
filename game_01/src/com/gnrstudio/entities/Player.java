@@ -28,7 +28,9 @@ public class Player extends Entity {
 
 	public boolean shoot = false, mouseShoot = false;
 
-	private boolean hasGun = false;
+	public static boolean hasGun = false;
+	
+	public static boolean hasMap = false;
 
 	public double ammo = 0, maxAmmo = 5;
 	public boolean isDamaged = false;
@@ -263,6 +265,19 @@ public class Player extends Entity {
 		}
 	}
 }
+	
+	public void checkCollissionMap() {
+		for (int i = 0; i < Game.entities.size(); i++) {
+			Entity atual = Game.entities.get(i);
+			if (atual instanceof Map) {
+				if (Entity.isColidding(this, atual)) {
+					hasMap = true;
+					Game.entities.remove(atual);
+				}
+			}
+		}
+	}
+
 
 	public void checkColissionLifePack() {
 		for (int i = 0; i < Game.entities.size(); i++) {

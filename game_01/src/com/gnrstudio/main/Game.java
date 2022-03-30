@@ -43,7 +43,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static final int HEIGHT = 160;
 	public static final int SCALE = 3;
 
-	private int Cur_Level = 1, Max_Level = 4;
+	public static int Cur_Level = 1, Max_Level = 4;
 
 	private BufferedImage image;
 	public static Spritesheet spritesheet;
@@ -96,7 +96,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 		// Inicializando objetos;
 		ui = new UI();
-		ui.tick();
+	
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		try {
 			lightmap = ImageIO.read(getClass().getResource("/lightmap.png"));
@@ -139,7 +139,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 
 	public void initFrame() {
-		frame = new JFrame("Sipri Game");
+		frame = new JFrame("O Ronda");
+		requestFocus();
 		frame.add(this);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
@@ -171,6 +172,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	}
 
 	public void tick() {
+		ui.tick();
 		if (gameState == "NORMAL") { 
 			if(this.saveGame) {
 				this.saveGame = false;
@@ -279,12 +281,24 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		
+		if(Player.hasMap) {
 		World.renderMinimapa();
 		g.drawImage(minimapa, 615, 375, world.WIDTH * 2, world.HEIGHT * 2, null);
+		}
 		
-		Graphics2D g2 = (Graphics2D) g; // criando opacidade
-		g2.setColor(new Color(8, 20, 80, 100));
+		Graphics2D g2 = (Graphics2D) g; // criando os "filtros" de escurecer
+		if(ui.hora >= 17 && ui.hora <= 23) {
+		g2.setColor(new Color(8, 20, 80, (ui.hora - 10) * 3));
 		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+		}
+		if(ui.hora >= 6 && ui.hora <= 16) {
+			g2.setColor(new Color(8, 20, 80, 54 - (ui.hora  * 3)));
+			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+			}
+		if(ui.hora >= 0 && ui.hora <= 5) {
+		g2.setColor(new Color(8, 20, 80, (ui.hora + 13) * 3));
+		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+		}
 		
 		if (gameState == "GAME_OVER") {
 			g2 = (Graphics2D) g; // criando opacidade
@@ -320,7 +334,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		double delta = 0;
 		int frames = 0;
 		double timer = System.currentTimeMillis();
-		requestFocus();
 		while (isRunning) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;

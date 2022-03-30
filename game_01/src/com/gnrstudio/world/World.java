@@ -50,13 +50,25 @@ public class World {
 			for (int xx = 0; xx < map.getWidth(); xx++) {
 				for (int yy = 0; yy < map.getHeight(); yy++) {
 					int pixelAtual = pixels[xx + (yy * map.getWidth())];
-					tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR);
+					if(Game.Cur_Level == 1) {
+						tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR3);
+					}else {
+						tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR);
+					}
 					if (pixelAtual == 0xFF000000) {
-						// CHÃO-FLOOR
+						// CHÃO
 						tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR);
 					} else if (pixelAtual == 0XFF00FFFF) {
 						// Chao2
 						tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR2);
+
+					} else if (pixelAtual == 0XFF4C8400) {
+						// Chao3
+						tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_FLOOR3);
+
+					}else if (pixelAtual == 0XFF808080) {
+						// ESTRADA
+						tiles[xx + (yy * WIDTH)] = new FloorTile(xx * 16, yy * 16, Tile.TILE_RUA);
 
 					} else if (pixelAtual == 0XFF4800FF) {
 						// PAREDE
@@ -68,7 +80,7 @@ public class World {
 
 					} else if (pixelAtual == 0XFF0000FF) {
 						// PLAYER
-						Game.player.setX(xx * 11);
+						Game.player.setX(xx * 15);
 						Game.player.setY(yy * 15);
 					} else if (pixelAtual == 0XFFFF0000) {
 						// ENEMY
@@ -80,10 +92,6 @@ public class World {
 						Enemy2 en2 = new Enemy2(xx * 16, yy * 16, 9, 15, Entity.ENEMY2_EN);
 						Game.entities.add(en2);
 						Game.enemies2.add(en2);
-//						if(Enemy2.life <= 0) {
-//							LifePack pack = new LifePack(xx * 16, yy * 16, 11, 11, Entity.LIFEPACK_EN); //tentando criar o drop de item
-//							Game.entities.add(pack);
-//						}
 					} else if (pixelAtual == 0XFFFF6A00) {
 						// WEAPON
 						Weapon weapon = new Weapon(xx * 16, yy * 16, 16, 16, Entity.WEAPON_EN);
@@ -93,18 +101,19 @@ public class World {
 						// LIFEPACK
 						LifePack pack = new LifePack(xx * 16, yy * 16, 11, 11, Entity.LIFEPACK_EN);
 						Game.entities.add(pack);
-					}
-				else if(pixelAtual == 0XFF00870B){
+					} else if (pixelAtual == 0XFF9E7B5D) {
+						// Map
+						LifePack pack = new LifePack(xx * 16, yy * 16, 11, 11, Entity.LIFEPACK_EN);
+						Game.entities.add(pack);
+					} else if(pixelAtual == 0XFF00870B){
 					//Tumulo
 					tiles[xx + (yy * WIDTH)] = new WallTile(xx * 16, yy * 16, Tile.TILE_TOMB);
 				
-				}
-				else if(pixelAtual == 0XFF004904){
+				} else if(pixelAtual == 0XFF004904){
 					//Tumulo2
 					tiles[xx + (yy * WIDTH)] = new WallTile(xx * 16, yy * 16, Tile.TILE_TOMB2);
 				
-				}
-					else if (pixelAtual == 0XFFFFFF00) {
+				} else if (pixelAtual == 0XFFFFFF00) {
 						// BULLET
 						Bullet bullet = new Bullet(xx * 16, yy * 16, 14, 13, Entity.BULLET_EN);
 						Game.entities.add(bullet);
@@ -149,7 +158,7 @@ public class World {
 		Game.enemies = new ArrayList<Enemy>();
 		Game.enemies2 = new ArrayList<Enemy2>();
 		Game.spritesheet = new Spritesheet("/spritesheet.png");
-		Game.player = new Player(0, 0, 11, 15, Game.spritesheet.getSprite(32, 0, 11, 15));
+		Game.player = new Player(0, 0, 16, 16, Game.spritesheet.getSprite(32, 0, 16, 16));
 		Game.entities.add(Game.player);
 		Game.world = new World("/"+level);
 		return;

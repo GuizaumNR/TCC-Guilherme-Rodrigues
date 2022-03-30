@@ -16,7 +16,7 @@ public class Enemy extends Entity {
 
 	private int maskX = 8, maskY = 8, maskW = 15, maskH = 16;
 
-	private int frames = 0, maxFrames = 3, index = 0, maxIndex = 2;// maxindex se conta a quantia de frames menos 1
+	private int frames = 0, maxFrames = 4, index = 0, maxIndex = 3;// maxindex se conta a quantia de frames menos 1
 
 	public int right_dir = 0, left_dir = 1;
 	public int dir = right_dir;
@@ -25,7 +25,7 @@ public class Enemy extends Entity {
 	private BufferedImage[] leftEnemy;
 	private BufferedImage[] dRightEnemy;
 	private BufferedImage[] dLeftEnemy;
-	private int life = 1;
+	private int life = 4;
 	
 	private boolean isDamaged;
 	private int damageFrames = 10, damageCurrent = 0;
@@ -37,23 +37,23 @@ public class Enemy extends Entity {
 	public Enemy(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, null);
 		depth = 0;
-		rightEnemy = new BufferedImage[3];
-		leftEnemy = new BufferedImage[3];
-		dRightEnemy = new BufferedImage[3];
-		dLeftEnemy = new BufferedImage[3];
+		rightEnemy = new BufferedImage[4];
+		leftEnemy = new BufferedImage[4];
+		dRightEnemy = new BufferedImage[4];
+		dLeftEnemy = new BufferedImage[4];
 		
 		if(!parado) {
-		for (int i = 0; i < 3; i++) {
-			leftEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 16, 14, 16);
+		for (int i = 0; i < 4; i++) {
+			leftEnemy[i] = Game.spritesheet.getSprite(96 + (i * 16), 112, 16, 16);
 		}
-		for (int i = 0; i < 3; i++) {
-			rightEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 32, 14, 16);
+		for (int i = 0; i < 4; i++) {
+			rightEnemy[i] = Game.spritesheet.getSprite(96 + (i * 16), 128, 16, 16);
 		}
-		for (int i = 0; i < 3; i++) {
-			dLeftEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 48, 14, 16);
+		for (int i = 0; i < 4; i++) {
+			dLeftEnemy[i] = Game.spritesheet.getSprite(96 + (i * 16), 144, 16, 16);
 		}
-		for (int i = 0; i < 3; i++) {
-			dRightEnemy[i] = Game.spritesheet.getSprite(112 + (i * 16), 64, 14, 16);
+		for (int i = 0; i < 4; i++) {
+			dRightEnemy[i] = Game.spritesheet.getSprite(96 + (i * 16), 160, 16, 16);
 		}
 
 	}}

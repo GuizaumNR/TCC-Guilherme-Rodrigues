@@ -51,22 +51,22 @@ public class Enemy2 extends Entity {
 
 		if (!parado) {
 			for (int i = 0; i < 4; i++) {
-				rightEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 112, 9, 15);
+				rightEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 112, 16, 16);
 			}
 			for (int i = 0; i < 4; i++) {
-				leftEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 128, 9, 15);
+				leftEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 128, 16, 16);
 			}
 			for (int i = 0; i < 4; i++) {
-				upEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 144, 9, 15);
+				upEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 144, 16, 16);
 			}
 			for (int i = 0; i < 4; i++) {
-				downEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 160, 9, 15);
+				downEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 160, 16, 16);
 			}
 			for (int i = 0; i < 4; i++) {
-				dLeftEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 176, 9, 15);
+				dLeftEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 176, 16, 16);
 			}
 			for (int i = 0; i < 4; i++) {
-				dRightEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 192, 9, 15);
+				dRightEnemy[i] = Game.spritesheet.getSprite(32 + (i * 16), 192, 16, 16);
 			}
 		}
 

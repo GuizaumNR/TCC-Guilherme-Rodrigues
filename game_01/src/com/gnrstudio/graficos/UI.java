@@ -7,11 +7,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 
-import javax.swing.SwingUtilities;
-
-import com.gnrstudio.entities.Entity;
+import com.gnrstudio.entities.Player;
 import com.gnrstudio.main.Game;
 
 
@@ -21,7 +18,7 @@ public class UI {
 	public static BufferedImage bullets;
 	
 	public static int hora;
-	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("ss");;
+	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("HH");;
 	public static LocalDateTime timePoint2 = LocalDateTime.now();
 	
 	public static BufferedImage minimapa;
@@ -52,6 +49,7 @@ public class UI {
 		g.drawString((int)Game.player.life+"/"+(int)Game.player.maxlife, 32, 15);
 		
 		//municao
+		if(Player.hasGun) {
 		g.drawImage(bullets, 4, 22, 13, 9, null);
 		g.setColor(Color.black);
 		g.fillRect(18, 20, 54, 12);
@@ -67,7 +65,7 @@ public class UI {
 		g.fillRect(48, 20, 3, 12);
 		g.setColor(Color.black);
 		g.fillRect(58, 20, 3, 12);
-		
+		}
 		
 		
 		
