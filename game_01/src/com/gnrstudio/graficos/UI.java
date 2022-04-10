@@ -18,7 +18,7 @@ public class UI {
 	public static BufferedImage bullets;
 	
 	public static int hora;
-	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("HH");;
+	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("ss");;
 	public static LocalDateTime timePoint2 = LocalDateTime.now();
 	
 	public static BufferedImage minimapa;
@@ -39,11 +39,11 @@ public class UI {
 		bullets = Game.spritesheet.getSprite(96, 64, 13, 9);
 		g.drawImage(s2, 4, 8, 13, 10, null);
 		g.setColor(Color.black);
-		g.fillRect(18, 6, 54, 12);
+		g.fillRect(18, 6, 53, 12);
 		g.setColor(Color.DARK_GRAY);
-		g.fillRect(20, 8, 50, 8);
+		g.fillRect(20, 8, 49, 8);
 		g.setColor(Color.red);
-		g.fillRect(20, 8,(int) ((Game.player.life/Game.player.maxlife)*50), 8);
+		g.fillRect(20, 8,(int) ((Game.player.life/Game.player.maxlife)*49), 8);
 		g.setColor(Color.white);
 		g.setFont(new Font("arial", Font.PLAIN, 8));
 		g.drawString((int)Game.player.life+"/"+(int)Game.player.maxlife, 32, 15);
@@ -52,7 +52,7 @@ public class UI {
 		if(Player.hasGun) {
 		g.drawImage(bullets, 4, 22, 13, 9, null);
 		g.setColor(Color.black);
-		g.fillRect(18, 20, 54, 12);
+		g.fillRect(18, 20, 53, 12);
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(21, 22, 47, 8);
 		g.setColor(new Color(236, 197,0));

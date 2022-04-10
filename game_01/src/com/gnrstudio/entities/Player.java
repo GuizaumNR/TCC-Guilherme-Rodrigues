@@ -297,17 +297,33 @@ public class Player extends Entity {
 	}
 
 	public void checkCollissionGun() {
-		for (int i = 0; i < Game.entities.size(); i++) {
+		if(hasGun) {
+			for (int i = 0; i < Game.entities.size(); i++) {	
+			Entity atual = Game.entities.get(i);
+			if (atual instanceof Weapon) {
+				if (Entity.isColidding(this, atual)) {
+					if (ammo < maxAmmo) {
+						ammo += 5;
+						if (ammo > maxAmmo) {
+							ammo = maxAmmo;
+						}
+					Game.entities.remove(atual);
+				}
+				}
+			}
+		}
+	}else {
+		for (int i = 0; i < Game.entities.size(); i++) {	
 			Entity atual = Game.entities.get(i);
 			if (atual instanceof Weapon) {
 				if (Entity.isColidding(this, atual)) {
 					hasGun = true;
 					Game.entities.remove(atual);
+					}
 				}
 			}
 		}
 	}
-
 	public void render(Graphics g) {
 		if (!isDamaged) {
 			if (dir == right_dir) {
