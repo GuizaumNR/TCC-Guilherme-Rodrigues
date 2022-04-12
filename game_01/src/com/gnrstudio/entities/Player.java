@@ -154,6 +154,7 @@ public class Player extends Entity {
 		checkColissionLifePack();
 		checkCollissionAmmo();
 		checkCollissionGun();
+		checkCollissionMap();
 
 		if (isDamaged) {
 			this.damageFrame++;

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Map;
+
 
 import javax.imageio.ImageIO;
 
@@ -103,8 +103,8 @@ public class World {
 						Game.entities.add(pack);
 					} else if (pixelAtual == 0XFF9E7B5D) {
 						// Map
-						LifePack pack = new LifePack(xx * 16, yy * 16, 11, 11, Entity.LIFEPACK_EN);
-						Game.entities.add(pack);
+						Map ma = new Map(xx * 16, yy * 16, 11, 11, Entity.MAP_EN);
+						Game.entities.add(ma);
 					} else if(pixelAtual == 0XFF00870B){
 					//Tumulo
 					tiles[xx + (yy * WIDTH)] = new WallTile(xx * 16, yy * 16, Tile.TILE_TOMB);
