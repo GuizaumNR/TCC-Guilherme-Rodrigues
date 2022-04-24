@@ -86,14 +86,14 @@ public class Enemy2 extends Entity {
 			 }
 			
 			 
-			 if ((int) x < Game.player.getX() ) {
+			 if ((int) this.getX() < Game.player.getX() ) {
 					dir = right_dir;
-				} else if ((int) x > Game.player.getX()) {
+				} else if ((int) this.getX() > Game.player.getX()) {
 					dir = left_dir;
 				}
-				if ((int) y < Game.player.getY()) {
+				if ((int) this.getY() < Game.player.getY()) {
 					dir = up_dir;
-				} else if ((int) y > Game.player.getY()) {
+				} else if ((int) this.getY() > Game.player.getY()) {
 					dir = down_dir;
 				} else {
 					// estamos colidindo

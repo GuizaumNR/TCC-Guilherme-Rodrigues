@@ -154,12 +154,29 @@ public class World {
 		Game.entities.clear();
 		Game.enemies.clear();
 		Game.enemies2.clear();
+		Player.hasGun = false;
+		Player.hasMap = false;
 		Game.entities = new ArrayList<Entity>();
 		Game.enemies = new ArrayList<Enemy>();
 		Game.enemies2 = new ArrayList<Enemy2>();
 		Game.spritesheet = new Spritesheet("/spritesheet.png");
 		Game.player = new Player(0, 0, 16, 16, Game.spritesheet.getSprite(32, 0, 16, 16));
 		Game.entities.add(Game.player);
+		Game.world = new World("/"+level);
+		return;
+	}
+	
+	public static void nextLevel(String level) {
+		Game.entities.clear();
+		Game.enemies.clear();
+		Game.enemies2.clear();
+		Game.entities = new ArrayList<Entity>();
+		Game.enemies = new ArrayList<Enemy>();
+		Game.enemies2 = new ArrayList<Enemy2>();
+		Game.spritesheet = new Spritesheet("/spritesheet.png");
+		Game.player = new Player(0, 0, 16, 16, Game.spritesheet.getSprite(32, 0, 16, 16));
+		Game.entities.add(Game.player);
+		Game.player.life = Game.player.life;
 		Game.world = new World("/"+level);
 		return;
 	}

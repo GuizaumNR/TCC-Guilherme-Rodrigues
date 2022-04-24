@@ -14,9 +14,9 @@ import com.gnrstudio.world.World;
 public class Enemy extends Entity {
 	private double speed = 1.15;
 
-	private int maskX = 8, maskY = 8, maskW = 15, maskH = 16;
+	private int maskX = 8, maskY = 8, maskW = 10, maskH = 16;
 
-	private int frames = 0, maxFrames = 4, index = 0, maxIndex = 3;// maxindex se conta a quantia de frames menos 1
+	private int frames = 0, maxFrames = 10, index = 0, maxIndex = 3;// maxindex se conta a quantia de frames menos 1
 
 	public int right_dir = 0, left_dir = 1;
 	public int dir = right_dir;
@@ -25,7 +25,7 @@ public class Enemy extends Entity {
 	private BufferedImage[] leftEnemy;
 	private BufferedImage[] dRightEnemy;
 	private BufferedImage[] dLeftEnemy;
-	private int life = 4;
+	private int life = 1;
 	
 	private boolean isDamaged;
 	private int damageFrames = 10, damageCurrent = 0;
@@ -105,8 +105,12 @@ public class Enemy extends Entity {
 				if(Game.player.life <= 0) {
 					Game.player.life = 0;
 				}
-				// Game.player.x = Game.player.x - 4; // tentando fazer o player ser empurrado pelo inimigo
-
+//				if(this.getX() > Game.player.getX()) {
+//				 Game.player.x = Game.player.x -= 20; 
+//					// tentando fazer o player ser empurrado pelo inimigo
+//				}else if(this.getX() < Game.player.getX()) {
+//					Game.player.x = Game.player.x += 20; 
+//				}
 			}
 			
 		}

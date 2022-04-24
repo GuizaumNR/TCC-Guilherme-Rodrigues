@@ -85,6 +85,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static BufferedImage minimapa;
 	
 	public int mx, my;
+	
+	int ahora = 0;
 	public Game() {
 		Sound.musicBackground.play();
 		rand = new Random();
@@ -201,7 +203,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 					Cur_Level = 1;
 				}
 				String newWorld = "level" + Cur_Level + ".png";
-				Game.world.restartgame(newWorld);
+				Game.world.nextLevel(newWorld);
 			}
 		} else if (gameState == "GAME_OVER") {
 			this.framesGameOver++;
@@ -242,15 +244,17 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 //}
 
 // visão de olho
-//	public void applyLight() {
-//		for(int xx = 0; xx < WIDTH; xx++) {
-//			for(int yy = 0; yy < HEIGHT; yy++) {
-//				if(lightMapPixels[xx+(yy * WIDTH)] == 0xffffffff) {// pegando na imagem lightmap
-//					pixels[xx +(yy*WIDTH)] = 0;
-//				}
-//			}
-//		}
-//	}
+	public void applyLight() {
+		for(int xx = 0; xx < WIDTH; xx++) {
+			for(int yy = 0; yy < HEIGHT; yy++) {
+				if(lightMapPixels[xx+(yy * WIDTH)] == 0xffffffff) {// pegando na imagem lightmap
+					pixels[xx +(yy*WIDTH)] = 0;
+				}
+			}
+		}
+	}
+	
+	
 	
 /* RENDERIZAÇÃO DO JOGO */
 	public void render() {
@@ -274,7 +278,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).render(g);
 		}
-		//applyLight();
+		if(player.life <= 40){		
+			applyLight();
+		}
 		ui.render(g);
 		
 		g.dispose();
@@ -287,17 +293,24 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		}
 		
 		Graphics2D g2 = (Graphics2D) g; // criando os "filtros" de escurecer
-		if(ui.hora >= 17 && ui.hora <= 23) {
-		g2.setColor(new Color(8, 20, 80, (ui.hora - 10) * 3));
+		
+		if(ahora <= 5) {
+		g2.setColor(new Color(8, 20, 80, (ahora + 24) * 3));
 		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-		}
-		if(ui.hora >= 6 && ui.hora <= 16) {
-			g2.setColor(new Color(8, 20, 80, 54 - (ui.hora  * 3)));
+		System.out.println("hora " + ahora + " opacidade " +(ahora + 24) * 3);
+		}else if(ahora < 12) {
+			g2.setColor(new Color(8, 20, 80,((int)(100.1/ahora - 5)  * 3)));
 			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-			}
-		if(ui.hora >= 0 && ui.hora <= 5) {
-		g2.setColor(new Color(8, 20, 80, (ui.hora + 13) * 3));
+			System.out.println("hora " + ahora + " opacidade " +((int)(100.1/ahora - 5) * 3));
+		}else if(ahora > 12) {
+			g2.setColor(new Color(8, 20, 80,(int)(1  * 3)));
+			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+			System.out.println("hora " + ahora + " opacidade " +
+			(int)((Math.log(2)/Math.log(ahora - 12))/(Math.log(2)/Math.log(18))  * 3));
+    	}else if(ahora == 12) {
+		g2.setColor(new Color(8, 20, 80, 0));
 		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+		System.out.println("hora " + ahora + " opacidade " + 0);
 		}
 		
 		if (gameState == "GAME_OVER") {
@@ -345,9 +358,13 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				delta--;
 			}
 			if (System.currentTimeMillis() - timer >= 1000) {
-				System.out.println("FPS: " + frames);
-				frames = 0;
+//				System.out.println("FPS: " + frames);
+//				frames = 0;
 				timer += 1000;
+				ahora++;
+				if(ahora >= 24) {
+					ahora = 0;
+				}
 			}
 		}
 		stop();
