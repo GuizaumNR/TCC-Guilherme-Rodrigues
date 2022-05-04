@@ -142,7 +142,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public void initFrame() {
 		frame = new JFrame("O Ronda");
-		requestFocus();
 		frame.add(this);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
@@ -293,7 +292,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		}
 		
 		Graphics2D g2 = (Graphics2D) g; // criando os "filtros" de escurecer
-		
+	
+		if(gameState == "NORMAL"){
 		if(ahora <= 5) {
 		g2.setColor(new Color(8, 20, 80, (ahora + 24) * 3));
 		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
@@ -311,6 +311,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		g2.setColor(new Color(8, 20, 80, 0));
 		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
 		System.out.println("hora " + ahora + " opacidade " + 0);
+		}
 		}
 		
 		if (gameState == "GAME_OVER") {
@@ -341,6 +342,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public void run() {
 		// FPS
+		requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;

@@ -167,6 +167,8 @@ public class World {
 	}
 	
 	public static void nextLevel(String level) {
+		double lifeOld = Game.player.life;
+		double ammoOld = Game.player.ammo;
 		Game.entities.clear();
 		Game.enemies.clear();
 		Game.enemies2.clear();
@@ -176,7 +178,8 @@ public class World {
 		Game.spritesheet = new Spritesheet("/spritesheet.png");
 		Game.player = new Player(0, 0, 16, 16, Game.spritesheet.getSprite(32, 0, 16, 16));
 		Game.entities.add(Game.player);
-		Game.player.life = Game.player.life;
+		Game.player.life = lifeOld;
+		Game.player.ammo = ammoOld;
 		Game.world = new World("/"+level);
 		return;
 	}
