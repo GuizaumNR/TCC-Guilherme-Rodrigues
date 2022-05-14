@@ -2,11 +2,15 @@ package com.gnrstudio.main;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -149,7 +153,21 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// frame.setUndecorated(true);
 		frame.setVisible(true);
-
+		
+		Image imageIcon = null;
+		
+		try {
+			imageIcon = ImageIO.read(getClass().getResource("/icon.png"));
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Image imageCursor = toolkit.getImage(getClass().getResource("/cursor.png"));
+		Cursor c = toolkit.createCustomCursor(imageCursor, new Point(0,0), "img");
+		frame.setCursor(c);
+		frame.setIconImage(imageIcon);
+		frame.setAlwaysOnTop(true);
+		
 	}
 
 	public synchronized void start() {
@@ -342,6 +360,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public void run() {
 		// FPS
+		Sound.musicBackground.play();
 		requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
