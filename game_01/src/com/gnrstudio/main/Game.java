@@ -92,7 +92,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	int ahora = 0;
 	public Game() {
-		Sound.musicBackground.play();
 		rand = new Random();
 		addKeyListener(this); // adicionando o "ouvidor" de teclas aqui(this)
 		addMouseListener(this); // adicionando o "ouvidor" de mouse aqui(this)
@@ -193,6 +192,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public void tick() {
 		ui.tick();
 		if (gameState == "NORMAL") { 
+			Sound.musicBackground.loop();
 			if(this.saveGame) {
 				this.saveGame = false;
 				String[] opt1 = {"level","vida"}; //nome no arquivo
@@ -360,7 +360,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public void run() {
 		// FPS
-		Sound.musicBackground.play();
+		
 		requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;

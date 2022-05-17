@@ -43,7 +43,7 @@ public class Menu {
 		if (up) {
 			up = false;
 			currentOption--;
-			Sound.selectEfecct.play();
+			//Sound.selectEfecct.play();
 			if (currentOption < 0) {
 				currentOption = maxOption;
 			}
@@ -52,12 +52,13 @@ public class Menu {
 		if (down) {
 			down = false;
 			currentOption++;
-			Sound.selectEfecct.play();
+			//Sound.selectEfecct.play();
 			if (currentOption > maxOption) {
 				currentOption = 0;
 			}
 		}
 		if(enter){
+			
 			enter = false;
 			if(options[currentOption] == "Novo Jogo" || options[currentOption] == "Continuar") {
 				Game.gameState = "NORMAL";
