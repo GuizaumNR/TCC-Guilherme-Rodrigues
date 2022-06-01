@@ -100,7 +100,7 @@ public class Enemy extends Entity {
 				double danoRandom = Game.rand.nextDouble();
 				double inicio = 0.1;
 				double fim = 0.5;
-				//Game.player.life -= inicio + (danoRandom * (fim - inicio)); //Limitando os valores 
+				Game.player.life -= inicio + (danoRandom * (fim - inicio)); //Limitando os valores 
 				Game.player.isDamaged = true;		
 				if(Game.player.life <= 0) {
 					Game.player.life = 0;

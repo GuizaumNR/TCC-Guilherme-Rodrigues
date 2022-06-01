@@ -145,12 +145,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public void initFrame() {
 		frame = new JFrame("O Ronda");
+		frame.setUndecorated(true);
 		frame.add(this);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// frame.setUndecorated(true);
 		frame.setVisible(true);
 		
 		Image imageIcon = null;
@@ -336,9 +336,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			g2 = (Graphics2D) g; // criando opacidade
 			g2.setColor(new Color(0, 0, 0, 100));
 			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-			g.setFont(new Font("arial", Font.BOLD, 38));
+			g.setFont(graspingFont);
 			g.setColor(Color.RED);
-			g.drawString("SE FODEU", (WIDTH * SCALE) / 2 - 80, (HEIGHT * SCALE) / 2 - 60);
+			g.drawString("GAME OVER", (WIDTH * SCALE) / 2 - 115, (HEIGHT * SCALE) / 2 - 60);
 			g.setFont(new Font("arial", Font.BOLD, 20));
 			if (showMessageGameOver) {
 				g.drawString(">Pressione enter para reinicar<", (WIDTH * SCALE) / 2 - 136, (HEIGHT * SCALE) / 2 - 10);
