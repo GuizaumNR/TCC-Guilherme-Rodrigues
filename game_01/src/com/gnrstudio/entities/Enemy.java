@@ -12,7 +12,8 @@ import com.gnrstudio.world.Vector2i;
 import com.gnrstudio.world.World;
 
 public class Enemy extends Entity {
-	private double speed = 1.15;
+	private double speed = 0;
+			//1.15;
 
 	private int maskX = 8, maskY = 8, maskW = 10, maskH = 16;
 
@@ -25,7 +26,8 @@ public class Enemy extends Entity {
 	private BufferedImage[] leftEnemy;
 	private BufferedImage[] dRightEnemy;
 	private BufferedImage[] dLeftEnemy;
-	private int life = 1;
+	public double maxLife = 4;
+	public double life = 4;
 	
 	private boolean isDamaged;
 	private int damageFrames = 10, damageCurrent = 0;
@@ -182,6 +184,7 @@ public class Enemy extends Entity {
 	}
 
 	public void render(Graphics g) {
+		isDamaged = true;
 		if(!isDamaged) {
 		if (dir == right_dir) {
 			g.drawImage(rightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
@@ -194,10 +197,19 @@ public class Enemy extends Entity {
 	}else{
 		if (dir == right_dir) {
 			g.drawImage(dRightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+			//vida enemy
+			g.setColor(Color.DARK_GRAY);
+			g.fillRect(this.getX() - Camera.x + 4,this.getY() - Camera.y - 4, 12, 3);
+			g.setColor(Color.red);
+			g.fillRect(this.getX() - Camera.x + 4,this.getY() - Camera.y - 4,(int) ((this.life/this.maxLife)*12), 3);
 		} else if (dir == left_dir) {
 			g.drawImage(dLeftEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
+			//vida enemy
+	        g.fillRect(this.getX() - Camera.x,this.getY() - Camera.y - 4, 12, 3);
+			g.setColor(Color.DARK_GRAY);
 		}		
 	}
+				
 		}
 
 }

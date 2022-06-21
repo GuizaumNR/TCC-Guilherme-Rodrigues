@@ -66,6 +66,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Random rand;
 
 	public UI ui;
+	
+	public Enemy en;
 
 	public static String gameState = "MENU";
 	private boolean showMessageGameOver = true;
@@ -191,6 +193,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public void tick() {
 		ui.tick();
+		
 		if (gameState == "NORMAL") { 
 			Sound.musicBackground.loop();
 			if(this.saveGame) {
@@ -299,7 +302,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			applyLight();
 		}
 		ui.render(g);
-		
 		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);

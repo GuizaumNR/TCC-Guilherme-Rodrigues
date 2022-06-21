@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.gnrstudio.entities.Enemy;
+import com.gnrstudio.entities.Enemy2;
 import com.gnrstudio.entities.Player;
 import com.gnrstudio.main.Game;
 
@@ -22,8 +24,7 @@ public class UI {
 	public static LocalDateTime timePoint2 = LocalDateTime.now();
 	
 	public static BufferedImage minimapa;
-	
-	
+
 	
 	public void tick() {       
 		
@@ -86,6 +87,7 @@ public class UI {
         g.setColor(Color.red);
         g.setFont(new Font("arial", Font.PLAIN, 8));
         g.drawString(timePoint.format(fmt), 200, 15);
+        
         
     }
 
