@@ -169,7 +169,7 @@ public class Player extends Entity {
 			// Criar bala e atirar TECLADO
 			shoot = false;
 			if (hasGun && ammo > 0) {
-				//Sound.shootEfecct.play();
+				Sound.shootE.play();
 				ammo--;
 				int dx = 0;
 				int px = 0;
@@ -193,7 +193,7 @@ public class Player extends Entity {
 			// converter
 			mouseShoot = false;
 			if (hasGun && ammo > 0) {
-				//Sound.shootEfecct.play();
+				Sound.shootE.play();
 				ammo--;
 
 				int px = 0;
@@ -229,7 +229,7 @@ public class Player extends Entity {
 		if (life <= 0) {
 			// Game over
 			this.life = 0;
-			//Sound.deadEfecct.play();
+			Sound.deadE.play();
 			Game.gameState = "GAME_OVER";
 		}
 

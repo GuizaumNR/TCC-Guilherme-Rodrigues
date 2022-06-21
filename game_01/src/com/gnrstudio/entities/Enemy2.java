@@ -18,8 +18,6 @@ public class Enemy2 extends Entity {
 
 	private double speed = 0.9;
 
-	
-
 	private int frames = 0, maxFrames = 3, index = 0, maxIndex = 3;// maxindex se conta a quantia de frames menos 1
 
 	public int right_dir = 0, left_dir = 1, down_dir = 2, up_dir = 3;
@@ -31,7 +29,7 @@ public class Enemy2 extends Entity {
 	private BufferedImage[] upEnemy;
 	private BufferedImage[] dRightEnemy;
 	private BufferedImage[] dLeftEnemy;
-	private int life = 1;
+	private double maxLife = 4, life = maxLife;
 
 	private boolean isDamaged;
 	private int damageFrames = 10, damageCurrent = 0;
@@ -103,9 +101,9 @@ public class Enemy2 extends Entity {
 			 
 		} else {
 			if (Game.rand.nextInt(100) > 10) {
-				//Sound.hurtEfecct.play();
+				Sound.hurtE.play();
 				double dano = Game.rand.nextInt(5);
-				//Game.player.life -= dano;
+				Game.player.life -= dano;
 				Game.player.isDamaged = true;
 				if (Game.player.life <= 0) {
 					Game.player.life = 0;
@@ -173,6 +171,7 @@ public class Enemy2 extends Entity {
 	}
 
 	public void render(Graphics g) {
+		
 		if (!isDamaged) {
 			if (dir == right_dir) {
 				g.drawImage(rightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
@@ -186,6 +185,12 @@ public class Enemy2 extends Entity {
 //			g.setColor(Color.BLUE);
 //			g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, mwidth, mheight);
 		} else {
+		
+			//vida enemy
+			g.setColor(Color.DARK_GRAY);
+			g.fillRect(this.getX() - Camera.x + 2,this.getY() - Camera.y - 4, 12, 3);
+			g.setColor(Color.red);
+			g.fillRect(this.getX() - Camera.x + 2,this.getY() - Camera.y - 4,(int) ((this.life/this.maxLife)*10), 3);
 			if (dir == right_dir) {
 				g.drawImage(dRightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 			} else if (dir == left_dir) {

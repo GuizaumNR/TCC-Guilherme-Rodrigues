@@ -50,6 +50,11 @@ public class Sound {
 	}
 	
 	public static Clips musicBackground = load("/music.wav",1);
+	public static Clips shootE = load("/shoot.wav",1);
+	public static Clips selectE = load("/select.wav",1);
+	public static Clips deadE = load("/dead.wav",1);
+	public static Clips hurtE = load("/hurt.wav",1);
+	
 	
 	public static Clips load(String name, int count) {
 		
