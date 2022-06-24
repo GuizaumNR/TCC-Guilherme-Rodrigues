@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import com.gnrstudio.main.Game;
+import com.gnrstudio.main.Sound;
 import com.gnrstudio.world.AStar;
 import com.gnrstudio.world.Camera;
 import com.gnrstudio.world.Vector2i;
@@ -96,6 +97,7 @@ public class Enemy extends Entity {
 		} else {
 			// estamos perto do player, o que fazer?
 			if (Game.rand.nextInt(100) > 10) {
+				Sound.hurtE.play();
 				double danoRandom = Game.rand.nextDouble();
 				double inicio = 0.1;
 				double fim = 0.5;

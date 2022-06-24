@@ -33,7 +33,6 @@ import com.gnrstudio.entities.Entity;
 import com.gnrstudio.entities.Player;
 import com.gnrstudio.graficos.Spritesheet;
 import com.gnrstudio.graficos.UI;
-import com.gnrstudio.world.Camera;
 import com.gnrstudio.world.World;
 import java.awt.image.DataBufferInt;
 
@@ -79,6 +78,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Font graspingFont;
 	public static Font graspingFontFundo;
 	
+	//cutscene
+	public static int entrada = 1;
+	public static int comecando = 2;
+	public static int jogando = 3;
+	public static int estado_cena = entrada;
+	public static int timeCena = 0, maxTimeCena = 60*6;
 	public Menu menu;
 
 	public boolean saveGame = false;
@@ -204,6 +209,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				System.out.println("Jogo salvo com sucesso.");
 				}
 			this.restartGame = false;
+			if(estado_cena == jogando) {
 			for (int i = 0; i < entities.size(); i++) {
 				Entity e = entities.get(i);
 				if (e instanceof Player) {
@@ -215,7 +221,22 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			for (int i = 0; i < bullets.size(); i++) {
 				bullets.get(i).tick();
 			}
-
+			}else{
+				player.tick();
+				if(estado_cena == entrada){
+					if(player.getX() > 40) {
+						player.left = true;
+						player.x--;
+					}else {
+						estado_cena = comecando;
+					}
+					}else {
+						timeCena++;
+						if(timeCena == maxTimeCena) {
+							estado_cena = jogando;
+						}
+					}
+				}
 			if (enemies.size() == 0 && enemies2.size() == 0) {
 				// avançar de nivel
 				Cur_Level++;
@@ -301,7 +322,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		if(player.life <= 40){		
 			applyLight();
 		}
+		if(estado_cena == jogando) {
 		ui.render(g);
+		}
 		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
@@ -343,7 +366,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			g.drawString("GAME OVER", (WIDTH * SCALE) / 2 - 115, (HEIGHT * SCALE) / 2 - 60);
 			g.setFont(new Font("arial", Font.BOLD, 20));
 			if (showMessageGameOver) {
-				g.drawString(">Pressione enter para reinicar<", (WIDTH * SCALE) / 2 - 136, (HEIGHT * SCALE) / 2 - 10);
+				g.drawString(">Pressione enter para reinicar<", (WIDTH * SCALE) / 2 - 148, (HEIGHT * SCALE) / 2 - 10);
 			}
 
 		} else if (gameState == "MENU") {
@@ -357,6 +380,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 //		g.setColor(Color.RED);
 //		g.fillRect(200, 200, 50, 70);
 //		
+		if(estado_cena ==  comecando) {
+			g.setFont(graspingFont);
+			g.setColor(Color.WHITE);
+			g.drawString("so quero formarkkkkkkkkkkkkkkkkkk", (WIDTH * SCALE) / 2 - 115, (HEIGHT * SCALE) / 2 - 60);
+		}
+		
 		bs.show();
 	}
 

@@ -226,7 +226,7 @@ public class Player extends Entity {
 			}
 		}
 
-		if (life <= 0) {
+		if (life < 1) {
 			// Game over
 			this.life = 0;
 			Sound.deadE.play();
