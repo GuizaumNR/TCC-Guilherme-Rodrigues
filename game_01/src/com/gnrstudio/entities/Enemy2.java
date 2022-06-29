@@ -29,7 +29,7 @@ public class Enemy2 extends Entity {
 	private BufferedImage[] upEnemy;
 	private BufferedImage[] dRightEnemy;
 	private BufferedImage[] dLeftEnemy;
-	private double maxLife = 4, life = maxLife;
+	private double maxLife = 3, life = maxLife;
 
 	private boolean isDamaged;
 	private int damageFrames = 10, damageCurrent = 0;

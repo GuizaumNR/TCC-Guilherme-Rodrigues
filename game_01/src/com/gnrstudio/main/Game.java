@@ -30,6 +30,7 @@ import com.gnrstudio.entities.BulletShoot;
 import com.gnrstudio.entities.Enemy;
 import com.gnrstudio.entities.Enemy2;
 import com.gnrstudio.entities.Entity;
+import com.gnrstudio.entities.NPC_Guarda;
 import com.gnrstudio.entities.Player;
 import com.gnrstudio.graficos.Spritesheet;
 import com.gnrstudio.graficos.UI;
@@ -67,6 +68,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public UI ui;
 	
 	public Enemy en;
+	
+	public NPC_Guarda guarda;
 
 	public static String gameState = "MENU";
 	private boolean showMessageGameOver = true;
@@ -83,7 +86,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static int comecando = 2;
 	public static int jogando = 3;
 	public static int estado_cena = entrada;
-	public static int timeCena = 0, maxTimeCena = 60*6;
+	public static int timeCena = 0, maxTimeCena = 60*3;
 	public Menu menu;
 
 	public boolean saveGame = false;
@@ -132,6 +135,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		minimapa = new BufferedImage(world.WIDTH, world.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		minimapaPixels = ((DataBufferInt) minimapa.getRaster().getDataBuffer()).getData();
 		menu = new Menu();
+		
+		guarda = new NPC_Guarda(32,32,16,16,spritesheet.getSprite(112, 32, 16, 16));
+		entities.add(guarda);
 		
 		try {
 			graspingFont = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(46f);
@@ -224,11 +230,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}else{
 				player.tick();
 				if(estado_cena == entrada){
-					if(player.getX() > 40) {
+					if(player.getX() < 40) {
 						player.left = true;
-						player.x--;
+						player.x++;
 					}else {
 						estado_cena = comecando;
+						player.left = false;
 					}
 					}else {
 						timeCena++;
@@ -421,10 +428,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		}
 		stop();
 	}
-
+    
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// executar movimentos, eventos.
+		if(estado_cena == jogando) {
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 			player.right = true;
 
@@ -441,7 +449,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		if (e.getKeyCode() == KeyEvent.VK_X) {
 			player.shoot = true;
 		}
-
+		}
+		
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			this.restartGame = true;
 			if (gameState == "MENU") {
@@ -450,9 +459,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			if(gameState != "MENU") {
 			gameState = "MENU";
 			menu.pause = true;
 		}
+			}
 		
 		if(e.getKeyCode() == KeyEvent.VK_F) {
 			if(gameState == "NORMAL") {
@@ -461,10 +472,14 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			
 		}
 	}
-
+		
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			guarda.showMessage = false;
+		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			player.jump = true;
 		}
