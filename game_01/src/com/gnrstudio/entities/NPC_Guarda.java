@@ -12,17 +12,18 @@ public class NPC_Guarda extends Entity{
 	public String[] frases = new String[7];
 	public boolean showMessage = false;
 	public boolean show = false;
+	public int currentMessage = 0;
 	
 	public NPC_Guarda(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 		
 		frases[0] = "-Sipriano? o que fazes aqui?!";
-		frases[1] = "-Nós já conversamos, o cemitário está fechado desde a pandemia.";
-		frases[2] = "-Esquece! Tás armado?";
-		frases[3] = "-Bom, agora que está aqui vás precisar.";
-		frases[4] = "-Acontece que o fechamento tem um motivo...";
-		frases[5] = "-Não posso lhe contar agora, apenas vá pra cima e pra direita, vás encontrar arma e munição.";
-		frases[6] = "-Pra poder continuar, encontre a arma e depois garanta que estamos sozinhos.";
+		frases[1] = "-O cemitário está fechado.";
+		frases[2] = "-Não devias estar aqui.";
+		frases[3] = "-Este é um lugar perigoso agora.";
+		frases[4] = "-Agora é tarde.";
+		frases[5] = "-Pegue esta arma.";
+		frases[6] = "-Você vai precisar...";
 	}
 
 	
@@ -40,7 +41,8 @@ public class NPC_Guarda extends Entity{
 			show = true;
 			}
 			}else {
-			//showMessage = false;
+			showMessage = false;
+			show = false;
 		}
 		
 	}
@@ -55,9 +57,11 @@ public class NPC_Guarda extends Entity{
 			g.setColor(Color.WHITE);
 			g.fillRect(Game.WIDTH/Game.SCALE - 65, Game.HEIGHT/Game.SCALE + 47, 210, 50);
 			
+			//for(int i = 0; i < frases.length; i++){
 			g.setFont(new Font("Arial",Font.BOLD, 11));
 			g.setColor(Color.BLACK);
-			g.drawString(frases[0], Game.WIDTH/Game.SCALE - 60, Game.HEIGHT/Game.SCALE + 60);
+			g.drawString(frases[currentMessage], Game.WIDTH/Game.SCALE - 60, Game.HEIGHT/Game.SCALE + 60);
+			//}
 			
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial",Font.BOLD, 10));

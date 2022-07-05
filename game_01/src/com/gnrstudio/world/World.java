@@ -90,11 +90,14 @@ public class World {
 						Enemy2 en2 = new Enemy2(xx * 16, yy * 16, 9, 15, Entity.ENEMY2_EN);
 						Game.entities.add(en2);
 						Game.enemies2.add(en2);
+					}else if (pixelAtual == 0XFF211344) {
+						// Guarda
+						Game.guarda.setX(xx * 16);
+						Game.guarda.setY(yy * 16);
 					} else if (pixelAtual == 0XFFFF6A00) {
 						// WEAPON
 						Weapon weapon = new Weapon(xx * 16, yy * 16, 16, 16, Entity.WEAPON_EN);
 						Game.entities.add(weapon);
-						
 					} else if (pixelAtual == 0XFF00FF00) {
 						// LIFEPACK
 						LifePack pack = new LifePack(xx * 16, yy * 16, 11, 11, Entity.LIFEPACK_EN);

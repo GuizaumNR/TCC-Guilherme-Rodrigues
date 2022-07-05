@@ -69,7 +69,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	
 	public Enemy en;
 	
-	public NPC_Guarda guarda;
+	public static NPC_Guarda guarda;
 
 	public static String gameState = "MENU";
 	private boolean showMessageGameOver = true;
@@ -126,18 +126,18 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		enemies = new ArrayList<Enemy>();
 		enemies2 = new ArrayList<Enemy2>();
 		bullets = new ArrayList<BulletShoot>();
-
+		
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0, 0, 11, 15, spritesheet.getSprite(32, 0, 11, 15));
 		entities.add(player);
+		guarda = new NPC_Guarda(0, 0, 16, 16,spritesheet.getSprite(112, 32, 16, 16));
+		entities.add(guarda);
 		world = new World("/level1.png");
 		
 		minimapa = new BufferedImage(world.WIDTH, world.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		minimapaPixels = ((DataBufferInt) minimapa.getRaster().getDataBuffer()).getData();
 		menu = new Menu();
 		
-		guarda = new NPC_Guarda(32,32,16,16,spritesheet.getSprite(112, 32, 16, 16));
-		entities.add(guarda);
 		
 		try {
 			graspingFont = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(46f);
@@ -230,7 +230,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}else{
 				player.tick();
 				if(estado_cena == entrada){
-					if(player.getX() < 40) {
+					if(player.getX() > 40) {
 						player.left = true;
 						player.x++;
 					}else {
@@ -390,7 +390,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		if(estado_cena ==  comecando) {
 			g.setFont(graspingFont);
 			g.setColor(Color.WHITE);
-			g.drawString("so quero formarkkkkkkkkkkkkkkkkkk", (WIDTH * SCALE) / 2 - 115, (HEIGHT * SCALE) / 2 - 60);
+			g.drawString("Fale com o guarda.", (WIDTH * SCALE) / 2 - 115, (HEIGHT * SCALE) / 2 - 60);
 		}
 		
 		bs.show();
@@ -478,8 +478,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public void keyReleased(KeyEvent e) {
 
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-			guarda.showMessage = false;
+			if(guarda.showMessage) {
+			if(guarda.currentMessage < guarda.frases.length -1) {
+				guarda.currentMessage++;
+			}else if(guarda.currentMessage == guarda.frases.length -1){
+				guarda.showMessage = false;
+				guarda.currentMessage = 0;
+			}
 		}
+	}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			player.jump = true;
 		}
