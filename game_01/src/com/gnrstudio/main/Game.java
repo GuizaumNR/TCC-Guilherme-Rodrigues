@@ -230,10 +230,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}else{
 				player.tick();
 				if(estado_cena == entrada){
-					if(player.getX() > 40) {
+					if(player.getX() > guarda.x) {
 						player.left = true;
 						player.x++;
-					}else {
+					}
+					else {
 						estado_cena = comecando;
 						player.left = false;
 					}
@@ -347,20 +348,15 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		if(ahora <= 5) {
 		g2.setColor(new Color(8, 20, 80, (ahora + 24) * 3));
 		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-		System.out.println("hora " + ahora + " opacidade " +(ahora + 24) * 3);
 		}else if(ahora < 12) {
 			g2.setColor(new Color(8, 20, 80,((int)(100.1/ahora - 5)  * 3)));
 			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-			System.out.println("hora " + ahora + " opacidade " +((int)(100.1/ahora - 5) * 3));
 		}else if(ahora > 12) {
-			g2.setColor(new Color(8, 20, 80,(int)(1  * 3)));
+			g2.setColor(new Color(8, 20, 80,(int)(ahora - 5/100.1) * 3));
 			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-			System.out.println("hora " + ahora + " opacidade " +
-			(int)((Math.log(2)/Math.log(ahora - 12))/(Math.log(2)/Math.log(18))  * 3));
     	}else if(ahora == 12) {
 		g2.setColor(new Color(8, 20, 80, 0));
 		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-		System.out.println("hora " + ahora + " opacidade " + 0);
 		}
 		}
 		
@@ -386,7 +382,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 //		g2.rotate(angleMouse, 200+25, 200+45);
 //		g.setColor(Color.RED);
 //		g.fillRect(200, 200, 50, 70);
-//		
+		
 		if(estado_cena ==  comecando) {
 			g.setFont(graspingFont);
 			g.setColor(Color.WHITE);
@@ -417,13 +413,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				delta--;
 			}
 			if (System.currentTimeMillis() - timer >= 1000) {
-//				System.out.println("FPS: " + frames);
-//				frames = 0;
+				System.out.println("FPS: " + frames);
+				frames = 0;
 				timer += 1000;
-				ahora++;
-				if(ahora >= 24) {
-					ahora = 0;
-				}
 			}
 		}
 		stop();
@@ -457,13 +449,14 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				menu.enter = true;
 			}
 		}
-
+		if(estado_cena !=  comecando) {
 		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 			if(gameState != "MENU") {
 			gameState = "MENU";
 			menu.pause = true;
 		}
 			}
+		}
 		
 		if(e.getKeyCode() == KeyEvent.VK_F) {
 			if(gameState == "NORMAL") {

@@ -57,11 +57,9 @@ public class NPC_Guarda extends Entity{
 			g.setColor(Color.WHITE);
 			g.fillRect(Game.WIDTH/Game.SCALE - 65, Game.HEIGHT/Game.SCALE + 47, 210, 50);
 			
-			//for(int i = 0; i < frases.length; i++){
 			g.setFont(new Font("Arial",Font.BOLD, 11));
 			g.setColor(Color.BLACK);
 			g.drawString(frases[currentMessage], Game.WIDTH/Game.SCALE - 60, Game.HEIGHT/Game.SCALE + 60);
-			//}
 			
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial",Font.BOLD, 10));
