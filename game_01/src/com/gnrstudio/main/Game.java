@@ -474,6 +474,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			if(guarda.showMessage) {
 			if(guarda.currentMessage < guarda.frases.length -1) {
 				guarda.currentMessage++;
+				guarda.curIndex = 0;
 			}else if(guarda.currentMessage == guarda.frases.length -1){
 				guarda.showMessage = false;
 				guarda.currentMessage = 0;

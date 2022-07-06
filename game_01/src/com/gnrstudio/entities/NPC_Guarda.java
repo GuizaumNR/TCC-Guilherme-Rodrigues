@@ -13,6 +13,10 @@ public class NPC_Guarda extends Entity{
 	public boolean showMessage = false;
 	public boolean show = false;
 	public int currentMessage = 0;
+	public int curIndex = 0;
+	
+	public int time = 0;
+	public int maxTime = 5;
 	
 	public NPC_Guarda(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
@@ -44,6 +48,16 @@ public class NPC_Guarda extends Entity{
 			showMessage = false;
 			show = false;
 		}
+		if(showMessage) {
+			this.time++;
+			
+			if(this.time >= this.maxTime) {
+				this.time = 0;
+			if(curIndex < frases[currentMessage].length()){
+				curIndex++;
+			}
+			}
+			}
 		
 	}
 	
@@ -59,7 +73,7 @@ public class NPC_Guarda extends Entity{
 			
 			g.setFont(new Font("Arial",Font.BOLD, 11));
 			g.setColor(Color.BLACK);
-			g.drawString(frases[currentMessage], Game.WIDTH/Game.SCALE - 60, Game.HEIGHT/Game.SCALE + 60);
+			g.drawString(frases[currentMessage].substring(0,curIndex), Game.WIDTH/Game.SCALE - 60, Game.HEIGHT/Game.SCALE + 60);
 			
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial",Font.BOLD, 10));
