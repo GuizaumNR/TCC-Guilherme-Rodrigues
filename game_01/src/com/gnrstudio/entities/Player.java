@@ -118,23 +118,23 @@ public class Player extends Entity {
 			}
 
 		moved = false;
-		if (right && World.isFree((int) (x + speed), this.getY(), z)) {
+		if (right && World.isFree((int) (x + speed), this.getY(), z) && World.isFree2((int) (x + speed), this.getY())) {
 			moved = true;
 			dir = right_dir;
 			x += speed;
 
-		} else if (left && World.isFree((int) (x - speed), this.getY(), z)) {
+		} else if (left && World.isFree((int) (x - speed), this.getY(), z) && World.isFree2((int) (x - speed), this.getY())) {
 			moved = true;
 			dir = left_dir;
 			x -= speed;
 
 		}
-		if (up && World.isFree(this.getX(), (int) (y - speed), z)) {
+		if (up && World.isFree(this.getX(), (int) (y - speed), z) && World.isFree2(this.getX(), (int) (y - speed))) {
 			moved = true;
 			dir = up_dir;
 			y -= speed;
 
-		} else if (down && World.isFree(this.getX(), (int) (y + speed), z)) {
+		} else if (down && World.isFree(this.getX(), (int) (y + speed), z) && World.isFree2(this.getX(), (int) (y + speed))) {
 			moved = true;
 			dir = down_dir;
 			y += speed;
@@ -396,7 +396,7 @@ public class Player extends Entity {
 
 		if (isJumping) {
 			g.setColor(Color.BLACK);
-			g.fillOval(this.getX() - Camera.x, this.getY() - Camera.y + 8, 9, 9);
+			g.fillOval(this.getX() - Camera.x + 2, this.getY() - Camera.y + 8, 9, 9);
 			if(hasGun) {
 				if(dir == right_dir) {
 					g.fillRect((this.getX() - Camera.x) + 5, this.getY() - Camera.y + 12, 8, 3);

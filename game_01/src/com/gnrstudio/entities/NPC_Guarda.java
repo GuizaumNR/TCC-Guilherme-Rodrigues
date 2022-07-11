@@ -21,7 +21,7 @@ public class NPC_Guarda extends Entity{
 	public NPC_Guarda(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 		
-		frases[0] = "-Sipriano? o que fazes aqui?!";
+		frases[0] = "-O que fazes aqui?!";
 		frases[1] = "-O cemitário está fechado.";
 		frases[2] = "-Não devias estar aqui.";
 		frases[3] = "-Este é um lugar perigoso agora.";

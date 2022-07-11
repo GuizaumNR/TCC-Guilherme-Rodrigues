@@ -74,7 +74,7 @@ public class World {
 
 					} else if (pixelAtual == 0XFFFFFFFF) {
 						// PAREDE2
-						tiles[xx + (yy * WIDTH)] = new WallTile(xx * 16, yy * 16, Tile.TILE_WALL2);
+						tiles[xx + (yy * WIDTH)] = new WallTile2(xx * 16, yy * 16, Tile.TILE_WALL2);
 
 					} else if (pixelAtual == 0XFF0000FF) {
 						// PLAYER
@@ -151,6 +151,29 @@ public class World {
 	}
 	return false;
 	}
+	
+	public static boolean isFree2(int xnext, int ynext) {//para checar se a proxima posisao esta livre
+		int x1 = xnext / TILE_SIZE;
+		int y1 = ynext / TILE_SIZE;
+
+		int x2 = (xnext + TILE_SIZE - 1) / TILE_SIZE;
+		int y2 = ynext / TILE_SIZE;
+
+		int x3 = xnext / TILE_SIZE;
+		int y3 = (ynext + TILE_SIZE - 1) / TILE_SIZE;
+
+		int x4 = (xnext + TILE_SIZE - 1) / TILE_SIZE;
+		int y4 = (ynext + TILE_SIZE - 1) / TILE_SIZE;
+
+		if( !((tiles[x1 + (y1 * World.WIDTH)] instanceof WallTile2) || // verificando se o tile é parede(WallTile)
+				(tiles[x2 + (y2 * World.WIDTH)] instanceof WallTile2) || // retorna true se for por isso "!"
+				(tiles[x3 + (y3 * World.WIDTH)] instanceof WallTile2) || // para "isFree" ser false
+				(tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile2))) {
+		return true;
+	}
+	return false;
+	}
+	
 	public static void restartgame(String level) {
 		Game.entities.clear();
 		Game.enemies.clear();
