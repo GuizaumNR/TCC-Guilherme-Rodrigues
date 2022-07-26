@@ -399,13 +399,13 @@ public class Player extends Entity {
 			g.fillOval(this.getX() - Camera.x + 2, this.getY() - Camera.y + 8, 9, 9);
 			if(hasGun) {
 				if(dir == right_dir) {
-					g.fillRect((this.getX() - Camera.x) + 5, this.getY() - Camera.y + 12, 8, 3);
+					g.fillRect((this.getX() - Camera.x) + 7, this.getY() - Camera.y + 12, 8, 3);
 				}else if(dir == left_dir) {
-					g.fillRect((this.getX() - Camera.x) - 4, this.getY() - Camera.y + 12, 8, 3);
+					g.fillRect((this.getX() - Camera.x) - 2, this.getY() - Camera.y + 12, 8, 3);
 				}else if(dir == up_dir) {
-					g.fillRect((this.getX() - Camera.x)  + 7, (this.getY() - Camera.y + 12) - 6, 3, 8);
+					g.fillRect((this.getX() - Camera.x)  + 9, (this.getY() - Camera.y + 12) - 6, 3, 8);
 				}else if(dir == down_dir){			
-					g.fillRect(this.getX() - Camera.x, (this.getY() - Camera.y + 12) + 2, 3, 8);
+					g.fillRect(this.getX() - Camera.x + 2, (this.getY() - Camera.y + 12), 3, 8);
 					}
 				}
 			}

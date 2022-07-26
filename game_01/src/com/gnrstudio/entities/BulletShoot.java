@@ -29,28 +29,18 @@ public class BulletShoot extends Entity {
 	}
 
 	public void tick() {
+		if(World.isFreeDynamic((int)(x + dx * spd),(int) (y + dy * spd), 3, 1)) {
 		x += dx * spd;
 		y += dy * spd;
+		}else {
+			Game.bullets.remove(this);
+		}
 		curLife++;
 		if (curLife == life) {
 			Game.bullets.remove(this); // removendo essa bala
 			return; // sempre se da um return qunado se remove o proprio objeto
 		}
-
-		if ((int) x < Game.player.getX() && World.isFree((int) (x + spd), this.getY(), z)) {
-			
-		}else if ((int) x > Game.player.getX() && World.isFree((int) (x - spd), this.getY(), z)) {
-
-		}
-		else if ((int) y < Game.player.getY() && World.isFree(this.getX(), (int) (y + spd), z)) {
-			
-		} else if ((int) y > Game.player.getY() && World.isFree(this.getX(), (int) (y - spd), z)) {
 		
-		} else {
-			destroySelf();	
-			
-		}
-
 	}
 
 	public void destroySelf() {

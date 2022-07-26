@@ -7,8 +7,8 @@ import com.gnrstudio.main.Game;
 
 public class Tile {
 
-	public static BufferedImage TILE_FLOOR = Game.spritesheet.getSprite(16, 96, 16, 16);
-	public static BufferedImage TILE_FLOOR2 = Game.spritesheet.getSprite(0, 80, 16, 16);
+	public static BufferedImage TILE_FLOOR = Game.spritesheet.getSprite(16, 112, 16, 16);
+	public static BufferedImage TILE_FLOOR2 = Game.spritesheet.getSprite(0, 112, 16, 16);
 	public static BufferedImage TILE_FLOOR3 = Game.spritesheet.getSprite(0, 64, 16, 16);
 	public static BufferedImage TILE_WALL = Game.spritesheet.getSprite(0, 32, 16, 16);
 	public static BufferedImage TILE_WALL2 = Game.spritesheet.getSprite(0, 96, 16, 16);

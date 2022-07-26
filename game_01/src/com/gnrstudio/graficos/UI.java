@@ -20,7 +20,7 @@ public class UI {
 	public static BufferedImage bullets;
 	
 	public static int hora;
-	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("ss");;
+	public static DateTimeFormatter fmt2 = DateTimeFormatter.ofPattern("HH");;
 	public static LocalDateTime timePoint2 = LocalDateTime.now();
 	
 	public static BufferedImage minimapa;

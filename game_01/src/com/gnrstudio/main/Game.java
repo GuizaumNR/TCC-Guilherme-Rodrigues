@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static final int HEIGHT = 160;
 	public static final int SCALE = 3;
 
-	public static int Cur_Level = 1, Max_Level = 4;
+	public static int Cur_Level = 1, Max_Level = 5;
 
 	private BufferedImage image;
 	public static Spritesheet spritesheet;
@@ -66,9 +66,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public static Random rand;
 
 	public UI ui;
-	
+
 	public Enemy en;
-	
+
 	public static NPC_Guarda guarda;
 
 	public static String gameState = "MENU";
@@ -80,38 +80,39 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public InputStream streamFundo = ClassLoader.getSystemClassLoader().getResourceAsStream("grasping.ttf");
 	public static Font graspingFont;
 	public static Font graspingFontFundo;
-	
-	//cutscene
+
+	// cutscene
 	public static int entrada = 1;
 	public static int comecando = 2;
 	public static int jogando = 3;
 	public static int estado_cena = entrada;
-	public static int timeCena = 0, maxTimeCena = 60*3;
+	public static int timeCena = 0, maxTimeCena = 60 * 3;
 	public Menu menu;
 
 	public boolean saveGame = false;
-	
+
 	public int[] pixels;
 	public BufferedImage lightmap;
 	public int[] lightMapPixels;
 	public static int[] minimapaPixels;
-	
+
 	public static BufferedImage minimapa;
-	
+
 	public int mx, my;
-	
+
 	int ahora = 0;
+
 	public Game() {
 		rand = new Random();
 		addKeyListener(this); // adicionando o "ouvidor" de teclas aqui(this)
 		addMouseListener(this); // adicionando o "ouvidor" de mouse aqui(this)
-		addMouseMotionListener(this); //adiconando o "ouvidor" de movimentos do mouse aqui(this)
+		addMouseMotionListener(this); // adiconando o "ouvidor" de movimentos do mouse aqui(this)
 		setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
 		initFrame();
 
 		// Inicializando objetos;
 		ui = new UI();
-	
+
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		try {
 			lightmap = ImageIO.read(getClass().getResource("/lightmap.png"));
@@ -126,19 +127,18 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		enemies = new ArrayList<Enemy>();
 		enemies2 = new ArrayList<Enemy2>();
 		bullets = new ArrayList<BulletShoot>();
-		
+
 		spritesheet = new Spritesheet("/spritesheet.png");
 		player = new Player(0, 0, 11, 15, spritesheet.getSprite(32, 0, 11, 15));
 		entities.add(player);
-		guarda = new NPC_Guarda(0, 0, 16, 16,spritesheet.getSprite(112, 32, 16, 16));
+		guarda = new NPC_Guarda(0, 0, 16, 16, spritesheet.getSprite(112, 32, 16, 16));
 		entities.add(guarda);
 		world = new World("/level1.png");
-		
+
 		minimapa = new BufferedImage(world.WIDTH, world.HEIGHT, BufferedImage.TYPE_INT_RGB);
 		minimapaPixels = ((DataBufferInt) minimapa.getRaster().getDataBuffer()).getData();
 		menu = new Menu();
-		
-		
+
 		try {
 			graspingFont = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(46f);
 		} catch (FontFormatException e) {
@@ -146,7 +146,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			graspingFontFundo = Font.createFont(Font.TRUETYPE_FONT, streamFundo).deriveFont(45f);
 		} catch (FontFormatException e) {
@@ -154,6 +154,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	public void initFrame() {
@@ -165,21 +166,21 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-		
+
 		Image imageIcon = null;
-		
+
 		try {
 			imageIcon = ImageIO.read(getClass().getResource("/icon.png"));
-		}catch (IOException e){
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Image imageCursor = toolkit.getImage(getClass().getResource("/cursor.png"));
-		Cursor c = toolkit.createCustomCursor(imageCursor, new Point(0,0), "img");
+		Cursor c = toolkit.createCustomCursor(imageCursor, new Point(0, 0), "img");
 		frame.setCursor(c);
 		frame.setIconImage(imageIcon);
 		frame.setAlwaysOnTop(true);
-		
+
 	}
 
 	public synchronized void start() {
@@ -204,47 +205,52 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 	public void tick() {
 		ui.tick();
-		
-		if (gameState == "NORMAL") { 
+		ahora = ui.hora;
+		if (gameState == "NORMAL") {
 			Sound.musicBackground.loop();
-			if(this.saveGame) {
+			if (this.saveGame) {
 				this.saveGame = false;
-				String[] opt1 = {"level","vida"}; //nome no arquivo
-				int[] opt2 = {this.Cur_Level,(int) player.life}; //variaveis no projeto, tipo insert do SQL
-				Menu.saveGame(opt1,opt2, 10);
+				String[] opt1 = { "level", "vida" }; // nome no arquivo
+				int[] opt2 = { this.Cur_Level, (int) player.life }; // variaveis no projeto, tipo insert do SQL
+				Menu.saveGame(opt1, opt2, 10);
 				System.out.println("Jogo salvo com sucesso.");
-				}
+			}
 			this.restartGame = false;
-			if(estado_cena == jogando) {
-			for (int i = 0; i < entities.size(); i++) {
-				Entity e = entities.get(i);
-				if (e instanceof Player) {
-					// estou dando tick no player, instanceof = "é um ...(classe)
+			if (estado_cena == jogando) {
+				for (int i = 0; i < entities.size(); i++) {
+					Entity e = entities.get(i);
+					if (e instanceof Player) {
+						// estou dando tick no player, instanceof = "é um ...(classe)
+					}
+					e.tick();
 				}
-				e.tick();
-			}
 
-			for (int i = 0; i < bullets.size(); i++) {
-				bullets.get(i).tick();
-			}
-			}else{
+				for (int i = 0; i < bullets.size(); i++) {
+					bullets.get(i).tick();
+				}
+			} else {
 				player.tick();
-				if(estado_cena == entrada){
-					if(player.getX() > guarda.x) {
+				if(Cur_Level < 2) {
+				if (estado_cena == entrada) {
+
+					if (player.getX() > guarda.x) {
 						player.left = true;
 						player.x++;
 					}
+
 					else {
 						estado_cena = comecando;
 						player.left = false;
 					}
-					}else {
-						timeCena++;
-						if(timeCena == maxTimeCena) {
-							estado_cena = jogando;
-						}
+				} else {
+					timeCena++;
+					if (timeCena == maxTimeCena) {
+						estado_cena = jogando;
 					}
+
 				}
+				}
+			}
 			if (enemies.size() == 0 && enemies2.size() == 0) {
 				// avançar de nivel
 				Cur_Level++;
@@ -277,8 +283,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			menu.tick();
 		}
 	}
-	
-	//rotação de objetos
+
+	// rotação de objetos
 //public void drawRectangleExample(int xoff, int yoff) {
 //	for(int xx = 0; xx < 32; xx++) {
 //		for(int yy = 0; yy < 32; yy ++) {
@@ -294,18 +300,16 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 // visão de olho
 	public void applyLight() {
-		for(int xx = 0; xx < WIDTH; xx++) {
-			for(int yy = 0; yy < HEIGHT; yy++) {
-				if(lightMapPixels[xx+(yy * WIDTH)] == 0xffffffff) {// pegando na imagem lightmap
-					pixels[xx +(yy*WIDTH)] = 0;
+		for (int xx = 0; xx < WIDTH; xx++) {
+			for (int yy = 0; yy < HEIGHT; yy++) {
+				if (lightMapPixels[xx + (yy * WIDTH)] == 0xffffffff) {// pegando na imagem lightmap
+					pixels[xx + (yy * WIDTH)] = 0;
 				}
 			}
 		}
 	}
-	
-	
-	
-/* RENDERIZAÇÃO DO JOGO */
+
+	/* RENDERIZAÇÃO DO JOGO */
 	public void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) {
@@ -315,8 +319,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		Graphics g = image.getGraphics();
 		g.setColor(new Color(0, 0, 0));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		
-		
+
 		world.render(g);
 		Collections.sort(entities, Entity.nodeSorter);
 		for (int i = 0; i < entities.size(); i++) {
@@ -327,39 +330,39 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).render(g);
 		}
-		if(player.life <= 40){		
+		if (player.life <= 40) {
 			applyLight();
 		}
-		if(estado_cena == jogando) {
-		ui.render(g);
+		if (estado_cena == jogando) {
+			ui.render(g);
 		}
 		g.dispose();
 		g = bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
-		
-		if(Player.hasMap) {
-		World.renderMinimapa();
-		g.drawImage(minimapa, 615, 375, world.WIDTH * 2, world.HEIGHT * 2, null);
+
+		if (Player.hasMap) {
+			World.renderMinimapa();
+			g.drawImage(minimapa, 615, 375, world.WIDTH * 2, world.HEIGHT * 2, null);
 		}
-		
+
 		Graphics2D g2 = (Graphics2D) g; // criando os "filtros" de escurecer
-	
-		if(gameState == "NORMAL"){
-		if(ahora <= 5) {
-		g2.setColor(new Color(8, 20, 80, (ahora + 24) * 3));
-		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-		}else if(ahora < 12) {
-			g2.setColor(new Color(8, 20, 80,((int)(100.1/ahora - 5)  * 3)));
-			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-		}else if(ahora > 12) {
-			g2.setColor(new Color(8, 20, 80,(int)(ahora - 5/100.1) * 3));
-			g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-    	}else if(ahora == 12) {
-		g2.setColor(new Color(8, 20, 80, 0));
-		g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+
+		if (gameState == "NORMAL") {
+			if (ahora <= 5) {
+				g2.setColor(new Color(8, 20, 80, (ahora + 24) * 3));
+				g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+			} else if (ahora < 12) {
+				g2.setColor(new Color(8, 20, 80, ((int) (100.1 / ahora - 5) * 3)));
+				g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+			} else if (ahora > 12) {
+				g2.setColor(new Color(8, 20, 80, (int) (ahora - 5 / 100.1) * 3));
+				g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+			} else if (ahora == 12) {
+				g2.setColor(new Color(8, 20, 80, 0));
+				g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+			}
 		}
-		}
-		
+
 		if (gameState == "GAME_OVER") {
 			g2 = (Graphics2D) g; // criando opacidade
 			g2.setColor(new Color(0, 0, 0, 100));
@@ -375,26 +378,25 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		} else if (gameState == "MENU") {
 			menu.render(g);
 		}
-		
-		
+
 //		Graphics2D g2 = (Graphics2D) g; //rotação de objetos
 //		double angleMouse = Math.atan2(my - 200 + 45, mx - 200 + 25);
 //		g2.rotate(angleMouse, 200+25, 200+45);
 //		g.setColor(Color.RED);
 //		g.fillRect(200, 200, 50, 70);
-		
-		if(estado_cena ==  comecando) {
+
+		if (estado_cena == comecando) {
 			g.setFont(graspingFont);
 			g.setColor(Color.WHITE);
-			g.drawString("Fale com o guarda.", (WIDTH * SCALE) / 2 - 115, (HEIGHT * SCALE) / 2 - 60);
+			g.drawString("Fale com o guarda.", (WIDTH * SCALE) / 2 - 125, (HEIGHT * SCALE) / 2 - 60);
 		}
-		
+
 		bs.show();
 	}
 
 	public void run() {
 		// FPS
-		
+
 		requestFocus();
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
@@ -413,76 +415,81 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				delta--;
 			}
 			if (System.currentTimeMillis() - timer >= 1000) {
-				System.out.println("FPS: " + frames);
+				//System.out.println("FPS: " + frames);
+				System.out.println(ahora);
 				frames = 0;
 				timer += 1000;
 			}
 		}
 		stop();
 	}
-    
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// executar movimentos, eventos.
-		if(estado_cena == jogando) {
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
-			player.right = true;
+		if (estado_cena == jogando) {
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
+				player.right = true;
 
-		} else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
-			player.left = true;
+			} else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+				player.left = true;
+			}
+
+			if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+				player.up = true;
+			} else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
+				player.down = true;
+			}
+
+			if (e.getKeyCode() == KeyEvent.VK_X) {
+				player.shoot = true;
+			}
 		}
 
-		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
-			player.up = true;
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_S) {
-			player.down = true;
-		}
-
-		if (e.getKeyCode() == KeyEvent.VK_X) {
-			player.shoot = true;
-		}
-		}
-		
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			this.restartGame = true;
 			if (gameState == "MENU") {
 				menu.enter = true;
 			}
 		}
-		if(estado_cena !=  comecando) {
-		if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-			if(gameState != "MENU") {
-			gameState = "MENU";
-			menu.pause = true;
-		}
+		if (estado_cena != comecando) {
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				if (gameState != "MENU") {
+					gameState = "MENU";
+					menu.pause = true;
+				}
 			}
 		}
-		
-		if(e.getKeyCode() == KeyEvent.VK_F) {
-			if(gameState == "NORMAL") {
-			this.saveGame = true;
+
+		if (e.getKeyCode() == KeyEvent.VK_F) {
+			if (gameState == "NORMAL") {
+				this.saveGame = true;
 			}
-			
+
 		}
 	}
-		
-	
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 
-		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-			if(guarda.showMessage) {
-			if(guarda.currentMessage < guarda.frases.length -1) {
-				guarda.currentMessage++;
-				guarda.curIndex = 0;
-			}else if(guarda.currentMessage == guarda.frases.length -1){
-				guarda.showMessage = false;
-				guarda.currentMessage = 0;
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if (guarda.showMessage) {
+				if (guarda.currentMessage < guarda.frases.length - 1) {
+					guarda.curIndex = 0;
+					guarda.currentMessage++;
+				} else if (guarda.currentMessage >= guarda.frases.length - 1) {
+					guarda.currentMessage = 0;
+					guarda.showMessage = false;
+
+				}
+				
+//				guarda.showMessage = false;
 			}
 		}
-	}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			player.jump = true;
+			if (estado_cena == jogando) {
+				player.jump = true;
+			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
 			player.right = false;
@@ -547,7 +554,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

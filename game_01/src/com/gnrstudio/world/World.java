@@ -126,6 +126,32 @@ public class World {
 		}
 	}
 
+	public static boolean isFreeDynamic(int xnext, int ynext, int width, int height) {//para checar se a proxima posisao esta livre
+		int x1 = xnext / TILE_SIZE;
+		int y1 = ynext / TILE_SIZE;
+
+		int x2 = (xnext + width - 1) / TILE_SIZE;
+		int y2 = ynext / TILE_SIZE;
+
+		int x3 = xnext / width;
+		int y3 = (ynext + height - 1) / TILE_SIZE;
+
+		int x4 = (xnext + width - 1) / TILE_SIZE;
+		int y4 = (ynext + height - 1) / TILE_SIZE;
+
+		if( !((tiles[x1 + (y1 * World.WIDTH)] instanceof WallTile) || // verificando se o tile é parede(WallTile)
+				(tiles[x2 + (y2 * World.WIDTH)] instanceof WallTile) || // retorna true se for por isso "!"
+				(tiles[x3 + (y3 * World.WIDTH)] instanceof WallTile) || // para "isFree" ser false
+				(tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile) ||
+				(tiles[x1 + (y1 * World.WIDTH)] instanceof WallTile2) || 
+				(tiles[x2 + (y2 * World.WIDTH)] instanceof WallTile2) || 
+				(tiles[x3 + (y3 * World.WIDTH)] instanceof WallTile2) || 
+				(tiles[x4 + (y4 * World.WIDTH)] instanceof WallTile2))) {
+		return true;
+	}
+	return false;
+	}
+	
 	
 	public static boolean isFree(int xnext, int ynext, int z) {//para checar se a proxima posisao esta livre
 		int x1 = xnext / TILE_SIZE;
