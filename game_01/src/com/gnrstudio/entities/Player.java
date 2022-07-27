@@ -233,14 +233,6 @@ public class Player extends Entity {
 			Game.gameState = "GAME_OVER";
 		}
 
-		if (life >= maxlife) {
-			life = maxlife;
-
-		}
-		if (ammo >= maxAmmo) {
-			ammo = maxAmmo;
-
-		}
 		updateCamera();
 
 	}
@@ -256,10 +248,10 @@ public class Player extends Entity {
 			if (atual instanceof Bullet) {
 				if (Entity.isColidding(this, atual)) {
 					if (ammo < maxAmmo) {
-						ammo += 5;
-						if (ammo > maxAmmo) {
-							ammo = maxAmmo;
-						}
+						ammo += 500;
+//						if (ammo > maxAmmo) {
+//							ammo = maxAmmo;
+//						}
 					Game.entities.remove(atual);
 				}
 			}

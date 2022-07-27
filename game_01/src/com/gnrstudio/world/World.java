@@ -126,6 +126,12 @@ public class World {
 		}
 	}
 
+	public static void generateParticles(int amount, int x, int y) {
+		for(int i = 0; i < amount; i++){
+			Game.entities.add(new Particle(x,y,1,1,null));
+		}
+	}
+	
 	public static boolean isFreeDynamic(int xnext, int ynext, int width, int height) {//para checar se a proxima posisao esta livre
 		int x1 = xnext / TILE_SIZE;
 		int y1 = ynext / TILE_SIZE;

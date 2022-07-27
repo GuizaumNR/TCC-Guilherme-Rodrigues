@@ -33,7 +33,7 @@ public class BulletShoot extends Entity {
 		x += dx * spd;
 		y += dy * spd;
 		}else {
-			Game.bullets.remove(this);
+			destroySelf();
 		}
 		curLife++;
 		if (curLife == life) {
@@ -45,7 +45,7 @@ public class BulletShoot extends Entity {
 
 	public void destroySelf() {
 		Game.bullets.remove(this);
-
+		World.generateParticles(100,(int) x,(int) y);
 	}
 
 
