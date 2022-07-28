@@ -349,7 +349,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 		if (gameState == "NORMAL") {
 			if (ahora <= 5) {
-				g2.setColor(new Color(8, 20, 80, (ahora + 24) * 3));
+				g2.setColor(new Color(8, 20, 80, (ahora + 24) * 4));
 				g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
 			} else if (ahora < 12) {
 				g2.setColor(new Color(8, 20, 80, ((int) (100.1 / ahora - 5) * 3)));
@@ -416,7 +416,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			}
 			if (System.currentTimeMillis() - timer >= 1000) {
 				//System.out.println("FPS: " + frames);
-				System.out.println(ahora);
 				frames = 0;
 				timer += 1000;
 			}

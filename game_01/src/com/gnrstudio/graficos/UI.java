@@ -31,8 +31,9 @@ public class UI {
 		String horaAtual = LocalDateTime.now().format(fmt2);
         hora = Integer.parseInt(horaAtual);
         
-        
 	}
+	
+	
 	public void render(Graphics g) {
 		
 		//Vida
