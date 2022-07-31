@@ -96,6 +96,7 @@ public class Enemy extends Entity {
 			
 		} else {
 			// estamos perto do player, o que fazer?
+			
 			if (Game.rand.nextInt(100) > 10) {
 				Sound.hurtE.play();
 				double danoRandom = Game.rand.nextDouble();
@@ -115,7 +116,7 @@ public class Enemy extends Entity {
 			}
 			
 		}
-				 
+		
 	 }
 		collidingBullet();	
 		if(life <= 0) {

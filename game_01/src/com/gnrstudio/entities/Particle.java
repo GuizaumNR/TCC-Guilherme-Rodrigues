@@ -16,6 +16,8 @@ public class Particle extends Entity{
 	public int spd = 2;
 	public double dx = 0;
 	public double dy = 0;
+	
+	Random rand = new Random();
 
 	public Particle(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
@@ -34,7 +36,18 @@ public class Particle extends Entity{
 		}
 	}
 	public void render(Graphics g) {
-		 g.setColor(Color.YELLOW); 
+		
+		 //g.setColor(new Color((int)(Math.random() * 0x1000000))); 
+		int R = (int)(Math.random()*256);
+		int G = (int)(Math.random()*256);
+		int B= (int)(Math.random()*256);
+		Color color = new Color(R, G, B);
+		
+		final float hue = rand.nextFloat();
+		final float saturation = 0.9f;//1.0 for brilliant, 0.0 for dull
+		final float luminance = 1.0f; //1.0 for brighter, 0.0 for black
+		color = Color.getHSBColor(hue, saturation, luminance);
+		g.setColor(color);
 		 g.fillRect(this.getX() - Camera.x, this.getY() - Camera.y, width, height);
 	}
 }

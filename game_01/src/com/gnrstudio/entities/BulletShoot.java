@@ -29,7 +29,7 @@ public class BulletShoot extends Entity {
 	}
 
 	public void tick() {
-		if(World.isFreeDynamic((int)(x + dx * spd),(int) (y + dy * spd), 3, 1)) {
+		if(World.isFreeDynamic((int)(x + (dx * spd)),(int) (y + (dy * spd)), 3, 3)) {
 		x += dx * spd;
 		y += dy * spd;
 		}else {

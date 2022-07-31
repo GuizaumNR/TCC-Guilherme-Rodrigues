@@ -23,7 +23,7 @@ public class NPC_Guarda extends Entity {
 		super(x, y, width, height, sprite);
 
 		frases[0] = "-O que fazes aqui?!";
-		frases[1] = "-O cemitário está fechado.";
+		frases[1] = "-As rondas foram canceladas.";
 		frases[2] = "-Não devias estar aqui.";
 		frases[3] = "-Este é um lugar perigoso agora.";
 		frases[4] = "-Agora é tarde.";
