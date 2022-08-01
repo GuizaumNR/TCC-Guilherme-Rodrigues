@@ -37,7 +37,7 @@ public class Particle extends Entity{
 	}
 	public void render(Graphics g) {
 		
-		 //g.setColor(new Color((int)(Math.random() * 0x1000000))); 
+		 //g.setColor(new Color((int)(Math.random() * 0x1000000))); a
 		int R = (int)(Math.random()*256);
 		int G = (int)(Math.random()*256);
 		int B= (int)(Math.random()*256);

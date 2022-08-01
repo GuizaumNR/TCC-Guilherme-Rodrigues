@@ -80,7 +80,9 @@ public class Enemy2 extends Entity {
 			 if(path == null || path.size() == 0) {
 				 Vector2i start = new Vector2i((int)(x/16),(int)(y/16));
 				 Vector2i end = new Vector2i((int)(Game.player.x/16),(int)(Game.player.y/16));
+				 if(Player.imune == false) {
 				 path = AStar.findPath(Game.world, start, end);
+				 }
 			 }
 			
 			 
@@ -116,7 +118,12 @@ public class Enemy2 extends Entity {
 		if(new Random().nextInt(100) < 5) {
 			Vector2i start = new Vector2i((int)(x/16),(int)(y/16));
 			 Vector2i end = new Vector2i((int)(Game.player.x/16),(int)(Game.player.y/16));
+			 if(Player.imune == false) {
 			 path = AStar.findPath(Game.world, start, end);
+			 }else {
+				 
+			 }
+			
 		}
 		parado = false;
 		frames++;

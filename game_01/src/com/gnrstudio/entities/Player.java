@@ -31,6 +31,8 @@ public class Player extends Entity {
 	public static boolean hasGun = false;
 	
 	public static boolean hasMap = false;
+	
+	public static boolean imune = false;
 
 	public double ammo = 0, maxAmmo = 5;
 	public boolean isDamaged = false;

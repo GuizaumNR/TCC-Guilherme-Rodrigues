@@ -26,7 +26,7 @@ public class Enemy extends Entity {
 	private BufferedImage[] leftEnemy;
 	private BufferedImage[] dRightEnemy;
 	private BufferedImage[] dLeftEnemy;
-	private double maxLife = 1, life = maxLife;
+	private double maxLife = 10, life = maxLife;
 	
 	private boolean isDamaged;
 	private int damageFrames = 10, damageCurrent = 0;
