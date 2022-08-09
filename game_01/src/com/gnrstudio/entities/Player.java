@@ -29,9 +29,9 @@ public class Player extends Entity {
 	public boolean shoot = false, mouseShoot = false;
 
 	public static boolean hasGun = false;
-	
+
 	public static boolean hasMap = false;
-	
+
 	public static boolean imune = false;
 
 	public double ammo = 0, maxAmmo = 5;
@@ -39,11 +39,11 @@ public class Player extends Entity {
 	public double life = 100, maxlife = 100;
 	public int mx, my;
 
-	public boolean jump = false;
+	public static boolean jump = false;
 
-	public boolean isJumping = false;
+	public static boolean isJumping = false;
 
-	public int z = 0;
+	public static int z = 0;
 
 	public int jumpFrames = 40, jumpCur = 0;
 
@@ -84,13 +84,13 @@ public class Player extends Entity {
 
 	public void tick() {
 		depth = 1;
-		//System.out.println(""+ (getX()/Game.SCALE - Camera.x/Game.SCALE) + " " + mx);
+		// System.out.println(""+ (getX()/Game.SCALE - Camera.x/Game.SCALE) + " " + mx);
 //		if(mx/Game.SCALE > (getX()/Game.SCALE)) {
 //			dir = right_dir;
 //		}else if (mx/Game.SCALE < (getX()/Game.SCALE - Camera.x/Game.SCALE)) {
 //			dir = left_dir;
 //		}
-		
+
 		if (jump) {
 			if (isJumping == false) {
 				jump = false;
@@ -100,24 +100,23 @@ public class Player extends Entity {
 		}
 		if (isJumping == true) {
 
-			
-				if(jumpUp) {
-				jumpCur +=2;
-				}else if(jumpDown) {
-					jumpCur -=2;
-					if(jumpCur <= 0) {
-						isJumping = false;
-						jumpDown = false;
-						jumpUp = false;
-					}
+			if (jumpUp) {
+				jumpCur += 2;
+			} else if (jumpDown) {
+				jumpCur -= 2;
+				if (jumpCur <= 0) {
+					isJumping = false;
+					jumpDown = false;
+					jumpUp = false;
 				}
-				z = jumpCur;
+			}
+			z = jumpCur;
 			if (jumpCur >= jumpFrames) {
 				jumpUp = false;
 				jumpDown = true;
-					}
-				
 			}
+
+		}
 
 		moved = false;
 		if (right && World.isFree((int) (x + speed), this.getY(), z) && World.isFree2((int) (x + speed), this.getY())) {
@@ -125,7 +124,8 @@ public class Player extends Entity {
 			dir = right_dir;
 			x += speed;
 
-		} else if (left && World.isFree((int) (x - speed), this.getY(), z) && World.isFree2((int) (x - speed), this.getY())) {
+		} else if (left && World.isFree((int) (x - speed), this.getY(), z)
+				&& World.isFree2((int) (x - speed), this.getY())) {
 			moved = true;
 			dir = left_dir;
 			x -= speed;
@@ -136,7 +136,8 @@ public class Player extends Entity {
 			dir = up_dir;
 			y -= speed;
 
-		} else if (down && World.isFree(this.getX(), (int) (y + speed), z) && World.isFree2(this.getX(), (int) (y + speed))) {
+		} else if (down && World.isFree(this.getX(), (int) (y + speed), z)
+				&& World.isFree2(this.getX(), (int) (y + speed))) {
 			moved = true;
 			dir = down_dir;
 			y += speed;
@@ -190,20 +191,24 @@ public class Player extends Entity {
 			}
 		}
 
-		if (mouseShoot) {
+		while (mouseShoot) {
 			// Criar bala e atirar MOUSE
 			// converter
 			mouseShoot = false;
 			if (hasGun && ammo > 0) {
 				Sound.shootE.play();
-				ammo--;
+//				ammo--;
 
 				int px = 0;
 				int py = 7;
 				double angle = 0;
 				if (dir == right_dir) {
 					px = 16;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando os valores para converter
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
+																												// os
+																												// valores
+																												// para
+																												// converter
 
 				} else if (dir == left_dir) {
 					px = -6;
@@ -212,12 +217,12 @@ public class Player extends Entity {
 				} else if (dir == up_dir) {
 					py = 5;
 					px = 13;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); 
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x));
 
 				} else if (dir == down_dir) {
 					py = 10;
 					px = -5;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); 
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x));
 
 				}
 				double dx = Math.cos(angle); // pegando o angulo x
@@ -250,17 +255,17 @@ public class Player extends Entity {
 			if (atual instanceof Bullet) {
 				if (Entity.isColidding(this, atual)) {
 					if (ammo < maxAmmo) {
-						ammo += 500;
-//						if (ammo > maxAmmo) {
-//							ammo = maxAmmo;
-//						}
-					Game.entities.remove(atual);
+						ammo += 5;
+						if (ammo > maxAmmo) {
+							ammo = maxAmmo;
+						}
+						Game.entities.remove(atual);
+					}
 				}
 			}
 		}
 	}
-}
-	
+
 	public void checkCollissionMap() {
 		for (int i = 0; i < Game.entities.size(); i++) {
 			Entity atual = Game.entities.get(i);
@@ -272,7 +277,6 @@ public class Player extends Entity {
 			}
 		}
 	}
-
 
 	public void checkColissionLifePack() {
 		for (int i = 0; i < Game.entities.size(); i++) {
@@ -292,33 +296,34 @@ public class Player extends Entity {
 	}
 
 	public void checkCollissionGun() {
-		if(hasGun) {
-			for (int i = 0; i < Game.entities.size(); i++) {	
-			Entity atual = Game.entities.get(i);
-			if (atual instanceof Weapon) {
-				if (Entity.isColidding(this, atual)) {
-					if (ammo < maxAmmo) {
-						ammo += 5;
-						if (ammo > maxAmmo) {
-							ammo = maxAmmo;
+		if (hasGun) {
+			for (int i = 0; i < Game.entities.size(); i++) {
+				Entity atual = Game.entities.get(i);
+				if (atual instanceof Weapon) {
+					if (Entity.isColidding(this, atual)) {
+						if (ammo < maxAmmo) {
+							ammo += 5;
+							if (ammo > maxAmmo) {
+								ammo = maxAmmo;
+							}
+							Game.entities.remove(atual);
 						}
-					Game.entities.remove(atual);
-				}
+					}
 				}
 			}
-		}
-	}else {
-		for (int i = 0; i < Game.entities.size(); i++) {	
-			Entity atual = Game.entities.get(i);
-			if (atual instanceof Weapon) {
-				if (Entity.isColidding(this, atual)) {
-					hasGun = true;
-					Game.entities.remove(atual);
+		} else {
+			for (int i = 0; i < Game.entities.size(); i++) {
+				Entity atual = Game.entities.get(i);
+				if (atual instanceof Weapon) {
+					if (Entity.isColidding(this, atual)) {
+						hasGun = true;
+						Game.entities.remove(atual);
 					}
 				}
 			}
 		}
 	}
+
 	public void render(Graphics g) {
 		if (!isDamaged) {
 			if (dir == right_dir) {
@@ -391,17 +396,17 @@ public class Player extends Entity {
 		if (isJumping) {
 			g.setColor(Color.BLACK);
 			g.fillOval(this.getX() - Camera.x + 2, this.getY() - Camera.y + 8, 9, 9);
-			if(hasGun) {
-				if(dir == right_dir) {
+			if (hasGun) {
+				if (dir == right_dir) {
 					g.fillRect((this.getX() - Camera.x) + 7, this.getY() - Camera.y + 12, 8, 3);
-				}else if(dir == left_dir) {
+				} else if (dir == left_dir) {
 					g.fillRect((this.getX() - Camera.x) - 2, this.getY() - Camera.y + 12, 8, 3);
-				}else if(dir == up_dir) {
-					g.fillRect((this.getX() - Camera.x)  + 9, (this.getY() - Camera.y + 12) - 6, 3, 8);
-				}else if(dir == down_dir){			
+				} else if (dir == up_dir) {
+					g.fillRect((this.getX() - Camera.x) + 9, (this.getY() - Camera.y + 12) - 6, 3, 8);
+				} else if (dir == down_dir) {
 					g.fillRect(this.getX() - Camera.x + 2, (this.getY() - Camera.y + 12), 3, 8);
-					}
 				}
 			}
+		}
 	}
 }

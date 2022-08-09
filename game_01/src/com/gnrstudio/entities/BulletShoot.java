@@ -17,7 +17,7 @@ public class BulletShoot extends Entity {
 	private BufferedImage BulletShootSprite;
 
 	private int life = 30, curLife = 0; // tempo de "vida" das balas
-	
+
 	int z = 0;
 
 	public BulletShoot(int x, int y, int width, int height, BufferedImage sprite, double dx, double dy) {
@@ -29,10 +29,10 @@ public class BulletShoot extends Entity {
 	}
 
 	public void tick() {
-		if(World.isFreeDynamic((int)(x + (dx * spd)),(int) (y + (dy * spd)), 3, 3)) {
-		x += dx * spd;
-		y += dy * spd;
-		}else {
+		if (World.isFreeDynamic((int) (x + (dx * spd)), (int) (y + (dy * spd)), 3, 3)) {
+			x += dx * spd;
+			y += dy * spd;
+		} else {
 			destroySelf();
 		}
 		curLife++;
@@ -40,19 +40,16 @@ public class BulletShoot extends Entity {
 			Game.bullets.remove(this); // removendo essa bala
 			return; // sempre se da um return qunado se remove o proprio objeto
 		}
-		
+
 	}
 
 	public void destroySelf() {
 		Game.bullets.remove(this);
-		World.generateParticles(100,(int) x,(int) y);
+		World.generateParticles(100, (int) x, (int) y);
 	}
-
-
 
 	public void render(Graphics g) {
 		g.drawImage(BulletShootSprite, this.getX() - Camera.x, this.getY() - Camera.y, 3, 1, null);
-
 
 //		 g.setColor(Color.BLUE); 
 //		 g.fillRect(this.getX() + 3 - Camera.x, this.getY() + 1 - Camera.y, 3, 1);

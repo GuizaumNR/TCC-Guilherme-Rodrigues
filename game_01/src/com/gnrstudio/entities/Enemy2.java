@@ -1,10 +1,10 @@
 package com.gnrstudio.entities;
 
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
 
 import com.gnrstudio.main.Game;
@@ -12,7 +12,6 @@ import com.gnrstudio.main.Sound;
 import com.gnrstudio.world.AStar;
 import com.gnrstudio.world.Camera;
 import com.gnrstudio.world.Vector2i;
-
 
 public class Enemy2 extends Entity {
 
@@ -29,13 +28,13 @@ public class Enemy2 extends Entity {
 	private BufferedImage[] upEnemy;
 	private BufferedImage[] dRightEnemy;
 	private BufferedImage[] dLeftEnemy;
-	private double maxLife = 1, life = maxLife;
+	private double maxLife = 10, life = maxLife;
 
 	private boolean isDamaged;
 	private int damageFrames = 10, damageCurrent = 0;
 
 	private boolean parado;
-	
+
 	int z = 0;
 
 	public Enemy2(int x, int y, int width, int height, BufferedImage sprite) {
@@ -74,19 +73,22 @@ public class Enemy2 extends Entity {
 		depth = 0;
 		mwidth = 9;
 		mheight = 15;
-		if(this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 100) {
-		if (isColiddingWithPlayer() == false) {
+		if (this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 100) {
+			if (isColiddingWithPlayer() == false) {
 
-			 if(path == null || path.size() == 0) {
-				 Vector2i start = new Vector2i((int)(x/16),(int)(y/16));
-				 Vector2i end = new Vector2i((int)(Game.player.x/16),(int)(Game.player.y/16));
-				 if(Player.imune == false) {
-				 path = AStar.findPath(Game.world, start, end);
-				 }
-			 }
-			
-			 
-			 if ((int) this.getX() < Game.player.getX() ) {
+				if (path == null || path.size() == 0) {
+					Vector2i start = new Vector2i((int) (x / 16), (int) (y / 16));
+					Vector2i end = new Vector2i((int) (Game.player.x / 16), (int) (Game.player.y / 16));
+					try {
+					if (!Player.imune) {
+						
+					}
+					}catch(Exception e){
+						path = AStar.findPath(Game.world, start, start);
+					}
+				}
+
+				if ((int) this.getX() < Game.player.getX()) {
 					dir = right_dir;
 				} else if ((int) this.getX() > Game.player.getX()) {
 					dir = left_dir;
@@ -98,55 +100,57 @@ public class Enemy2 extends Entity {
 				} else {
 					// estamos colidindo
 					parado = true;
-					
-				}
-			 
-		} else {
-			if (Game.rand.nextInt(100) > 10) {
-				Sound.hurtE.play();
-				double dano = Game.rand.nextInt(5);
-				Game.player.life -= dano;
-				Game.player.isDamaged = true;
-				if (Game.player.life <= 0) {
-					Game.player.life = 0;
-				}
-			}
-		}
-		if(new Random().nextInt(100) > 25) {
-			followPath(path);
-		}
-		if(new Random().nextInt(100) < 5) {
-			Vector2i start = new Vector2i((int)(x/16),(int)(y/16));
-			 Vector2i end = new Vector2i((int)(Game.player.x/16),(int)(Game.player.y/16));
-			 if(Player.imune == false) {
-			 path = AStar.findPath(Game.world, start, end);
-			 }else {
-				 
-			 }
-			
-		}
-		parado = false;
-		frames++;
-		if (frames == maxFrames) {
-			frames = 0;
-			index++;
-			if (index > maxIndex) {
-				index = 0;
-			}
-		}
-		collidingBullet();
-		if (life <= 0) {
-			destroySelf();
-			return;
-		}
 
-		if (isDamaged) {
-			this.damageCurrent++;
-			if (this.damageFrames == this.damageCurrent) {
-				this.damageCurrent = 0;
-				this.isDamaged = false;
+				}
+
+			} else {
+				if (Game.rand.nextInt(100) > 10) {
+					Sound.hurtE.play();
+					double dano = Game.rand.nextInt(5);
+					Game.player.life -= dano;
+					Game.player.isDamaged = true;
+					if (Game.player.life <= 0) {
+						Game.player.life = 0;
+					}
+				}
 			}
-		}
+			if (new Random().nextInt(100) > 25) {
+				followPath(path);
+			}
+			if (new Random().nextInt(100) < 5) {
+
+				Vector2i start = new Vector2i((int) (x / 16), (int) (y / 16));
+				Vector2i end = new Vector2i((int) (Game.player.x / 16), (int) (Game.player.y / 16));
+			try {
+				if (!Player.imune) {
+					path = AStar.findPath(Game.world, start, end);
+				}
+			}catch(Exception e) {
+				path = AStar.findPath(Game.world, start, start);
+			}
+			}
+			parado = false;
+			frames++;
+			if (frames == maxFrames) {
+				frames = 0;
+				index++;
+				if (index > maxIndex) {
+					index = 0;
+				}
+			}
+			collidingBullet();
+			if (life <= 0) {
+				destroySelf();
+				return;
+			}
+
+			if (isDamaged) {
+				this.damageCurrent++;
+				if (this.damageFrames == this.damageCurrent) {
+					this.damageCurrent = 0;
+					this.isDamaged = false;
+				}
+			}
 		}
 	}
 
@@ -173,12 +177,13 @@ public class Enemy2 extends Entity {
 
 	public boolean isColiddingWithPlayer() {
 		Rectangle enemyCurrent = new Rectangle(this.getX() + maskx, this.getY() + masky, mwidth, mheight);
-		Rectangle player = new Rectangle(Game.player.getX() + maskx, Game.player.getY() + masky + Game.player.z, Game.player.width, Game.player.height);
+		Rectangle player = new Rectangle(Game.player.getX() + maskx, Game.player.getY() + masky + Game.player.z,
+				Game.player.width, Game.player.height);
 		return enemyCurrent.intersects(player);
 	}
 
 	public void render(Graphics g) {
-		
+
 		if (!isDamaged) {
 			if (dir == right_dir) {
 				g.drawImage(rightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
@@ -192,12 +197,13 @@ public class Enemy2 extends Entity {
 //			g.setColor(Color.BLUE);
 //			g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, mwidth, mheight);
 		} else {
-		
-			//vida enemy
+
+			// vida enemy
 			g.setColor(Color.DARK_GRAY);
-			g.fillRect(this.getX() - Camera.x + 2,this.getY() - Camera.y - 4, 12, 3);
+			g.fillRect(this.getX() - Camera.x + 2, this.getY() - Camera.y - 4, 12, 3);
 			g.setColor(Color.red);
-			g.fillRect(this.getX() - Camera.x + 2,this.getY() - Camera.y - 4,(int) ((this.life/this.maxLife)*10), 3);
+			g.fillRect(this.getX() - Camera.x + 2, this.getY() - Camera.y - 4, (int) ((this.life / this.maxLife) * 10),
+					3);
 			if (dir == right_dir) {
 				g.drawImage(dRightEnemy[index], this.getX() - Camera.x, this.getY() - Camera.y, null);
 			} else if (dir == left_dir) {

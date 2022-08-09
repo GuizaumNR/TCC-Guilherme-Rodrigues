@@ -4,12 +4,12 @@ import java.awt.image.BufferedImage;
 
 import com.gnrstudio.main.Game;
 
-public class NPC__ extends Entity{
+public class NPC__ extends Entity {
 
 	public NPC__(int x, int y, int width, int height, BufferedImage sprite) {
 		super(x, y, width, height, sprite);
 	}
-	
+
 	public void tick() {
 		int xPlayer = Game.player.getX();
 		int yPlayer = Game.player.getY();
@@ -22,12 +22,11 @@ public class NPC__ extends Entity{
 				Entity atual = Game.entities.get(i);
 				if (atual instanceof NPC__) {
 					if (Entity.isColidding(this, atual)) {
-							Game.player.life = 1;
+						Game.player.life = 1;
 						Game.entities.remove(atual);
-						}
 					}
 				}
 			}
 		}
 	}
-
+}

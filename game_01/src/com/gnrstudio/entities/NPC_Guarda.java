@@ -53,26 +53,16 @@ public class NPC_Guarda extends Entity {
 
 			if (this.time >= this.maxTime) {
 				this.time = 0;
-				
-				if(showMessage) {
-				if (curIndex < frases[currentMessage].length()) {
-					curIndex++;
-				}else {
-//					if (currentMessage < frases.length - 1) {
-//						currentMessage++;
-//						curIndex = 0;
-//					}else if (currentMessage >= frases.length - 1) {
-//						currentMessage = 0;
-//						showMessage = false;
-//
-//					}
-					
+
+				if (showMessage) {
+					if (curIndex < frases[currentMessage].length()) {
+						curIndex++;
+					} else {
+
+					}
 				}
 			}
-			}
 
-					 
-//				}
 
 		}
 

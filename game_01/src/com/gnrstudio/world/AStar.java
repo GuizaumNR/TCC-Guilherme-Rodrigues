@@ -63,7 +63,7 @@ public class AStar {
 				int xi = (i%3) - 1;
 				int yi = (i/3) - 1;
 				
-				Tile tile = World.tiles[x + xi+((y+yi)*World.WIDTH)];
+				Tile tile = World.tiles[x + xi + ((y + yi) * World.WIDTH)];
 				if(tile == null) continue;
 				if(tile instanceof WallTile) continue;
 				if(i == 0) { //para andar na diagonal

@@ -230,7 +230,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				}
 			} else {
 				player.tick();
-				if(Cur_Level < 2) {
+
 				if (estado_cena == entrada) {
 
 					if (player.getX() > guarda.x) {
@@ -249,6 +249,8 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 					}
 
 				}
+				if (Cur_Level != 1) {
+					timeCena = maxTimeCena;
 				}
 			}
 			if (enemies.size() == 0 && enemies2.size() == 0) {
@@ -352,11 +354,12 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				g2.setColor(new Color(8, 20, 80, (ahora + 24) * 4));
 				g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
 			} else if (ahora < 12) {
-				g2.setColor(new Color(8, 20, 80, ((int) (100.1 / ahora - 5) * 3)));
+				g2.setColor(new Color(8, 20, 80, (int) (100.1 / ahora - 5) * 3));
 				g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
 			} else if (ahora > 12) {
 				g2.setColor(new Color(8, 20, 80, (int) (ahora - 5 / 100.1) * 3));
 				g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+				System.out.println(ahora);
 			} else if (ahora == 12) {
 				g2.setColor(new Color(8, 20, 80, 0));
 				g2.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
@@ -388,7 +391,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		if (estado_cena == comecando) {
 			g.setFont(graspingFont);
 			g.setColor(Color.WHITE);
-			g.drawString("Fale com o guarda.", (WIDTH * SCALE) / 2 - 125, (HEIGHT * SCALE) / 2 - 60);
+			g.drawString("Fale com o guarda.", (WIDTH * SCALE) / 2 - 185, (HEIGHT * SCALE) / 2 - 60);
 		}
 
 		bs.show();
@@ -415,7 +418,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 				delta--;
 			}
 			if (System.currentTimeMillis() - timer >= 1000) {
-				//System.out.println("FPS: " + frames);
+				// System.out.println("FPS: " + frames);
 				frames = 0;
 				timer += 1000;
 			}
@@ -478,10 +481,11 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 					guarda.currentMessage++;
 				} else if (guarda.currentMessage >= guarda.frases.length - 1) {
 					guarda.currentMessage = 0;
+					guarda.curIndex = 0;
 					guarda.showMessage = false;
 
 				}
-				
+
 //				guarda.showMessage = false;
 			}
 		}

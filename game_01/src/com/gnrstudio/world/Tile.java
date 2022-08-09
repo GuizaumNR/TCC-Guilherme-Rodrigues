@@ -15,19 +15,19 @@ public class Tile {
 	public static BufferedImage TILE_TOMB = Game.spritesheet.getSprite(16, 32, 16, 16);
 	public static BufferedImage TILE_TOMB2 = Game.spritesheet.getSprite(16, 80, 16, 16);
 	public static BufferedImage TILE_RUA = Game.spritesheet.getSprite(0, 48, 16, 16);
-	
+
 	private BufferedImage sprite;
 	public int x;
 	public int y;
-	
-	Tile(int x, int y, BufferedImage sprite){
+
+	Tile(int x, int y, BufferedImage sprite) {
 		this.x = x;
 		this.y = y;
 		this.sprite = sprite;
 	}
-	
+
 	public void render(Graphics g) {
 		g.drawImage(sprite, x - Camera.x, y - Camera.y, null);
-		
+
 	}
 }
