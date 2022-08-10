@@ -84,13 +84,6 @@ public class Player extends Entity {
 
 	public void tick() {
 		depth = 1;
-		// System.out.println(""+ (getX()/Game.SCALE - Camera.x/Game.SCALE) + " " + mx);
-//		if(mx/Game.SCALE > (getX()/Game.SCALE)) {
-//			dir = right_dir;
-//		}else if (mx/Game.SCALE < (getX()/Game.SCALE - Camera.x/Game.SCALE)) {
-//			dir = left_dir;
-//		}
-
 		if (jump) {
 			if (isJumping == false) {
 				jump = false;
@@ -197,19 +190,15 @@ public class Player extends Entity {
 			mouseShoot = false;
 			if (hasGun && ammo > 0) {
 				Sound.shootE.play();
-//				ammo--;
+				ammo--;
 
 				int px = 0;
 				int py = 7;
 				double angle = 0;
 				if (dir == right_dir) {
 					px = 16;
-					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando
-																												// os
-																												// valores
-																												// para
-																												// converter
-
+					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x)); // pegando os valores para converter
+																											
 				} else if (dir == left_dir) {
 					px = -6;
 					angle = Math.atan2(my - (this.getY() + py - Camera.y), mx - (this.getX() + px - Camera.x));
@@ -354,8 +343,6 @@ public class Player extends Entity {
 					g.drawImage(Entity.DOWNGUN_EN, this.getX() - Camera.x - 4, this.getY() - Camera.y + 8 - z, null);
 				}
 			}
-//			g.setColor(Color.red);
-//			g.fillRect(this.getX() + maskx - Camera.x, this.getY() + masky - Camera.y, mwidth, mheight);
 		} else {
 
 			if (dir == right_dir) {

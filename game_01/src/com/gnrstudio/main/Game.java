@@ -206,6 +206,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 	public void tick() {
 		ui.tick();
 		ahora = ui.hora;
+		if(Cur_Level > 1) {
+			estado_cena = jogando;
+		}
 		if (gameState == "NORMAL") {
 			Sound.musicBackground.loop();
 			if (this.saveGame) {
@@ -231,9 +234,9 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			} else {
 				player.tick();
 
-				if (estado_cena == entrada) {
-
-					if (player.getX() > guarda.x) {
+				if (estado_cena == entrada ) {
+					
+					if (player.getX() > guarda.x && Cur_Level == 1) {
 						player.left = true;
 						player.x++;
 					}
@@ -249,9 +252,7 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 					}
 
 				}
-				if (Cur_Level != 1) {
-					timeCena = maxTimeCena;
-				}
+				
 			}
 			if (enemies.size() == 0 && enemies2.size() == 0) {
 				// avançar de nivel
@@ -276,7 +277,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			if (restartGame) {
 				this.restartGame = false;
 				this.gameState = "NORMAL";
-				Cur_Level = 1;
 				String newWorld = "level" + Cur_Level + ".png";
 				Game.world.restartgame(newWorld);
 			}
@@ -285,20 +285,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 			menu.tick();
 		}
 	}
-
-	// rotação de objetos
-//public void drawRectangleExample(int xoff, int yoff) {
-//	for(int xx = 0; xx < 32; xx++) {
-//		for(int yy = 0; yy < 32; yy ++) {
-//			xoff = xx + xoff;
-//			yoff = yy +  yoff;
-//			if(xoff < 0 || yoff < 0 || xoff >= WIDTH || yoff >= HEIGHT) {
-//				continue;
-//			}
-//			pixels[xoff + ((yoff*WIDTH))] = 0x00ff00;
-//		}
-//	}
-//}
 
 // visão de olho
 	public void applyLight() {
@@ -381,12 +367,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 		} else if (gameState == "MENU") {
 			menu.render(g);
 		}
-
-//		Graphics2D g2 = (Graphics2D) g; //rotação de objetos
-//		double angleMouse = Math.atan2(my - 200 + 45, mx - 200 + 25);
-//		g2.rotate(angleMouse, 200+25, 200+45);
-//		g.setColor(Color.RED);
-//		g.fillRect(200, 200, 50, 70);
 
 		if (estado_cena == comecando) {
 			g.setFont(graspingFont);
@@ -486,7 +466,6 @@ public class Game extends Canvas implements Runnable, KeyListener, MouseListener
 
 				}
 
-//				guarda.showMessage = false;
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {

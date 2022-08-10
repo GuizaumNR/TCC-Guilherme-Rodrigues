@@ -26,7 +26,7 @@ public class Enemy extends Entity {
 	private BufferedImage[] leftEnemy;
 	private BufferedImage[] dRightEnemy;
 	private BufferedImage[] dLeftEnemy;
-	private double maxLife = 10, life = maxLife;
+	private double maxLife = 3, life = maxLife;
 
 	private boolean isDamaged;
 	private int damageFrames = 10, damageCurrent = 0;
@@ -61,9 +61,8 @@ public class Enemy extends Entity {
 	}
 
 	public void tick() {// OBS: debug funciona apenas em loops
-		if (this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 150) { // distancia
-																												// do
-																												// player
+		if (this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 150) { // distancia do player
+
 			if (isColiddingWithPlayer() == false) {
 				if ((int) x < Game.player.getX() && World.isFree((int) (x + speed), this.getY(), z)
 						&& !isColidding((int) (x + speed), this.getY())) {
@@ -105,7 +104,7 @@ public class Enemy extends Entity {
 					double danoRandom = Game.rand.nextDouble();
 					double inicio = 0.1;
 					double fim = 0.5;
-					Game.player.life -= inicio + (danoRandom * (fim - inicio)); // Limitando os valores
+					Game.player.life -= inicio + ((danoRandom * (fim - inicio)) + Game.Cur_Level/10); // Limitando os valores
 					Game.player.isDamaged = true;
 					if (Game.player.life <= 0) {
 						Game.player.life = 0;

@@ -63,8 +63,9 @@ public class Menu {
 			if (options[currentOption] == "Novo Jogo" || options[currentOption] == "Continuar") {
 				Game.gameState = "NORMAL";
 				pause = false;
-				file = new File("save.txt");
 				file.delete();
+				file = new File("save.txt");
+				
 			} else if (options[currentOption] == "Carregar Jogo") {
 				file = new File("save.txt");
 				if (file.exists()) { // só por garantia
@@ -86,6 +87,7 @@ public class Menu {
 
 			case "level":
 				World.restartgame("level" + spl2[1] + ".png");
+				Game.Cur_Level = Integer.parseInt(spl2[1]);
 				Game.gameState = "NORMAL";
 				pause = false;
 				break;

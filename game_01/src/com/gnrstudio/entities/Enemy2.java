@@ -28,7 +28,7 @@ public class Enemy2 extends Entity {
 	private BufferedImage[] upEnemy;
 	private BufferedImage[] dRightEnemy;
 	private BufferedImage[] dLeftEnemy;
-	private double maxLife = 10, life = maxLife;
+	private double maxLife = 3, life = maxLife;
 
 	private boolean isDamaged;
 	private int damageFrames = 10, damageCurrent = 0;
@@ -73,7 +73,7 @@ public class Enemy2 extends Entity {
 		depth = 0;
 		mwidth = 9;
 		mheight = 15;
-		if (this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 100) {
+		if (this.calculateDistance(this.getX(), this.getY(), Game.player.getX(), Game.player.getY()) < 150) {
 			if (isColiddingWithPlayer() == false) {
 
 				if (path == null || path.size() == 0) {
@@ -106,7 +106,7 @@ public class Enemy2 extends Entity {
 			} else {
 				if (Game.rand.nextInt(100) > 10) {
 					Sound.hurtE.play();
-					double dano = Game.rand.nextInt(5);
+					double dano = ((Game.rand.nextInt(5)) + Game.Cur_Level/5);
 					Game.player.life -= dano;
 					Game.player.isDamaged = true;
 					if (Game.player.life <= 0) {
